@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>Harness for OWIN</title>
+    <authors>Nick Daniels</authors>
+    <owners>Nick Daniels</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+      Harness is an IOC application framework for .Net, Silverlight, Asp.Net, OWIN, and the Windows Runtime.
+      This is the Harness for OWIN package providing Harness access and resolution based usage or application
+      configuration and middleware.
+    </description>
+    <releaseNotes>Initial Release</releaseNotes>
+    <copyright>Copyright 2013 Nick Daniels</copyright>
+    <tags>harness ioc autofac owin web</tags>
+  </metadata>
+</package>

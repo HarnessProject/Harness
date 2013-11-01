@@ -10,7 +10,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{1386A4
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness", "Portable\Harness\Harness.csproj", "{0F713405-EEF7-4927-995D-1F6692C0BF5B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness", "Harness\Harness.csproj", "{0F713405-EEF7-4927-995D-1F6692C0BF5B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Net Framework", ".Net Framework", "{DE3DA51F-1769-415B-8A59-44119D894E75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.Net", "Harness.Net\Harness.Net.csproj", "{6CE26D39-1740-4A99-BEF4-8EDBD7FE2811}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Caliburn.Micro", "Caliburn.Micro", "{6062556E-F290-4775-BE16-C8A00BD0A5EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.Net.Caliburn.Micro", "Harness.Net.Caliburn.Micro\Harness.Net.Caliburn.Micro.csproj", "{C9009BC2-3472-4CC1-ABE5-413B3E1CECF9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{AE522581-0218-4D58-8541-9F63917A2E38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.Web", "Harness.Web\Harness.Web.csproj", "{EBBD0F8D-1F6E-4323-B1FE-DE7EA469A27A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.OWIN", "Harness.OWIN\Harness.OWIN.csproj", "{DD3631FB-B104-498B-B50C-E4DFC291477D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,8 +36,30 @@ Global
 		{0F713405-EEF7-4927-995D-1F6692C0BF5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F713405-EEF7-4927-995D-1F6692C0BF5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F713405-EEF7-4927-995D-1F6692C0BF5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CE26D39-1740-4A99-BEF4-8EDBD7FE2811}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CE26D39-1740-4A99-BEF4-8EDBD7FE2811}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CE26D39-1740-4A99-BEF4-8EDBD7FE2811}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CE26D39-1740-4A99-BEF4-8EDBD7FE2811}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9009BC2-3472-4CC1-ABE5-413B3E1CECF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9009BC2-3472-4CC1-ABE5-413B3E1CECF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9009BC2-3472-4CC1-ABE5-413B3E1CECF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9009BC2-3472-4CC1-ABE5-413B3E1CECF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBBD0F8D-1F6E-4323-B1FE-DE7EA469A27A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBBD0F8D-1F6E-4323-B1FE-DE7EA469A27A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBBD0F8D-1F6E-4323-B1FE-DE7EA469A27A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBBD0F8D-1F6E-4323-B1FE-DE7EA469A27A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD3631FB-B104-498B-B50C-E4DFC291477D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD3631FB-B104-498B-B50C-E4DFC291477D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD3631FB-B104-498B-B50C-E4DFC291477D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD3631FB-B104-498B-B50C-E4DFC291477D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6CE26D39-1740-4A99-BEF4-8EDBD7FE2811} = {DE3DA51F-1769-415B-8A59-44119D894E75}
+		{C9009BC2-3472-4CC1-ABE5-413B3E1CECF9} = {6062556E-F290-4775-BE16-C8A00BD0A5EA}
+		{EBBD0F8D-1F6E-4323-B1FE-DE7EA469A27A} = {AE522581-0218-4D58-8541-9F63917A2E38}
+		{DD3631FB-B104-498B-B50C-E4DFC291477D} = {AE522581-0218-4D58-8541-9F63917A2E38}
 	EndGlobalSection
 EndGlobal
