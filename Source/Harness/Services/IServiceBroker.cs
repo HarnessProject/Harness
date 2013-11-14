@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Harness.Framework;
 
 namespace Harness.Services {
     public interface IServiceBroker : IDependency {
@@ -10,8 +11,8 @@ namespace Harness.Services {
         #region IServiceBroker Members
 
         public T ServiceFor<T, TY>(TY context) {
-            var providers = Application.Resolve<IEnumerable<ServiceProvider<T>>>();
-            return providers.EvaluateAll(context).FirstOrDefault();
+            var providers = X.ServiceLocator.GetAllInstances<IServiceProvider<T>>();
+            return providers.AsTask(x => x.EvaluateAll(context).FirstOrDefault()).AwaitResult();
         }
 
         #endregion

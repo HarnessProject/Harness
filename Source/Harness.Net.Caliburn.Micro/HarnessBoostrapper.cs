@@ -17,7 +17,7 @@ namespace Harness.Net.Caliburn.Micro {
 
         protected override void Configure() {
             base.Configure();
-            Harness.Application.CurrentEnvironment.As<Environment<IDependency>>().SetContainer(Container);
+            Harness.X.Environment.As<Environment<IDependency>>().SetContainer(Container);
         }
     }
 }

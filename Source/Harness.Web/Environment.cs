@@ -1,12 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Web.Hosting;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
+using Autofac.Integration.SignalR;
 using Harness.Framework;
+using Microsoft.AspNet.SignalR;
+using SignalrResolver = Microsoft.AspNet.SignalR.IDependencyResolver;
+using Mvc = Autofac.Integration.Mvc;
+using WebApi = Autofac.Integration.WebApi;
+using Signalr = Autofac.Integration.SignalR;
 
 namespace Harness.Web {
     public class Environment<T> : Net.Environment<T> {
@@ -19,16 +27,23 @@ namespace Harness.Web {
             builders.AsParallel().EachAsync(x => x(Builder)).Await();
 
             AssemblyCache.AsParallel().ProcessAsync(
-                x => Builder.RegisterApiControllers(x),
-                x => Builder.RegisterControllers(x),
-                x => Builder.RegisterModelBinders(x),
-                x => Builder.RegisterWebApiModelBinders(x)
+                x => Builder.RegisterApiControllers(x).InstancePerApiRequest(),
+                x => Builder.RegisterControllers(x).InstancePerHttpRequest(),
+                x => Builder.RegisterModelBinders(x).InstancePerHttpRequest(),
+                x => Builder.RegisterWebApiModelBinders(x).InstancePerApiRequest(),
+                x => Builder.RegisterHubs(x).ExternallyOwned()
             ).Await();
 
+            // ReSharper disable once DoNotCallOverridableMethodsInConstructor
             SetContainer(Builder.Build());
+            
+            DependencyResolver.SetResolver(new Mvc.AutofacDependencyResolver(Container));
+            GlobalConfiguration.Configuration.DependencyResolver = new WebApi.AutofacWebApiDependencyResolver(Container);
+            GlobalHost.DependencyResolver = new Signalr.AutofacDependencyResolver(Container.BeginLifetimeScope()).As<SignalrResolver>();
+        }
 
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(Container));
-            GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(Container);
+        public override IEnumerable<Type> GetTypes(string extensionsPath = null) {
+            return base.GetTypes(extensionsPath ?? HostingEnvironment.ApplicationPhysicalPath + " \\bin");
         }
     }
 

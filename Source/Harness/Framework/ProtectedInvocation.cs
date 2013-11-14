@@ -26,6 +26,8 @@ namespace Harness {
             return this;
         }
 
+        
+
         public ProtectedInvocation<T, TY> Catch<TX>(Func<T, TX, TY> tCatch) where TX : Exception {
             if (!_exceptionFuncs.ContainsKey(_indexSeed)) _exceptionFuncs[_indexSeed] = new Dictionary<Type, Func<T, Exception, TY>>();
             _exceptionFuncs[_indexSeed].Add(typeof (TX), (t, ex) => tCatch(t, ex as TX));

@@ -1,14 +1,19 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using System.Web.Http;
 using Microsoft.Owin;
 using Owin;
 
-namespace Harness.OWIN {
-    public interface IApplication : IDependency {
+namespace Harness.Owin{
+    public interface IApplication :IDependency  {
         string BasePath { get; }
         void Configure(IAppBuilder app);
     }
 
-    public interface IMiddleware : IDependency {
-        Task Invoke(IOwinContext context, OwinMiddleware next);
+    public interface IMiddleware : IDependency,IDisposable {
+        Task Invoke(IOwinContext context);
+      
     }
+
+    
 }

@@ -1,38 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Autofac;
+using Autofac.Integration.SignalR;
+using Autofac.Integration.WebApi;
 using Harness.Core;
 using Harness.Framework;
 using Harness.Net;
+using Microsoft.AspNet.SignalR;
 using Owin;
+using System.Web.Http;
 
-namespace Harness.OWIN {
+
+namespace Harness.Owin {
     public static class AppBuilderExtensions {
         public static void UseHarness<T>(this IAppBuilder app, T environment, Func<ContainerBuilder> builder = null) {
-            Func<ContainerBuilder> b = () => {
-                var x = builder != null ? builder() : new ContainerBuilder();
-                return x;
-            };
-
-            Application<Environment<IDependency>>.New(
-                new Environment<IDependency>(true, b)
+            var b = builder != null ? builder() : new ContainerBuilder();
+            
+            var server = Application<Environment<IDependency>>.New(
+                new Environment<IDependency>(true, () => b)
             );
             
-            app.Properties.Add("Harness", typeof (Environment<IDependency>).FullName);
+            b.RegisterInstance(app).AsSelf();
+            server.Environment.SetContainer(b.Build());
+            app.Properties.Add("Harness", server);
 
-            //if (!autoLoad) return; // You could do this, but I wouldn't...
-            //Application.Resolve<IEnumerable<IApplication>>().EachAsync(x => x.Configure(app)).Await();
-            //Application.Resolve<IEnumerable<IMiddleware>>().EachAsync(x => app.Use(x)).Await();
+        }
+
+        public static Harness.IApplication GetHarness(this IAppBuilder app) {
+            return app.Properties["Harness"].As<Harness.IApplication>();
         }
 
         public static IAppBuilder Use<T>(this IAppBuilder app) where T : IMiddleware {
             Exception e = null;
             bool r =
-                app.Try(x => {
-                            var m = Application.Resolve<T>();
-                            x.Use(m);
-                            return true;
-                        })
+                app.Try(
+                    x => {
+                        app.Use(Application.Resolve<T>());       
+                        return true;
+                    })
                     .Catch<Exception>(
                         (x, ex) => {
                             e = ex;

@@ -3,13 +3,18 @@
   <metadata>
     <id>$id$</id>
     <version>$version$</version>
-    <title>$title$</title>
+    <title>Harness .Net</title>
     <authors>Nick Daniels</authors>
     <owners>Nick Daniels</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>$description$</description>
+    <description>
+      Harness is an IOC application layer for .Net, Silverlight, Asp.Net, OWIN, and the Windows Runtime.
+      Harness is not a framework, Harness is what makes your frameworks work together.
+      
+      The Harness.Net includes the Environment class for using Harness in applications targeting .Net 4.5 or greater.
+    </description>
     <releaseNotes>Initial Release</releaseNotes>
     <copyright>Copyright 2013 Nick Daniels</copyright>
-    <tags>harness autofac ioc net</tags>
+    <tags>harness ioc net</tags>
   </metadata>
 </package>

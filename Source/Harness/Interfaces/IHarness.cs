@@ -3,15 +3,23 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Autofac;
+using System.Threading.Tasks;
+
 
 namespace Harness {
     public interface IEnvironment {
-        IContainer Container { get; }
         IEnumerable<Assembly> AssemblyCache { get; }
         IEnumerable<Type> TypeCache { get; }
-        TX Resolve<TX>();
-        object Resolve(Type type);
-        object Resolve(string typeName);
+        bool IsReady { get; }
+
+        Task Initialize(IServiceLocator locator);
     }
+
+    public interface IServiceLocator : Microsoft.Practices.ServiceLocation.IServiceLocator,IDisposable {
+        bool GetImplementation<T>(Action<T> action) where T : IServiceLocator;
+    }
+
+    
+
+    
 }

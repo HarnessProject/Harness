@@ -1,36 +1,88 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Runtime.CompilerServices;
 
 namespace Harness.Framework {
     public static class TaskExtensions {
-        public static Task EachAsync<T>(this IEnumerable<T> collection, Action<T> action) {
-            return new Task(() => Task.WaitAll(collection.Select(i => Task.Factory.StartNew(() => action(i))).ToArray()));
+        public static async Task EachAsync<T>(this IEnumerable<T> collection, Action<T> action) {
+            await new Task(
+                () => Task.WaitAll(
+                    collection.Select(
+                        x => x.AsTask(action)
+                    ).ToArray()    
+                )
+            );
+        }
+        public static async Task EachAsync<T>(this Task<IEnumerable<T>> collection, Action<T> action) 
+        {
+            await new Task(
+                () => Task.WaitAll(
+                    collection.AwaitResult().Select(
+                        x => x.AsTask(action)
+                    ).ToArray()
+                )
+            );
+        }
+        public static async Task<IEnumerable<TY>> EachAsync<T,TY>(this Task<IEnumerable<T>> collection, Func<T,TY> action) {
+            IList<TY> results = new List<TY>();
+            await (await collection).Select(
+                x => x.AsTask(y => results.Add(action(y)))
+            ).EachAsync(x => x.Await());
+            return results;
+        }
+        public static async Task EachAsync<T, TY>(this IEnumerable<T> collection, Action<T, TY> action, TY context) {
+            await new Task(
+                () => Task.WaitAll(
+                    collection.Select(
+                        x => x.AsTask(y => action(y, context))
+                    ).ToArray()    
+                )
+            );
+        }
+        public static async Task EachAsync<T, TY>(this Task<IEnumerable<T>> collection, Action<T, TY> action, TY context) 
+        {
+            await new Task(
+                async () => Task.WaitAll(
+                    (await collection).Select(
+                        x => x.AsTask(y => action(y, context))
+                    ).ToArray()    
+                )
+            );
         }
 
-        public static Task EachAsync<T, TY>(this IEnumerable<T> collection, Action<T, TY> action, TY context) {
-            return new Task(() => Task.WaitAll(collection.Select(i => Task.Factory.StartNew(() => action(i, context))).ToArray()));
+        public static async Task ProcessAsync<T>(this IEnumerable<T> collection, params Action<T>[] actions) {
+            await collection.EachAsync(x => actions.EachAsync(y => y(x)));
         }
 
-        public static Task ProcessAsync<T>(this IEnumerable<T> collection, params Action<T>[] actions) {
-            return new Task(() => collection.EachAsync(i => actions.EachAsync(a => a(i)).Await()).Await());
+        public static async Task<T> ActionAsync<T>(this Task<T> task, Action<T> action) {
+
+            T t = await task;
+            action(t);
+            return t;
+           
         }
 
-        public static Task<T> ActionAsync<T>(this Task<T> task, Action<T> action) {
-            return new Task<T>(() => {
-                T t = task.AwaitResult();
-                action(t);
-                return t;
-            });
+        public static async Task<TY> FuncAsync<T, TY>(this Task<T> task, Func<T, TY> func) {
+            var p = await task;
+            return func(p);
         }
 
-        public static Task<Ty> FuncAsync<T, Ty>(this Task<T> task, Func<T, Ty> func) {
-            return new Task<Ty>(() => func(task.AwaitResult()));
+        public static async Task<T> AsTask<T>(this T t) {
+            return await new Task<T>(() => t);
         }
 
-        public static Task<T> AsTask<T>(this T t) {
-            return new Task<T>(() => t);
+        public static async Task<TY> AsTask<T, TY>(this T t, Func<T, TY> func) {
+            
+            return await new Task<TY>(x => func(t), t);
+
+        }
+
+        public static Task AsTask<T>(this T t, Action<T> action) {
+            return new Task(x => action(t), t);
         }
 
         public static Task Begin(this Task task) {

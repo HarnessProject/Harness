@@ -6,7 +6,7 @@ namespace Harness.Net.Caliburn.ViewModels {
         protected ILifetimeScope Scope;
 
         protected Screen() {
-            Scope = Application.EnvironmentAs<Net.Environment>().Container.BeginLifetimeScope(Guid.NewGuid());
+            Scope = X.EnvironmentAs<Net.Environment>().Container.BeginLifetimeScope(Guid.NewGuid());
         }
 
         public T Resolve<T>() {

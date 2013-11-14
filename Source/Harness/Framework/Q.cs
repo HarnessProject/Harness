@@ -4,10 +4,10 @@ namespace Harness.Framework {
     public static class Q {
         public static bool If<T>(this T target, Func<T, bool> condition, Action<T> thenAction = null, Action<T> elseAction = null) where T : class {
             bool result = condition(target);
-            if (result)
-                if (thenAction != null) thenAction(target);
-                else if (elseAction != null) elseAction(target);
-            return result;
+            if (!result) return false;
+            if (thenAction != null) thenAction(target);
+            else if (elseAction != null) elseAction(target);
+            return true;
         }
 
         public static Func<T, bool> If<T>(Func<T, bool> func) {

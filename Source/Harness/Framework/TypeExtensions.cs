@@ -17,11 +17,19 @@ namespace Harness.Framework {
         }
 
         public static bool Is<T>(this Type type) {
-            return typeof (T).Is(type);
+            return type.Is(typeof (T));
         }
+        //public static bool Is(this Type type, Type t)
+        //{
+        //    return t.IsAssignableFrom(type);
+        //}
 
-        public static T As<T>(this object obj) where T : class {
-            return obj as T;
+        //public static bool Is<T>(this TypeInfo type)
+        //{
+        //    return type.Is(typeof(T).GetTypeInfo());
+        //}
+        public static T As<T>(this object obj) {
+            return (T)obj;
         }
 
         public static bool Contains<T>(this IEnumerable<Type> enumerable) {
