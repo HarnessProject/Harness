@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Harness.Web.WebApi2</id>
+    <version>1.0.0.0</version>
+    <title>Harness Web Api 2</title>
+    <authors>Nick Daniels</authors>
+    <owners>Nick Daniels</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Harness is an IOC application layer for .Net, Silverlight, Asp.Net, OWIN, and the Windows Runtime.
+      Harness is not a framework, Harness is what makes your frameworks work together.
+
+      This package contains support interfaces for Harness WebApi 2 support on Harness.Web and Harness.Owin.</description>
+    <releaseNotes>Initial Release</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>harness ioc autofac</tags>
+    <dependencies>
+      <dependency id="Harness" version="1.0.5058.26613" />
+      <dependency id="Microsoft.AspNet.WebApi.Core" version="5.0.0" />
+    </dependencies>
+  </metadata>
+</package>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Harness</id>
+    <version>1.0.5065.19020</version>
+    <title>Harness</title>
+    <authors>Nick Daniels</authors>
+    <owners>Nick Daniels</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Harness is an IOC application layer for .Net, Silverlight, Asp.Net, OWIN, and the Windows Runtime.
+      Harness is not a framework, Harness is what makes your frameworks work together.
+      
+      This is the base Harness package, it doesn't include an environment for running on any frameworks.
+      It requires Autofac, but it's not referenced so that this package will break your application without 
+      an environment. Condier adding Harness .Net to your project instead.</description>
+    <releaseNotes>Initial Release</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>harness ioc autofac</tags>
+    <dependencies>
+      <dependency id="Microsoft.Bcl.Async" version="1.0.16" />
+      <dependency id="Portable.CommonServiceLocator" version="1.2.2" />
+    </dependencies>
+  </metadata>
+</package>

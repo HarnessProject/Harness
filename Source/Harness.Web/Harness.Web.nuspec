@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>Harness .Web</title>
+    <authors>Nick Daniels</authors>
+    <owners>Nick Daniels</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+      Harness is an IOC application layer for .Net, Silverlight, Asp.Net, OWIN, and the Windows Runtime.
+      Harness is not a framework, Harness is what makes your frameworks work together.
+
+      Harness.Web is an IOC implementation for MVC/WebApi/Signalr on ASP.Net.
+      Full dependency resolver support for all of the above frameworks is included in our 
+      base Environment for ASP.Net.
+
+    </description>
+    <releaseNotes>Initial Release</releaseNotes>
+    <copyright>Copyright 2013 Nick Daniels</copyright>
+    <tags>harness ioc autofac aspnet web</tags>
+  </metadata>
+</package>

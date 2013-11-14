@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Harness.Net</id>
+    <version>1.0.5058.28617</version>
+    <title>Harness .Net</title>
+    <authors>Nick Daniels</authors>
+    <owners>Nick Daniels</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Harness is an IOC application layer for .Net, Silverlight, Asp.Net, OWIN, and the Windows Runtime.
+      Harness is not a framework, Harness is what makes your frameworks work together.
+      
+      The Harness.Net includes the Environment class for using Harness in applications targeting .Net 4.5 or greater.</description>
+    <releaseNotes>Initial Release</releaseNotes>
+    <copyright>Copyright 2013 Nick Daniels</copyright>
+    <tags>harness autofac ioc net</tags>
+    <dependencies>
+      <dependency id="Harness" version="1.0.5058.28567" />
+    </dependencies>
+  </metadata>
+</package>
