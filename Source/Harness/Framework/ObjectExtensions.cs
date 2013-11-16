@@ -54,8 +54,7 @@ namespace Harness.Framework {
         public static Task ResolveAndInvokeAsync(this Object o, string methodName)
         {
             var method = o.GetType().GetMethod(methodName);
-            if (method == null) return Task.Factory.StartNew(() => {});
-            return o.AsTask().ActionAsync(async i => await i.ResolveAndInvokeAsync(method)).Begin();
+            return method == null ? Task.Factory.StartNew(() => {}) : o.AsTask(async i => await i.ResolveAndInvokeAsync(method));
         }
     }
 }

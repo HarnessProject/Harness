@@ -24,7 +24,7 @@ namespace Harness.Events {
             );
         }
 
-        public void Trigger<T>(T eventObject) where T : class {
+        public async void Trigger<T>(T eventObject) where T : class {
             var handlers = new List<IHandleEvent<T>>();
             var tType = typeof (T);
             
@@ -38,11 +38,10 @@ namespace Harness.Events {
                     )
             );
 
-            foreach (var handler in handlers) 
-                handler
-                .AsTask()
-                .ActionAsync(x => x.Handle(eventObject))
-                .Begin();
+            foreach (var handler in handlers)
+                await handler.AsTask(x => x.Handle(eventObject));
+
+
         }
 
         #endregion

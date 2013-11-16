@@ -6,6 +6,7 @@ using System.Web.Http;
 using Autofac;
 using Autofac.Integration.SignalR;
 using Autofac.Integration.WebApi;
+using Harness.Autofac;
 using Harness.Framework;
 using Harness.Net;
 using Harness.Owin;
@@ -48,30 +49,20 @@ namespace Harness.Site.Server
         public static async Task<IAppBuilder> UsingServerAsync<T>(this IAppBuilder app, Action<Server, ILifetimeScope> action) {
             var server = app.Properties["Harness.Site.Server"].As<Server>();
             var scope = await server.GetScopeAsync();
-            await action.AsTask().ActionAsync(x => x(server, scope));
+            await action.AsTask(x => x(server, scope));
             return app;
         }  
 
-        internal static async Task<Server> CreateServerAsync(this IAppBuilder app, params Action<ContainerBuilder>[] builders)
-        {
-            var builder = new ContainerBuilder();
-            var server = new Server { Environment = new Environment<IDependency>(false, () => builder) };
-            await builders.AsParallel().EachAsync(x => x(builder));
-            await server.Environment.AssemblyCache.AsParallel().EachAsync(
-                x =>
-                {
-                    builder.RegisterApiControllers(x).InstancePerApiRequest();
-                    builder.RegisterWebApiModelBinders(x).InstancePerApiRequest();
-                    builder.RegisterHubs(x).ExternallyOwned();
-                }
-            );
-            builder.RegisterInstance(app).AsSelf();
-            builder.RegisterInstance(server).AsSelf();
+        internal static async Task<Server> CreateServerAsync(this IAppBuilder app, params Action<ContainerBuilder>[] builders) {
 
-            server.Environment.SetContainer(builder.Build());
+            X.Initialize(new AutofacApplicationFactory(){ BuildContainer = true });
+
+            ILifetimeScope container = null;
             GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(server.Container);
             GlobalHost.DependencyResolver = new AutofacDependencyResolver(server.Container.BeginLifetimeScope()).As<IDependencyResolver>();
             return server;
         }
     }
+            
+
 }

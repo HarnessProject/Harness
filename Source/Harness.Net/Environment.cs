@@ -18,14 +18,15 @@ namespace Harness.Net {
                 await 
                 Directory.EnumerateFiles(
                     extensionsPath, "*.dll", SearchOption.AllDirectories
-                ).EachAsync(x => Assembly.LoadFrom(x));
+                ).EachAsync(x => x.Try(Assembly.LoadFrom).Invoke());
 
             AssemblyCache = AppDomain.CurrentDomain.GetAssemblies();
             return AssemblyCache;
         }
 
+        
         public override async Task<IEnumerable<Type>> GetTypes(string extensionsPath = null) {
-            TypeCache = (await GetAssemblies(extensionsPath)).SelectMany(x => x.ExportedTypes);
+            TypeCache = (AssemblyCache ?? await GetAssemblies(extensionsPath)).SelectMany(x => x.Try(y => y.ExportedTypes).Invoke());
             return TypeCache;
         }
     }

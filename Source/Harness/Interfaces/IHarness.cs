@@ -12,7 +12,8 @@ namespace Harness {
         IEnumerable<Type> TypeCache { get; }
         bool IsReady { get; }
 
-        Task Initialize(IServiceLocator locator);
+        Task InitializeAsync();
+        void Initialize();
     }
 
     public interface IServiceLocator : Microsoft.Practices.ServiceLocation.IServiceLocator,IDisposable {

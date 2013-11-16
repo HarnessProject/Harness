@@ -35,5 +35,9 @@ namespace Harness.Autofac {
         public bool GetImplementation<T>(Action<T> action) where T : Harness.IServiceLocator {
             return false;
         }
+
+        public void Dispose() {
+            
+        }
     }
 }

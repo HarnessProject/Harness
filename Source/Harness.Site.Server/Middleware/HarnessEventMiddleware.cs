@@ -2,7 +2,8 @@
 using System.Threading.Tasks;
 using Harness.Events;
 using Harness.Framework;
-using Harness.Owin;
+
+using Harness.OWIN;
 using Harness.Site.Server.Events;
 using Microsoft.Owin;
 
@@ -16,7 +17,7 @@ namespace Harness.Site.Server.Middleware
             await 
                 this
                 .AsTask()
-                .FuncAsync(x => x.Resolve<IEventManager>())
+                .FuncAsync(x => x)
                 .ActionAsync(
                     x => x.Trigger(new OwinPipelineEvent {Timestamp = DateTime.Now, Context = context})
                 );

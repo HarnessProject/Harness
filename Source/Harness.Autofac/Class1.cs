@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 using Autofac;
-
-
 using Harness.Events;
 using Harness.Framework;
 
@@ -15,7 +11,12 @@ namespace Harness.Autofac
     public class AutofacServiceLocator : 
         global::Autofac.Extras.CommonServiceLocator.AutofacServiceLocator, 
         IServiceLocator {
-        public AutofacServiceLocator(IComponentContext container) : base(container) { }
+        public ILifetimeScope Container { get; set; }
+
+        public AutofacServiceLocator(ILifetimeScope container) : base(container) {
+            Container = container;
+        }
+
         public bool GetImplementation<T>(Action<T> action) where T : IServiceLocator {
             return 
                 this.Try(x => {
@@ -40,65 +41,84 @@ namespace Harness.Autofac
             return x => Q.If<Type>(y => y.Is<T>()).And(y => y.IsPublic && !y.IsAbstract && !y.IsInterface)(x);
         }
 
-        public async Task CreateAsync(IEnvironment environment) {
-            var result = await CreateContainerAsync(environment);
-            X.SetServiceLocator(new AutofacServiceLocator(result));
+        public async Task CreateAsync(IEnvironment environment, bool finalize = true) {
+            Finalize = finalize;
+            var container = await CreateContainerAsync(environment);
+            if (!finalize) return;
+            FinalizeServiceLocator(container);
+        }
+
+       
+        public void Create(IEnvironment environment, bool finalize = true) {
+            Finalize = finalize;
+            var container = CreateContainer(environment);
+
+            if (!finalize) return;
+            FinalizeServiceLocator(container);
+        }
+
+        private void FinalizeServiceLocator(ILifetimeScope container) {
+            Ready = true;
+            X.SetServiceLocator(new AutofacServiceLocator(container));
         }
 
         public ContainerBuilder Builder { get; set; }
-        protected async Task<IContainer> CreateContainerAsync(IEnvironment environment) {
+        public bool Finalize { get; set; }
+        public bool Ready { get; set; }
+
+        public bool EnsureReady() {
+            if (Ready) return true;
+            if (!Finalize) FinalizeServiceLocator(Builder.Build());
+            else return Finalize;
+        }
+        protected Task<IContainer> CreateContainerAsync(IEnvironment environment) {
+            return this.AsTask(x => x.CreateContainer(environment));
+        }
+        protected IContainer CreateContainer(IEnvironment environment) {
            
             var builderContainer = Builder ?? new ContainerBuilder();
+            
             Type[] ts = environment.TypeCache.ToArray();
 
             IEnumerable<Type> iComponents = ts.Where(x => Requirements<IComponentRegistrationService<IDependency>>()(x));
             IEnumerable<Type> iBuilders = ts.Where(x => Requirements<IContainerBuilderService>()(x));
             IEnumerable<Type> iModules = ts.Where(x => Requirements<IModule>()(x));
 
-            await iComponents.EachAsync(x => builderContainer.RegisterType(x).AsSelf().AsImplementedInterfaces());
-            await iModules.EachAsync(x => builderContainer.RegisterType(x).AsSelf().AsImplementedInterfaces());
-            await iBuilders.EachAsync(x => builderContainer.RegisterType(x).AsSelf().AsImplementedInterfaces());
+             iComponents.Each(x => builderContainer.RegisterType(x).AsSelf().AsImplementedInterfaces());
+             iModules.Each(x => builderContainer.RegisterType(x).AsSelf().AsImplementedInterfaces());
+             iBuilders.Each(x => builderContainer.RegisterType(x).AsSelf().AsImplementedInterfaces());
 
             var container = builderContainer.Build();
             var builder = new ContainerBuilder();
             var context = new RegistrationContext();
 
-            await container
+             container
                 .Resolve<IEnumerable<IComponentRegistrationService<IDependency>>>()
-                .EachAsync((x, c) => x.AttachToRegistration(c), context);
+                .Each((x, c) => x.AttachToRegistration(c), context);
 
-            await container
+             container
                 .Resolve<IEnumerable<IModule>>()
-                .EachAsync((x, bldr) => bldr.RegisterModule(x), builder);
+                .Each((x, bldr) => bldr.RegisterModule(x), builder);
 
-            await container
+             container
                 .Resolve<IEnumerable<IContainerBuilderService>>()
-                .EachAsync((x, cntxt) => x.AttachToBuilder(cntxt.Environment, cntxt.Builder), new {Builder = builder, X.Environment});
+                .Each((x, cntxt) => x.AttachToBuilder(cntxt.Environment, cntxt.Builder), new {Builder = builder, X.Environment});
 
             IEnumerable<Type> iDependencies = ts.Where(x => Requirements<IDependency>()(x));
-            await iDependencies.EachAsync((type, c) => {
+             iDependencies.Each((type, c) => {
                 var register = builder.RegisterType(type);
 
-                register.AsSelf();
-                register.AsImplementedInterfaces();
+                register.AsSelf().AsImplementedInterfaces().PropertiesAutowired();
 
                 var handlers = c.HandlersFor(type);
-                handlers.EachAsync(x => x(register)).Await();
-            }, context);
+                handlers.Each(x => x(register));
+             }, context);
 
-            builder.Register<IScope>(
-                c =>
-                    new Scope() {
-                        ServiceLocator = new AutofacServiceLocator(c.Resolve<ILifetimeScope>()),
-                        Environment = X.Environment
-                    }.Action(x => {
-                        x.Dispatcher = x.ServiceLocator.GetInstance<IDispatch>();
-                        x.EventManager = x.ServiceLocator.GetInstance<IEventManager>();
-                    })
-            ).InstancePerDependency();
+            builder.RegisterType<IScope>().InstancePerDependency();
             
             container.Dispose();
-            return builder.Build();
+            Builder = builder;
+            return Finalize ? builder.Build() : null;
         }
 
         public void Dispose() {

@@ -9,7 +9,7 @@ using Microsoft.Runtime.CompilerServices;
 namespace Harness.Framework {
     public static class TaskExtensions {
         public static async Task EachAsync<T>(this IEnumerable<T> collection, Action<T> action) {
-            await new Task(
+            await Task.Factory.StartNew(
                 () => Task.WaitAll(
                     collection.Select(
                         x => x.AsTask(action)
@@ -19,7 +19,7 @@ namespace Harness.Framework {
         }
         public static async Task EachAsync<T>(this Task<IEnumerable<T>> collection, Action<T> action) 
         {
-            await new Task(
+            await Task.Factory.StartNew(
                 () => Task.WaitAll(
                     collection.AwaitResult().Select(
                         x => x.AsTask(action)
@@ -35,7 +35,7 @@ namespace Harness.Framework {
             return results;
         }
         public static async Task EachAsync<T, TY>(this IEnumerable<T> collection, Action<T, TY> action, TY context) {
-            await new Task(
+            await Task.Factory.StartNew(
                 () => Task.WaitAll(
                     collection.Select(
                         x => x.AsTask(y => action(y, context))
@@ -43,9 +43,9 @@ namespace Harness.Framework {
                 )
             );
         }
-        public static async Task EachAsync<T, TY>(this Task<IEnumerable<T>> collection, Action<T, TY> action, TY context) 
-        {
-            await new Task(
+
+        public static async Task EachAsync<T, TY>(this Task<IEnumerable<T>> collection, Action<T, TY> action, TY context) {
+            await Task.Factory.StartNew(
                 async () => Task.WaitAll(
                     (await collection).Select(
                         x => x.AsTask(y => action(y, context))
@@ -72,30 +72,27 @@ namespace Harness.Framework {
         }
 
         public static async Task<T> AsTask<T>(this T t) {
-            return await new Task<T>(() => t);
+            return await Task.Factory.StartNew<T>(() => t);
         }
 
         public static async Task<TY> AsTask<T, TY>(this T t, Func<T, TY> func) {
             
-            return await new Task<TY>(x => func(t), t);
+            return await Task.Factory.StartNew<TY>(x => func(t), t);
 
         }
 
-        public static Task AsTask<T>(this T t, Action<T> action) {
-            return new Task(x => action(t), t);
+        public static async Task AsTask<T>(this T t, Action<T> action) {
+            await Task.Factory.StartNew(x => action(t), t);
         }
 
-        public static Task Begin(this Task task) {
-            if (task.Status == TaskStatus.Created) task.Start();
-            return task;
-        }
+        
 
         public static void Await(this Task task) {
-            task.Begin().Wait();
+            task.Wait();
         }
 
         public static T AwaitResult<T>(this Task<T> task) {
-            task.Begin().Wait();
+            task.Wait();
             return task.Result;
         }
     }

@@ -62,7 +62,7 @@ namespace Harness {
         }
 
         public Task<TY> InvokeAsync() {
-            return this.AsTask().FuncAsync(x => x.Invoke());
+            return this.AsTask(x => x.Invoke());
         }
     }
 }

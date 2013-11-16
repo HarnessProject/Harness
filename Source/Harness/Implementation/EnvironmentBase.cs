@@ -4,20 +4,30 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
+using Harness.Framework;
 
 namespace Harness {
     public abstract class EnvironmentBase<T> : IEnvironment {
         protected EnvironmentBase() { }
 
-        public async Task Initialize(IServiceLocator locator) {
-            
-            
+        public async Task InitializeAsync() {
             AssemblyCache = new List<Assembly>();
             TypeCache = new List<Type>();
 
             await GetAssemblies();
             await GetTypes();
 
+            IsReady = true;
+        }
+
+        public void Initialize() {
+            
+            AssemblyCache = new List<Assembly>();
+            TypeCache = new List<Type>();
+            
+            GetAssemblies().Await();
+            GetTypes().Await();
+            
             IsReady = true;
         }
         #region IEnvironment Members

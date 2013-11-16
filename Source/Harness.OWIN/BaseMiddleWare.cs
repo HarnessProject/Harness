@@ -7,11 +7,7 @@ using Owin;
 namespace Harness.Owin{
     public abstract class BaseMiddleWare : OwinMiddleware, IMiddleware {
         protected BaseMiddleWare() : base(null) {}
-        protected ILifetimeScope Scope = Application.CurrentEnvironment.Container.BeginLifetimeScope();
-
-        protected T Resolve<T>() {
-            return Scope.Resolve<T>();
-        }
+        public IScope Scope { get; set; }
 
         public abstract override Task Invoke(IOwinContext context);
 
