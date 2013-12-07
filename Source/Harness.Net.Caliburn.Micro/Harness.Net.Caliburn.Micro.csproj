@@ -55,17 +55,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Caliburn.Micro.Autofac.1.5.0\lib\net40\Caliburn.Micro.Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="Harness, Version=1.0.5065.19020, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Harness.1.0.5065.19020\lib\portable-net45+sl50+wp80+win\Harness.dll</HintPath>
-    </Reference>
-    <Reference Include="Harness.Autofac">
-      <HintPath>..\packages\Harness.Autofac.1.0.0.0\lib\portable-net45+sl50+wp80+win\Harness.Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="Harness.Net, Version=1.0.5065.20989, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Harness.Net.1.0.5065.20989\lib\net45\Harness.Net.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
@@ -97,6 +86,32 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Harness.Autofac\Harness.Autofac.csproj">
+      <Project>{c22014c9-5f4e-45cf-8ea0-2a714d66c0cb}</Project>
+      <Name>Harness.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Harness\Harness.csproj">
+      <Project>{0f713405-eef7-4927-995d-1f6692c0bf5b}</Project>
+      <Name>Harness</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\System.Abstractions\System.Abstractions.csproj">
+      <Project>{b0722a49-4916-46a2-bfb2-909ecded2b77}</Project>
+      <Name>System.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\System.Composition\System.Composition.csproj">
+      <Project>{56c5a053-85f1-41cf-b704-faa427c91c37}</Project>
+      <Name>System.Composition</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\System.Extensions\System.Extensions.csproj">
+      <Project>{ca7ab995-1105-40ee-9d3d-3d2a87778e00}</Project>
+      <Name>System.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\System.Implementations.Net\System.Implementations.Net.csproj">
+      <Project>{2e71a44b-abb7-4676-b591-fd7873750506}</Project>
+      <Name>System.Implementations.Net</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

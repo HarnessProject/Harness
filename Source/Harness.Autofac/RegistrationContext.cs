@@ -1,13 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using Autofac;
 using Autofac.Builder;
-using Harness.Autofac;
-using Harness.Framework;
 
-namespace Harness {
+namespace Harness.Autofac {
     public class RegistrationContext : IRegistrationContext {
         private readonly List<Action<ContainerBuilder>> _builders = new List<Action<ContainerBuilder>>();
 

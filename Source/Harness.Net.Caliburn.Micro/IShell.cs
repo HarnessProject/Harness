@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System.Composition;
+using Caliburn.Micro;
 
 /* Interfaces for our auto injection scheme... */
 

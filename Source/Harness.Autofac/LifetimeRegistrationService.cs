@@ -1,4 +1,6 @@
-﻿namespace Harness.Autofac {
+﻿using System.Composition;
+
+namespace Harness.Autofac {
     public class LifetimeRegistrationService : IComponentRegistrationService<IDependency> {
         #region IComponentRegistrationService<IDependency> Members
 

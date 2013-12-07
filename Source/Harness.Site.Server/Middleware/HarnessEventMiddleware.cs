@@ -4,6 +4,7 @@ using Harness.Events;
 using Harness.Framework;
 
 using Harness.OWIN;
+using Harness.Owin;
 using Harness.Site.Server.Events;
 using Microsoft.Owin;
 
