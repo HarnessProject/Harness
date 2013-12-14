@@ -34,16 +34,19 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
+    <None Include="System.Abstractions.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Composition\IDependency.cs" />
     <Compile Include="Composition\IFactory.cs" />
-    <Compile Include="Composition\UI\IFrame.cs" />
+    <Compile Include="Contracts\IToken.cs" />
+    <Compile Include="Events\IEvent.cs" />
     <Compile Include="FileSystems\IFileInfo.cs" />
     <Compile Include="FileSystems\IFileSystem.cs" />
     <Compile Include="FileSystems\IFileSystemProvider.cs" />
-    <Compile Include="IScope.cs" />
+    <Compile Include="Composition\IScope.cs" />
     <Compile Include="Composition\IServiceLocator.cs" />
+    <Compile Include="Messaging\IReceive.cs" />
     <Compile Include="Runtime\Environment\ITypeProvider.cs" />
     <Compile Include="Messaging\IMessenger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

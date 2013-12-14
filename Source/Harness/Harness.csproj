@@ -49,8 +49,6 @@
     </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Harness.cs" />
-    <Compile Include="Messages\LifetimeMessages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -59,7 +57,23 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\System.Abstractions\System.Abstractions.csproj">
+      <Project>{b0722a49-4916-46a2-bfb2-909ecded2b77}</Project>
+      <Name>System.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\System.Composition\System.Composition.csproj">
+      <Project>{56c5a053-85f1-41cf-b704-faa427c91c37}</Project>
+      <Name>System.Composition</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\System.Extensions\System.Extensions.csproj">
+      <Project>{ca7ab995-1105-40ee-9d3d-3d2a87778e00}</Project>
+      <Name>System.Extensions</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Messages\" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

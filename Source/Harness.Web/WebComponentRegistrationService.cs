@@ -1,4 +1,6 @@
-﻿using Autofac.Integration.Mvc;
+﻿using System.Composition;
+using System.Web.Mvc;
+using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using Autofac;
 using Harness.Autofac;

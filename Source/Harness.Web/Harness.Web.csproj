@@ -40,41 +40,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Autofac.3.1.5\lib\net40\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac.Extras.CommonServiceLocator">
-      <HintPath>..\packages\Autofac.Extras.CommonServiceLocator.3.0.1\lib\net40\Autofac.Extras.CommonServiceLocator.dll</HintPath>
-    </Reference>
     <Reference Include="Autofac.Integration.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Autofac.Mvc5.3.0.0\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac.Integration.SignalR">
-      <HintPath>..\packages\Autofac.SignalR.3.0.1\lib\net40\Autofac.Integration.SignalR.dll</HintPath>
-    </Reference>
-    <Reference Include="Autofac.Integration.WebApi, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Autofac.WebApi2.3.0.0\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
-    </Reference>
-    <Reference Include="Harness, Version=1.0.5067.40074, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Harness.1.0.5067.40074\lib\portable-net45+sl50+wp80+win\Harness.dll</HintPath>
-    </Reference>
-    <Reference Include="Harness.Autofac, Version=1.0.5067.41749, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Harness.Autofac.1.0.5067.41749\lib\portable-net45+sl50+wp80+win\Harness.Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="Harness.Net, Version=1.0.5067.40731, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Harness.Net.1.0.5067.40731\lib\net45\Harness.Net.dll</HintPath>
-    </Reference>
-    <Reference Include="Harness.OWIN, Version=1.0.5067.41419, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Harness.OWIN.1.0.5067.41419\lib\net45\Harness.OWIN.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.0.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.SignalR.Owin">
-      <HintPath>..\packages\Microsoft.AspNet.SignalR.Owin.1.1.3\lib\net45\Microsoft.AspNet.SignalR.Owin.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.SystemWeb">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.0.0\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
@@ -88,15 +59,6 @@
     <Reference Include="Microsoft.Owin.Security">
       <HintPath>..\packages\Microsoft.Owin.Security.2.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>..\packages\Portable.CommonServiceLocator.1.2.2\lib\net35\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Threading.Tasks">
-      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.165\lib\net45\Microsoft.Threading.Tasks.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Threading.Tasks.Extensions">
-      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.165\lib\net45\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -106,15 +68,6 @@
     </Reference>
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
-    </Reference>
-    <Reference Include="Owin.Builder">
-      <HintPath>..\packages\Owin.Builder.0.8.5\lib\net40\Owin.Builder.dll</HintPath>
-    </Reference>
-    <Reference Include="Owin.Extensions">
-      <HintPath>..\packages\Owin.Extensions.0.8.5\lib\net40\Owin.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="Owin.Types">
-      <HintPath>..\packages\Owin.Types.0.8.5\lib\net40\Owin.Types.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -132,9 +85,6 @@
     <Reference Include="System.Web.Http, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.0.0\lib\net45\System.Web.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Http.Owin">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Owin.5.0.0\lib\net45\System.Web.Http.Owin.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Http.WebHost, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -174,7 +124,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseApiController.cs" />
-    <Compile Include="BaseController.cs" />
     <Compile Include="Environment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebComponentRegistrationService.cs" />
@@ -191,13 +140,42 @@
     <Content Include="Scripts\jquery.signalR-2.0.0.js" />
     <Content Include="Scripts\jquery.signalR-2.0.0.min.js" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Harness.Autofac\Harness.Autofac.csproj">
+      <Project>{c22014c9-5f4e-45cf-8ea0-2a714d66c0cb}</Project>
+      <Name>Harness.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Harness.Http\Harness.Http.csproj">
+      <Project>{e9f64644-6a70-40ad-b210-68a9d439e050}</Project>
+      <Name>Harness.Http</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Harness.Net\Harness.Net.csproj">
+      <Project>{6ce26d39-1740-4a99-bef4-8edbd7fe2811}</Project>
+      <Name>Harness.Net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Harness.TinyMessenger\Harness.TinyMessenger.csproj">
+      <Project>{a01612fa-b9e1-4a77-9bbd-d577ee5a02fe}</Project>
+      <Name>Harness.TinyMessenger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Harness\Harness.csproj">
+      <Project>{0f713405-eef7-4927-995d-1f6692c0bf5b}</Project>
+      <Name>Harness</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\System.Abstractions\System.Abstractions.csproj">
+      <Project>{b0722a49-4916-46a2-bfb2-909ecded2b77}</Project>
+      <Name>System.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\System.Composition\System.Composition.csproj">
+      <Project>{56c5a053-85f1-41cf-b704-faa427c91c37}</Project>
+      <Name>System.Composition</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\System.Extensions\System.Extensions.csproj">
+      <Project>{ca7ab995-1105-40ee-9d3d-3d2a87778e00}</Project>
+      <Name>System.Extensions</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" />
-  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
-    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
-    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

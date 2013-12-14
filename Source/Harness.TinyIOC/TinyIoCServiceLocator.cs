@@ -1,40 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Composition;
 using System.Linq;
+using System.Runtime.Environment;
 using System.Threading.Tasks;
-using Harness.Framework;
+using Microsoft.Practices.ServiceLocation;
 using TinyIoC;
 
 namespace Harness
 {
     
 
-    public class TinyIoCServiceLocator : IServiceLocator {
+    public class TinyIoCServiceLocator : IDependencyContainer {
         protected readonly TinyIoCContainer Container = new TinyIoCContainer();
         protected Func<Type, bool> Requirements<T>()
         {
             //You can override this to alter your Type requirements.
             return x =>
-                Q.If<Type>(y => y.Is<T>())
+                Determine
+                    .If<Type>(y => y.Is<T>())
                     .And(y => y.IsPublic)
                     .And(y => !y.IsAbstract)
-                    .And(y => !y.IsInterface)(x);
+                    .And(y => !y.IsInterface)
+                    .Invoke(x);
         }
 
-        public TinyIoCServiceLocator(IEnvironment environment, TinyIoCContainer parent = null) {
+        public TinyIoCServiceLocator(ITypeProvider environment, TinyIoCContainer parent = null) {
             if (parent != null) {
                 Container = parent.GetChildContainer();
                 return;
             }
 
-            var ts = environment.GetTypes().ToArray();
+            var ts = environment.Types.ToArray();
             var ideps = ts.Where(x => Requirements<IDependency>()(x)).ToArray();
             
             var interfaces = ideps.SelectMany(x => x.GetInterfaces())
                 .Where(
-                Q.If<Type>(y => y != typeof(IDependency))
-                    .And(y => y != typeof(ISingletonDependency))
-                    .True ).Distinct();
+                    Determine
+                        .If<Type>(y => y != typeof(IDependency))
+                        .And(y => y != typeof(ISingletonDependency))
+                ).Distinct();
             
             var implementationTable = new LookupTable<Type, Type>();
             interfaces.Each(x => implementationTable.Add(x, ideps.Where(y => y.Is(x)).ToArray()));
@@ -86,7 +91,7 @@ namespace Harness
             Container.Dispose();
         }
 
-        public bool GetImplementation<T>(Action<T> action) where T : IServiceLocator {
+        public bool GetImplementation<T>(Action<T> action) where T : IDependencyContainer {
             return
                 this.Try(x => {
                     if (typeof(TinyIoCServiceLocator).Is<T>())
@@ -99,7 +104,7 @@ namespace Harness
                 .Invoke();
         }
 
-        public Task<bool> GetImplementationAsync<T>(Action<T> action) where T : IServiceLocator {
+        public Task<bool> GetImplementationAsync<T>(Action<T> action) where T : IDependencyContainer {
             return Task<bool>.Factory.StartNew(a => GetImplementation(a as Action<T>), action);
         }
     }

@@ -3,23 +3,16 @@
   <metadata>
     <id>$id$</id>
     <version>$version$</version>
-    <title>Harness for Owin</title>
-    <authors>Nick Daniels</authors>
-    <owners>Nick Daniels</owners>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
+    <projectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</projectUrl>
+    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>
-      Harness is an IOC application layer for .Net, Silverlight, Asp.Net, OWIN, and the Windows Runtime.
-      Harness is not a framework, Harness is what makes your frameworks work together.
-      
-      Harness.Owin brings Harness IOC to Owinmiddleware and the IAppBuilder.
-      Includes a ready registered base class for middleware BaseMiddleware.
-      Harness.Owin does not bundle any middleware or framework support (no WebApi).
-      Harness.Web.WebApi adds WebApi support to your Owin project.
-      Harness.Web.Signalr adds Signalr support to your Owin project.
-      
-    </description>
-    <releaseNotes>Initial Release</releaseNotes>
-    <copyright>Copyright 2013 Nick Daniels</copyright>
-    <tags>harness ioc autofac owin web</tags>
+    <description>$description$</description>
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>Tag1 Tag2</tags>
   </metadata>
 </package>

@@ -1,6 +1,5 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using Autofac.Integration.SignalR;
-using Harness.OWIN;
+﻿using System.Composition;
+using Harness.Owin;
 using Microsoft.Owin;
 using Owin;
 
@@ -12,11 +11,10 @@ namespace Harness.Site
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
-            app.UseHarness(
-                new Web.Environment<IDependency>(
-                    x => x.RegisterHubs()
-                )
-            );
+            
+            app.UseHarness(x => {
+                
+            });
         }
     }
 }

@@ -47,6 +47,10 @@
       <Project>{b0722a49-4916-46a2-bfb2-909ecded2b77}</Project>
       <Name>System.Abstractions</Name>
     </ProjectReference>
+    <ProjectReference Include="..\System.Extensions\System.Extensions.csproj">
+      <Project>{ca7ab995-1105-40ee-9d3d-3d2a87778e00}</Project>
+      <Name>System.Extensions</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

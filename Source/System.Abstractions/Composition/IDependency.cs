@@ -1,8 +1,9 @@
 ﻿namespace System.Composition {
-    public interface IDependency {} // All our IDependencys multi instance
+    public interface IDependency {} // All our IDependencys multi instance, per lifetime
     public interface ISingletonDependency {} //Except this one, single instance
-    public interface ITransientDependency {}
-    public interface IDisposableDependency : ITransientDependency, IDisposable{ }
+    public interface ITransientDependency {} //And this, instance per dependency
+    public interface IDisposableDependency : ITransientDependency, IDisposable{ } // Instance per dependency and disposable
+
 
    
 }

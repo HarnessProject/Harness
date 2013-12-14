@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Harness.Framework;
 
 namespace System.Tasks {
     
@@ -14,7 +13,8 @@ namespace System.Tasks {
          *      () => new { FirstName = NameService.GetFirst(), LastName = NameService.GetLast() }
          *  );
          * Usage 
-            str as string OR str.As<string>() OR await str.AsTask(s => s.As<string>());
+            str as string OR str.As<string>() OR await str.AsTask(s => s.As<string>())
+            OR str.Result() OR await str.ResultAsync();
          */
 
         private Defered() {}

@@ -1,16 +1,19 @@
 ﻿using System;
+using System.Composition;
+using System.Tasks;
 using Autofac;
 
-namespace Harness.Net.Caliburn.ViewModels {
-    public abstract class Screen : Caliburn.Micro.Screen {
-        protected ILifetimeScope Scope;
+namespace Harness.Net.Caliburn.Micro.ViewModels {
+    public abstract class Screen : global::Caliburn.Micro.Screen
+    {
+        protected IScope Scope;
 
         protected Screen() {
-            Scope = X.EnvironmentAs<Net.Environment>().Container.BeginLifetimeScope(Guid.NewGuid());
+            Scope = ApplicationScope.NewScopeAsync().AwaitResult();
         }
 
-        public T Resolve<T>() {
-            return Scope.Resolve<T>();
+        public T Get<T>() {
+            return Scope.Container.GetInstance<T>();
         }
 
         protected override void OnDeactivate(bool close) {

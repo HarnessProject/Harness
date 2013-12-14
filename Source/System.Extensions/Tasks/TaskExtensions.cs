@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
-
-namespace Harness.Framework {
+namespace System.Tasks {
     public static class TaskExtensions {
         public static Task EachAsync<T>(this IEnumerable<T> collection, Action<T> action) {
             return Task.Factory.StartNew(
@@ -79,7 +75,7 @@ namespace Harness.Framework {
             
             return Task<TY>.Factory.StartNew(() => {
                 var p = task.AwaitResult();
-                func(p);
+                return func(p); 
             });
         }
 
@@ -94,7 +90,7 @@ namespace Harness.Framework {
         }
 
         public static Task AsTask<T>(this T t, Action<T> action) {
-            Task.Factory.StartNew(x => action(t), t);
+            return Task.Factory.StartNew(x => action(t), t);
         }
 
         

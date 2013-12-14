@@ -12,6 +12,8 @@
 // FITNESS FOR A PARTICULAR PURPOSE.
 //===============================================================================
 
+using System.Contracts;
+
 namespace System.Messaging
 {
     #region Message Types / Interfaces
@@ -28,7 +30,7 @@ namespace System.Messaging
 
 
 
-    public interface IMessageSubscriptionToken : IDisposable {}
+    public interface IMessageSubscriptionToken : IToken {}
 
     /// <summary>
     /// Represents an active subscription to a message

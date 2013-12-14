@@ -10,5 +10,5 @@ namespace Harness.Net.Caliburn.Micro {
 
     public interface IWindowContainer : IConductor, IDependency {} //Container
 
-    public interface IColumn : IScreen, IDependency {} // Column in a container 
+   
 }

@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Composition;
+using System.Web.Http;
 using Autofac;
 
 namespace Harness.Web {

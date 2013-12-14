@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using Harness;
+
 
 namespace System {
     public static class Determine {
         public static bool If<T>(this T target, Func<T, bool> condition, Action<T> thenAction = null, Action<T> elseAction = null) where T : class {
-            bool result = condition(target);
+            var result = condition(target);
             if (!result) return false;
             if (thenAction != null) thenAction(target);
             else if (elseAction != null) elseAction(target);

@@ -4,17 +4,17 @@ using System.Linq;
 namespace System {
     public class ProtectedInvocation<T, TY> {
         private readonly Dictionary<int, Dictionary<Type, Func<T, Exception, TY>>> _exceptionFuncs;
-        private readonly Dictionary<int, Action<dynamic>> _finallyFuncs;
+        private readonly Dictionary<int, Action<TY>> _finallyFuncs;
         private readonly Dictionary<int, Func<T, TY>> _protectedFuncs;
         private int _currentFunc;
         private int _indexSeed = -1;
-        private dynamic _target;
+        private readonly T _target;
 
         public ProtectedInvocation(T target) {
             _protectedFuncs = new Dictionary<int, Func<T, TY>>();
             _target = target;
             _exceptionFuncs = new Dictionary<int, Dictionary<Type, Func<T, Exception, TY>>>();
-            _finallyFuncs = new Dictionary<int, Action<dynamic>>();
+            _finallyFuncs = new Dictionary<int, Action<TY>>();
         }
 
         public ProtectedInvocation<T, TY> Try(Func<T, TY> tTry) {
@@ -31,15 +31,16 @@ namespace System {
             return this;
         }
 
-        public ProtectedInvocation<T, TY> Finally(Action<dynamic> tFinal) {
+        public ProtectedInvocation<T, TY> Finally(Action<TY> tFinal) {
             _finallyFuncs.Add(_currentFunc, tFinal);
             return this;
         }
 
         public TY Invoke() {
+            TY result = default (TY);
             foreach (var f in _protectedFuncs.OrderBy(x => x.Key))
                 try {
-                    _target = f.Value(_target);
+                    result = f.Value(_target);
                 }
                 catch (Exception ex) {
                     Type ext = ex.GetType();
@@ -52,10 +53,10 @@ namespace System {
 
                     if (_exceptionFuncs[f.Key].ContainsKey(ext)) _finallyFuncs[f.Key](r);
 
-                    _target = r;
+                    result = r;
                 }
 
-            return (TY) _target;
+            return (TY) result;
         }
 
         

@@ -1,28 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Events;
 using System.Linq;
+using System.Runtime.Environment;
+using System.Tasks;
+using System.Threading.Tasks;
+using System.Web.Http;
 using Autofac;
 using Autofac.Integration.SignalR;
 using Autofac.Integration.WebApi;
 using Harness.Autofac;
-using Harness.Events;
-using Harness.Framework;
-using Harness.Net;
-using Microsoft.AspNet.SignalR;
 using Owin;
-using System.Web.Http;
+using Harness.Http;
 
 
 namespace Harness.Owin {
-    public class ApplicationStartEvent
-    {
-        public IScope Scope { get; set; }
-    }
+    
+
+   
+
+
     public static class AppBuilderExtensions {
-        public static void UseHarness<T>(this IAppBuilder app, T environment, IApplicationFactory factory) where T : IEnvironment {
-           
-            X.Initialize(factory, environment);
-            X.ServiceLocator.GetInstance<IEventManager>().Trigger(new ApplicationStartEvent() { Scope = X.GlobalScope });
+        public static async void UseHarness(this IAppBuilder app, Action<X> scopeFactory, ContainerBuilder builder = null) {
+
+            await X.InitializeAsync(x => {
+                x.Container = new AutofacServiceLocator(builder.Build());
+                scopeFactory(x);
+            });
+            var startEvent = new ApplicationStartEvent(X.GlobalScope, new Dictionary<string, object> {{"scope", X.GlobalScope}});
+            X.GlobalScope.MessengerHub.Publish(startEvent);
         }
 
         public static IAppBuilder Use<T>(this IAppBuilder app) where T : IMiddleware {
@@ -30,7 +36,7 @@ namespace Harness.Owin {
             bool r =
                 app.Try(
                     x => {
-                        app.Use(X.ServiceLocator.GetInstance<T>());       
+                        x.Use(X.GlobalScope.Container.GetInstance<T>());       
                         return true;
                     })
                     .Catch<Exception>(
@@ -45,15 +51,17 @@ namespace Harness.Owin {
         }
 
         public static IAppBuilder Map<T>(this IAppBuilder app, string path = null) where T : IApplication {
-            var m = X.ServiceLocator.GetInstance<T>();
+            var m = X.GlobalScope.Container.GetInstance<T>();
             app.Map(path ?? m.BasePath, m.Configure);
             return app;
         }
 
-        public static IAppBuilder MapAll<T>(this IAppBuilder app) where T : IApplication {
-            var m = X.ServiceLocator.GetAllInstances<T>();
-            m.EachAsync(x => app.Map(x.BasePath, x.Configure)).Await();
-            return app;
+        public static Task<IAppBuilder> MapAllAsync<T>(this IAppBuilder app) where T : IApplication {
+            return app.Func(async a => {
+                var m = X.GlobalScope.Container.GetAllInstances<T>();
+                await m.EachAsync(x => app.Map(x.BasePath, x.Configure));
+                return a;
+            });
         }
     }
 }

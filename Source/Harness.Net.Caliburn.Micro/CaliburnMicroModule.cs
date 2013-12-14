@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Tasks;
 using System.Threading.Tasks;
 using Autofac.Core;
 using Caliburn.Micro;
-using Harness.Framework;
 using Module = Autofac.Module;
 
 namespace Harness.Net.Caliburn.Micro{
-    public class CaliburnMicroModule : Module, IModule {
+    public class CaliburnMicroModule : Module{
         protected override void AttachToComponentRegistration(
             IComponentRegistry componentRegistry,
             IComponentRegistration registration) {
 
             typeof (INotifyPropertyChangedEx).If(
-                registration.Activator.LimitType.CanBe,
+                registration.Activator.LimitType.Is,
                 x => registration.Activated +=
                     async (o, args) =>
                     await args
@@ -22,13 +22,13 @@ namespace Harness.Net.Caliburn.Micro{
                     .As<INotifyPropertyChangedEx>()
                     .Try<INotifyPropertyChangedEx, bool>(
                         y => {
-                            y.PropertyChanged += async (s, a) => await s.ResolveAndInvokeAsync(a.PropertyName + "Changed");
+                            y.PropertyChanged += (s, a) => s.GetType().GetMethod(a.PropertyName + "Changed").NotNull(z => z.Invoke(s, null));
                             return true;
                         }
                     )
                     .Catch<Exception>((y, ex) => false)
-                    .InvokeAsync()
-                    .Begin()
+                    .AsTask(y => y.Invoke())
+                    
                 );
         }
     }

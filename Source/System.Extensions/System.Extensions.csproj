@@ -36,7 +36,6 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IO\FilePath.cs" />
     <Compile Include="Tasks\Defered.cs" />
     <Compile Include="Collections.Generic\EnumerableExtensions.cs" />
     <Compile Include="Collections.Generic\LookupTable.cs" />
