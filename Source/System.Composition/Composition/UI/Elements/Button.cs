@@ -14,15 +14,6 @@ namespace System.Composition.UI.Elements
             throw new NotImplementedException();
         }
 
-        public void Subscribe(Action<IPropertyChangeEvent> handler)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Subscribe(string propertyName, Action<IPropertyChangeEvent> handler)
-        {
-            throw new NotImplementedException();
-        }
 
         public string Name { get; set; }
         public Guid UniqueName { get; set; }

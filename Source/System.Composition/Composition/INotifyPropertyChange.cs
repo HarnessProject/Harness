@@ -10,5 +10,6 @@ namespace System.Composition
     public interface INotifyPropertyChange : INotify<IPropertyChangeEvent>
     {
         void Subscribe(string propertyName, Action<IPropertyChangeEvent> handler);
+        
     }
 }

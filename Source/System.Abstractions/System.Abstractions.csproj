@@ -45,7 +45,7 @@
     <Compile Include="FileSystems\IFileSystem.cs" />
     <Compile Include="FileSystems\IFileSystemProvider.cs" />
     <Compile Include="Composition\IScope.cs" />
-    <Compile Include="Composition\IServiceLocator.cs" />
+    <Compile Include="Composition\IDependencyContainer.cs" />
     <Compile Include="Messaging\IReceive.cs" />
     <Compile Include="Runtime\Environment\ITypeProvider.cs" />
     <Compile Include="Messaging\IMessenger.cs" />

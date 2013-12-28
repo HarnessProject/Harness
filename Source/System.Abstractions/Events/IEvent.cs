@@ -5,13 +5,14 @@ using System.Linq;
 using System.Messaging;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace System.Events
 {
     public interface IEventMessenger
     {
         void Handle<T>(Action<T> handler) where T : class, IEvent;
-        ICancelToken Trigger<T>(T evnt) where T : class, IEvent;
+        Task Trigger<T>(T evnt) where T : class, IEvent;
     }
 
     public interface IEvent : IMessage {
@@ -20,7 +21,8 @@ namespace System.Events
         DateTime TimeStamp { get; }
         IEvent Parent { get; } 
         object Parameter { get; }
-        ICancelToken Token { get; }
+        CancellationToken Canceled { get; }
+       
     }
 
     public interface IEvent<T> : IEvent

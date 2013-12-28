@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Nick Daniels</authors>
+    <owners>Nick Daniels</owners>
+    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
+    <projectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</projectUrl>
+    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+      System.Exensions contains extension methods and helper classes for a variety of Types and Scenarios:
+      Helpers:
+      Defered - Defers an operation until it's result is sought.
+      Determine - Compose logical operations using Extension Methods
+      ProtectedInvocation - Try/Catch as a method based construct.
+      LookupTable - An implementation of ILookup, that you can new up.
+      
+      
+      Extensions:
+      Enumerable:
+        Each and EachAsync - Like ILists ForEach, but for all enumerables
+        Is, As, and CanBe - Type comparison and casting extensions
+        AsTask - Creates a Task, centered around a given object, useful for creating Async wrappers around synchronous operations.
+        IsNull, NotNull - save an if statement by using an extension method.
+        
+      
+    </description>
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>Tag1 Tag2</tags>
+  </metadata>
+</package>
