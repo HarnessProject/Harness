@@ -1,0 +1,10 @@
+{
+  "name": "System.Composition.UI",
+  "version": "0.0.0",
+  "description": "System.Composition.UI",
+  "main": "app.js",
+  "author": {
+    "name": "Nick",
+    "email": ""
+  }
+}

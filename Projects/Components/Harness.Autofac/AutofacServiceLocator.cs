@@ -38,27 +38,27 @@ namespace Harness.Autofac
             return Container.Resolve(serviceType);
         }
 
-        public object GetInstance(Type serviceType) {
+        public object Obtain(Type serviceType) {
             return Container.Resolve(serviceType);
         }
 
-        public object GetInstance(Type serviceType, string key) {
+        public object Obtain(Type serviceType, string key) {
             return Container.ResolveNamed(key, serviceType);
         }
 
-        public IEnumerable<object> GetAllInstances(Type serviceType) {
+        public IEnumerable<object> ObtainAll(Type serviceType) {
             return ((IEnumerable)Container.Resolve(typeof(IEnumerable<>).MakeGenericType(serviceType))).Cast<Object>();
         }
 
-        public TService GetInstance<TService>() {
+        public TService Obtain<TService>() {
             return Container.Resolve<TService>();
         }
 
-        public TService GetInstance<TService>(string key) {
+        public TService Obtain<TService>(string key) {
             return Container.ResolveNamed<TService>(key);
         }
 
-        public IEnumerable<TService> GetAllInstances<TService>() {
+        public IEnumerable<TService> ObtainAll<TService>() {
             return Container.Resolve<IEnumerable<TService>>();
         }
 

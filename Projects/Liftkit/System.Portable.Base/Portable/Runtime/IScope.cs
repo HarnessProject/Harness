@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.Events;
+using System.Composition;
 using System.Messaging;
 using System.Portable.Events;
 
-namespace System.Composition {
+namespace System.Portable.Runtime {
     public interface IScope : IDisposable {
         IDependencyContainer Container { get; set; }
         IMessengerHub MessengerHub { get; set; }
-        IEventMessenger EventMessenger { get; set; }
+        IEventManager EventMessenger { get; set; }
         IDictionary<string, object> State { get; }
 
     }

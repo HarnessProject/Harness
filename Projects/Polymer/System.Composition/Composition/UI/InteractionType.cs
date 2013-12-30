@@ -1,0 +1,29 @@
+namespace System.Composition.UI {
+    public enum InteractionType {
+        Click,
+        DoubleClick,
+        RightClick,
+        Tap,
+        DoubleTap,
+        PinchIn,
+        PinchOut,
+        SwipeLeft,
+        SwipeRight,
+        SwipeUp,
+        SwipeDown,
+        KeyDown,
+        KeyUp,
+        KeyPress,
+        MouseButtonDown,
+        MouseButtonUp,
+        MouseButtonPress,
+        PageUp,
+        PageDown,
+        Home,
+        End,
+        Delete,
+        Insert,
+        ScrollUp,
+        ScrollDown
+    }
+}

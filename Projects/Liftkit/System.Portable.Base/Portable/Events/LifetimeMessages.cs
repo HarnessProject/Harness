@@ -1,6 +1,7 @@
 ﻿using System.Composition;
 using System.Contracts;
 using System.Portable.Events;
+using System.Portable.Runtime;
 using System.Threading;
 
 namespace System.Events
@@ -35,7 +36,7 @@ namespace System.Events
             get; set;
         }
 
-        public CancellationToken Canceled
+        public ICancelToken Token
         {
             get; set;
         }

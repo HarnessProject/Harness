@@ -59,7 +59,10 @@ namespace System.Threading.Tasks {
             return Task.Factory.StartNew(x => action(x.As<T>()), t);
         }
 
-        
+        public static async Task<TY> AsTask<T,TY>(this T t, Func<T,Task<TY>> func) {
+
+            return await func(t);
+        }
 
         public static void Await(this Task task) {
             Task.WaitAll(new Task[] {task});

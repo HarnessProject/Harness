@@ -1,4 +1,5 @@
-﻿using System.Messaging;
+﻿using System.Contracts;
+using System.Messaging;
 using System.Threading;
 
 namespace System.Portable.Events
@@ -16,7 +17,7 @@ namespace System.Portable.Events
         string Description { get; }
         DateTime TimeStamp { get; }
         IEvent Parent { get; } 
-        CancellationToken Canceled { get; }
+        ICancelToken Token { get; }
        
     }
 }

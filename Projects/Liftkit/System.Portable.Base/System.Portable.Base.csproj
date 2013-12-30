@@ -70,7 +70,6 @@
     <Compile Include="Portable\Runtime\IFactory.cs" />
     <Compile Include="Portable\Runtime\IScope.cs" />
     <Compile Include="Portable\Runtime\ITypeProvider.cs" />
-    <Compile Include="Portable\Runtime\ExecutionContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProtectedInvocation.cs" />
     <Compile Include="StringExtensions.cs" />

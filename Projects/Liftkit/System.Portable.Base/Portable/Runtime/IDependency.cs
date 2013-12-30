@@ -1,5 +1,4 @@
 ﻿using System.Portable.Runtime;
-using System.Runtime.Environment;
 
 namespace System.Composition {
     public interface IDependency {} // All our IDependencys multi instance, per lifetime

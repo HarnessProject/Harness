@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Portable.Runtime;
 using System.Text;
 
 namespace System.Composition

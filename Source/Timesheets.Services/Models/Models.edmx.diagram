@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2c4eabfb1a74432cabc2e0283e4f6756" Name="Diagram1" ZoomLevel="83" >
+        <EntityTypeShape EntityType="Models.Recipient" Width="1.5" PointX="5.875" PointY="1.25" />
+        <EntityTypeShape EntityType="Models.PoliceRecipient" Width="1.5" PointX="7.5" PointY="2.375" />
+        <InheritanceConnector EntityType="Models.PoliceRecipient" />
+        <EntityTypeShape EntityType="Models.PlanningRecipient" Width="1.5" PointX="9.125" PointY="1.25" />
+        <InheritanceConnector EntityType="Models.PlanningRecipient" />
+        <EntityTypeShape EntityType="Models.GeneralRecipient" Width="1.5" PointX="7.5" PointY="1.25" />
+        <InheritanceConnector EntityType="Models.GeneralRecipient" />
+        <EntityTypeShape EntityType="Models.TemplateType" Width="1.5" PointX="2.25" PointY="1.25" />
+        <EntityTypeShape EntityType="Models.TemplateField" Width="1.5" PointX="4" PointY="1.25" />
+        <AssociationConnector Association="Models.RecipientTemplateType" />
+        <AssociationConnector Association="Models.TemplateTypeTemplateField" />
+        <EntityTypeShape EntityType="Models.Setting" Width="1.5" PointX="0.5" PointY="3.125" />
+        <EntityTypeShape EntityType="Models.Configuration" Width="1.5" PointX="0.5" PointY="1.25" />
+        <AssociationConnector Association="Models.SettingsSetSetting" />
+        <InheritanceConnector EntityType="Models.GeneralRecipient" />
+        <InheritanceConnector EntityType="Models.PoliceRecipient" />
+        <InheritanceConnector EntityType="Models.PlanningRecipient" />
+        <EntityTypeShape EntityType="Models.DatabaseConnection" Width="1.5" PointX="0.5" PointY="5.25" />
+        <EntityTypeShape EntityType="Models.DatabaseQuery" Width="1.5" PointX="2.25" PointY="5.25" />
+        <EntityTypeShape EntityType="Models.RecipientAttribute" Width="2.125" PointX="5.875" PointY="4" />
+        <AssociationConnector Association="Models.DatabaseConnectionDatabaseQuery" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

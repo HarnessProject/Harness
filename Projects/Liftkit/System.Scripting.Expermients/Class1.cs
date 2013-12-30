@@ -33,7 +33,7 @@ namespace System.Scripting.Expermients
         public ProtectedExpression Catch<T>(Expression<T> expression, Expression<Action<T>> handler) where T : Exception,new() {
             if (CurrentTry.IsNull()) throw new InvalidOperationException("Can't Catch Before You TRY");
             T exception = new T();
-            Cur    
+               
         }
 
     }

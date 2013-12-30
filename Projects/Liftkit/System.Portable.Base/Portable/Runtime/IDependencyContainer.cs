@@ -1,21 +1,17 @@
-using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace System.Composition {
+namespace System.Portable.Runtime {
     /*
      * An implementation of the Common Service Locator Pattern
      */
     public interface IDependencyContainer : IDisposable
     {
-        object GetInstance(Type serviceType);
-        object GetInstance(Type serviceType, string key);
-        IEnumerable<object> GetAllInstances(Type serviceType);
-        T GetInstance<T>();
-        T GetInstance<T>(string key);
-        IEnumerable<T> GetAllInstances<T>();
+        object Obtain(Type serviceType);
+        object Obtain(Type serviceType, string key);
+        IEnumerable<object> ObtainAll(Type serviceType);
+        T Obtain<T>();
+        T Obtain<T>(string key);
+        IEnumerable<T> ObtainAll<T>();
         T GetInstanceOf<T>(string type);
 
     }

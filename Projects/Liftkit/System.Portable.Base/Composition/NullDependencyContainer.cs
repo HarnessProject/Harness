@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Portable.Runtime;
 using System.Threading.Tasks;
 
 namespace System.Composition {
@@ -8,27 +9,27 @@ namespace System.Composition {
             return default(object);
         }
 
-        public object GetInstance(Type serviceType) {
+        public object Obtain(Type serviceType) {
             return default(object);
         }
 
-        public object GetInstance(Type serviceType, string key) {
+        public object Obtain(Type serviceType, string key) {
             return default(object);
         }
 
-        public IEnumerable<object> GetAllInstances(Type serviceType) {
+        public IEnumerable<object> ObtainAll(Type serviceType) {
             return default(IEnumerable<object>);
         }
 
-        public TService GetInstance<TService>() {
+        public TService Obtain<TService>() {
             return default(TService);
         }
 
-        public TService GetInstance<TService>(string key) {
+        public TService Obtain<TService>(string key) {
             return default(TService);
         }
 
-        public IEnumerable<TService> GetAllInstances<TService>() {
+        public IEnumerable<TService> ObtainAll<TService>() {
             return default(IEnumerable<TService>);
         }
 

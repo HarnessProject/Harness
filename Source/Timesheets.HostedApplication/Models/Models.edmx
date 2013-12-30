@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="models.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
+        <EntityContainer Name="modelsTargetContainer" >
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Models" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ModelsContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Recipients" EntityType="Models.Recipient" />
+          <EntitySet Name="TemplateTypes" EntityType="Models.TemplateType" />
+          <EntitySet Name="TemplateFields" EntityType="Models.TemplateField" />
+          <AssociationSet Name="RecipientTemplateType" Association="Models.RecipientTemplateType">
+            <End Role="Recipient" EntitySet="Recipients" />
+            <End Role="TemplateType" EntitySet="TemplateTypes" />
+          </AssociationSet>
+          <AssociationSet Name="TemplateTypeTemplateField" Association="Models.TemplateTypeTemplateField">
+            <End Role="TemplateType" EntitySet="TemplateTypes" />
+            <End Role="TemplateField" EntitySet="TemplateFields" />
+          </AssociationSet>
+          <EntitySet Name="Settings1" EntityType="Models.Setting" />
+          <EntitySet Name="Configurations" EntityType="Models.Configuration" />
+          <AssociationSet Name="SettingsSetSetting" Association="Models.SettingsSetSetting">
+            <End Role="SettingsSet" EntitySet="Configurations" />
+            <End Role="Setting" EntitySet="Settings1" />
+          </AssociationSet>
+          <EntitySet Name="DatabaseConnections" EntityType="Models.DatabaseConnection" />
+          <EntitySet Name="DatabaseQueries" EntityType="Models.DatabaseQuery" />
+          <EntitySet Name="RecipientAttributes" EntityType="Models.RecipientAttribute" />
+          <AssociationSet Name="DatabaseConnectionDatabaseQuery" Association="Models.DatabaseConnectionDatabaseQuery">
+            <End Role="DatabaseConnection" EntitySet="DatabaseConnections" />
+            <End Role="DatabaseQuery" EntitySet="DatabaseQueries" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Recipient" Abstract="true">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" />
+          <Property Name="LastName" Type="String" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" />
+          <NavigationProperty Name="TemplateType" Relationship="Models.RecipientTemplateType" FromRole="Recipient" ToRole="TemplateType" />
+          <Property Name="TemplateTypeId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PoliceRecipient" BaseType="Models.Recipient" >
+          <Property Name="IsSgt" Type="Boolean" Nullable="false" />
+          <Property Name="ControlCode" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PlanningRecipient" BaseType="Models.Recipient" >
+          <Property Name="IsFullTime" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GeneralRecipient" BaseType="Models.Recipient" />
+        <EntityType Name="TemplateType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Recipients" Relationship="Models.RecipientTemplateType" FromRole="TemplateType" ToRole="Recipient" />
+          <NavigationProperty Name="TemplateFields" Relationship="Models.TemplateTypeTemplateField" FromRole="TemplateType" ToRole="TemplateField" />
+          <Property Name="Format" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TemplateField">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="true" />
+          <Property Name="Value" Type="String" Nullable="false" />
+          <NavigationProperty Name="TemplateType" Relationship="Models.TemplateTypeTemplateField" FromRole="TemplateField" ToRole="TemplateType" />
+          <Property Name="TemplateTypeId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="RecipientTemplateType">
+          <End Type="Models.Recipient" Role="Recipient" Multiplicity="*" />
+          <End Type="Models.TemplateType" Role="TemplateType" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="TemplateType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Recipient">
+              <PropertyRef Name="TemplateTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TemplateTypeTemplateField">
+          <End Type="Models.TemplateType" Role="TemplateType" Multiplicity="1" />
+          <End Type="Models.TemplateField" Role="TemplateField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TemplateType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TemplateField">
+              <PropertyRef Name="TemplateTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Setting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Value" Type="String" Nullable="false" />
+          <NavigationProperty Name="Configuration" Relationship="Models.SettingsSetSetting" FromRole="Setting" ToRole="SettingsSet" />
+          <Property Name="SettingsSetId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Configuration">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Settings" Relationship="Models.SettingsSetSetting" FromRole="SettingsSet" ToRole="Setting" />
+        </EntityType>
+        <Association Name="SettingsSetSetting">
+          <End Type="Models.Configuration" Role="SettingsSet" Multiplicity="1" />
+          <End Type="Models.Setting" Role="Setting" Multiplicity="*" />
+        </Association>
+        <EntityType Name="DatabaseConnection">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProviderType" Type="String" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="ConnectionString" Type="String" Nullable="false" />
+          <NavigationProperty Name="DatabaseQueries" Relationship="Models.DatabaseConnectionDatabaseQuery" FromRole="DatabaseConnection" ToRole="DatabaseQuery" />
+        </EntityType>
+        <EntityType Name="DatabaseQuery">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Query" Type="String" Nullable="false" />
+          <NavigationProperty Name="DatabaseConnection" Relationship="Models.DatabaseConnectionDatabaseQuery" FromRole="DatabaseQuery" ToRole="DatabaseConnection" />
+          <Property Name="DatabaseConnectionId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RecipientAttribute">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Property1" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="DatabaseConnectionDatabaseQuery">
+          <End Type="Models.DatabaseConnection" Role="DatabaseConnection" Multiplicity="1" />
+          <End Type="Models.DatabaseQuery" Role="DatabaseQuery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DatabaseConnection">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DatabaseQuery">
+              <PropertyRef Name="DatabaseConnectionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="models" />
+        <Alias Key="Target" Value="models.Store" />
+        <EntityContainerMapping CdmEntityContainer="ModelsContext" StorageEntityContainer="modelsTargetContainer">
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

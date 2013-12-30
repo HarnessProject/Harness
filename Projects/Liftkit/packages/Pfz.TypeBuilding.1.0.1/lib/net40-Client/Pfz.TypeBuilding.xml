@@ -1,0 +1,1046 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Pfz.TypeBuilding</name>
+    </assembly>
+    <members>
+        <member name="T:Pfz.TypeBuilding.Blocks.FluentBlockBuilder`2">
+            <summary>
+            This is the base class used by "block builders".
+            For example, the Body of a FluentMethodBuilder is the main block, while
+            Ifs, Loops and the like are sub-blocks.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentBlockBuilder`2.If(System.Linq.Expressions.Expression{System.Func{System.Boolean}})">
+            <summary>
+            Creates an If block that will be executed if the condition evaluates to true.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentBlockBuilder`2.If(Pfz.TypeBuilding.FluentExpression)">
+            <summary>
+            Creates an If block that will be executed if the condition evaluates to true.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentBlockBuilder`2.Using``2(System.Linq.Expressions.Expression{System.Func{``0}},System.Linq.Expressions.Expression{System.Func{``1}})">
+            <summary>
+            Creates a Using block (that is, a block that will dispose the disposable 
+            object at the end, independent if there is an exception or not).
+            </summary>
+            <param name="usingVariable">
+            An expression that represents the variable that will be set during 
+            the initialization and finalization of the block.
+            </param>
+            <param name="usingValue">The value that will be set to such variable.</param>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentBlockBuilder`2.Return">
+            <summary>
+            Adds a Return statement to the method. The method should be void 
+            returning to use this overload.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentBlockBuilder`2.Return``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Adds a Return statement to the method, which will return the 
+            value that will result from the given expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentBlockBuilder`2.Do(System.Linq.Expressions.Expression{System.Action})">
+            <summary>
+            Simply adds the given expression to the body of the method.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentBlockBuilder`2.Assign``2(System.Linq.Expressions.Expression{System.Func{``0}},System.Linq.Expressions.Expression{System.Func{``1}})">
+            <summary>
+            Adds an assignment. The C# compiler does not let things like: x = y inside a expression,
+            so you should call this method and give two expressions, one representing the variable
+            that will be set and the other representing the value.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentBlockBuilder`2.Throw(System.Linq.Expressions.Expression{System.Func{System.Exception}})">
+            <summary>
+            Adds a Throw clause into this block.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentBlockBuilder`2.Rethrow">
+            <summary>
+            Adds a Rethrow clause into this block. This should only be used if the
+            actual block is a catch or is inside one.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentBlockBuilder`2.Try">
+            <summary>
+            Initiates a Try/Catch/Finally operation.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentBlockBuilder`2.Loop">
+            <summary>
+            Starts a Loop block.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentBlockBuilder`2.While(System.Linq.Expressions.Expression{System.Func{System.Boolean}})">
+            <summary>
+            Starts a While block that will execute while the result of
+            the conditionExpression is true.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentBlockBuilder`2.While(Pfz.TypeBuilding.FluentExpression)">
+            <summary>
+            Starts a While block that will execute while the result of
+            the conditionExpression is true.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentBlockBuilder`2.For``1(System.Linq.Expressions.Expression{System.Func{``0}},System.Linq.Expressions.Expression{System.Func{System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Starts a For loop.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentBlockBuilder`2.For``1(Pfz.TypeBuilding.FluentExpression,System.Linq.Expressions.Expression{System.Func{System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Starts a For loop.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentBlockBuilder`2.For``1(System.Linq.Expressions.Expression{System.Func{``0}},Pfz.TypeBuilding.FluentExpression,System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Starts a For loop.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentBlockBuilder`2.For``1(System.Linq.Expressions.Expression{System.Func{``0}},System.Linq.Expressions.Expression{System.Func{System.Boolean}},Pfz.TypeBuilding.FluentExpression)">
+            <summary>
+            Starts a For loop.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentBlockBuilder`2.For``1(System.Linq.Expressions.Expression{System.Func{``0}},Pfz.TypeBuilding.FluentExpression,Pfz.TypeBuilding.FluentExpression)">
+            <summary>
+            Starts a For loop.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentBlockBuilder`2.For``1(Pfz.TypeBuilding.FluentExpression,System.Linq.Expressions.Expression{System.Func{System.Boolean}},Pfz.TypeBuilding.FluentExpression)">
+            <summary>
+            Starts a For loop.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentBlockBuilder`2.For``1(Pfz.TypeBuilding.FluentExpression,Pfz.TypeBuilding.FluentExpression,System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Starts a For loop.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentBlockBuilder`2.For``1(Pfz.TypeBuilding.FluentExpression,Pfz.TypeBuilding.FluentExpression,Pfz.TypeBuilding.FluentExpression)">
+            <summary>
+            Starts a For loop.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentBlockBuilder`2.Continue">
+            <summary>
+            Adds a Continue statement to this block, making it go to the next iteration of the
+            loop without finishing the rest of the statements in the loop. This should only be 
+            used in loop blocks (Loop, While and For) or in sub-blocks of such blocks.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentBlockBuilder`2.Break">
+            <summary>
+            Adds a Break statement to this block, making it exit the actual loop.
+            This should only be used in loop blocks (Loop, While and For) or in sub-blocks of such blocks.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentBlockBuilder`2.Inline(Pfz.TypeBuilding.FluentMethodBuilder)">
+            <summary>
+            Adds the body of another FluentMethodBuilder inside this one.
+            </summary>
+        </member>
+        <member name="T:Pfz.TypeBuilding.Blocks.FluentCatchBuilder`1">
+            <summary>
+            This class is returned when calling Catch() on a FluentTryBuilder.
+            Instances of this class can be used to add the actions
+            that you want to be executed when there is an specific kind of exception.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentCatchBuilder`1.EndTry">
+            <summary>
+            Finishes the entire Try block and returns its containing block.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentCatchBuilder`1.Catch``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Finishes this catch block and adds another one.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentCatchBuilder`1.Finally">
+            <summary>
+            Finishes this catch block and adds a finally one.
+            </summary>
+        </member>
+        <member name="T:Pfz.TypeBuilding.Blocks.FluentElseBuilder`1">
+            <summary>
+            This class is returned when calling Else() on a FluentIfBuilder.
+            Instances of this class can be used to add the actions that you want 
+            to be executed if the condition on the if clause is false.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentElseBuilder`1.EndIf">
+            <summary>
+            Ends this else block (or the entire if, if you prefer) and
+            returns its containing block.
+            </summary>
+        </member>
+        <member name="T:Pfz.TypeBuilding.Blocks.FluentFinallyBuilder`1">
+            <summary>
+            This class is returned when calling Finally() on a FluentTryBuilder instance.
+            Instances of this class can be used to add the actions that you want to be 
+            executed after the try block ends, independently if there are exceptions or not.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentFinallyBuilder`1.EndTry">
+            <summary>
+            Ends this finally block and returns its containing block.
+            </summary>
+        </member>
+        <member name="T:Pfz.TypeBuilding.AbstractTypeImplementer`1">
+            <summary>
+            Base class that you can inherit if you want to generate types at run-time that
+            implement the abstract methods of abstract classes or interfaces.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.AbstractTypeImplementer`1.#cctor">
+            <summary>
+            Only verifies that the generic argument is really abstract.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.AbstractTypeImplementer`1.#ctor(System.Type[])">
+            <summary>
+            Creates a new AbstractTypeImplementer instance, allowing to tell which
+            interfaces (that aren't already part of the abstract type) should be implemented.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.AbstractTypeImplementer`1.GetImplementedType">
+            <summary>
+            Gets the type that was implemented at run-time.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.AbstractTypeImplementer`1.GetConstructorDelegate">
+            <summary>
+            Gets a delegate capable of creating new instances of the implemented type.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.AbstractTypeImplementer`1.CreateTypeBuilder(System.Type[])">
+            <summary>
+            Creates and initializes the TypeBuilder that will be used to implement
+            properties, methods and events.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.AbstractTypeImplementer`1.ImplementAnyMethod(Pfz.TypeBuilding.FluentTypeBuilder{`0},System.Reflection.MethodInfo)">
+            <summary>
+            This method is invoked to implement any method, be it a normal method, a property getter, setter etc.
+            If you want to implement only normal methods, inherit the ImplementMethod method.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.AbstractTypeImplementer`1.ImplementAnyProperty(Pfz.TypeBuilding.FluentTypeBuilder{`0},System.Reflection.PropertyInfo)">
+            <summary>
+            This method is invoked to implement any property, be it a normal property or an indexer.
+            If you want to generate only properties, override the ImplementPropertyUntyped or the ImplementProperty generic method.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.AbstractTypeImplementer`1.ImplementPropertyUntyped(Pfz.TypeBuilding.FluentTypeBuilder{`0},System.Reflection.PropertyInfo)">
+            <summary>
+            This method is invoked to implement normal properties (that is, excluding indexers), but it does not have the
+            parameters rightly typed, which can make it hard to build the expression. You will probably prefer to inherit
+            the ImplementProperty generic method.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.AbstractTypeImplementer`1.ImplementEventUntyped(Pfz.TypeBuilding.FluentTypeBuilder{`0},System.Reflection.EventInfo)">
+            <summary>
+            This method is invoked to implement events, but it is not typed. It is usually better to only override the
+            ImplementEvent generic method.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.AbstractTypeImplementer`1.ImplementMethod(Pfz.TypeBuilding.FluentTypeBuilder{`0},System.Reflection.MethodInfo)">
+            <summary>
+            Method invoked to implement methods.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.AbstractTypeImplementer`1.ImplementProperty``1(Pfz.TypeBuilding.FluentTypeBuilder{`0},System.Reflection.PropertyInfo)">
+            <summary>
+            Method invoked to implement properties.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.AbstractTypeImplementer`1.ImplementIndexerUntyped(Pfz.TypeBuilding.FluentTypeBuilder{`0},System.Reflection.PropertyInfo)">
+            <summary>
+            Method invoked to implement indexers.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.AbstractTypeImplementer`1.ImplementEvent``1(Pfz.TypeBuilding.FluentTypeBuilder{`0},System.Reflection.EventInfo)">
+            <summary>
+            Method invoked to implement events.
+            </summary>
+        </member>
+        <member name="T:Pfz.TypeBuilding.AbstractTypeImplementers.NotifyPropertyChangedImplementer`1">
+            <summary>
+            This class is capable of implementing abstract properties of classes and
+            interfaces with the right INotifyPropertyChanged pattern.
+            </summary>
+            <typeparam name="TAbstract">The abstract type to implement.</typeparam>
+        </member>
+        <member name="M:Pfz.TypeBuilding.AbstractTypeImplementers.NotifyPropertyChangedImplementer`1.#ctor">
+            <summary>
+            Creates a new implementer for the type that will declare the PropertyChanged event.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.AbstractTypeImplementers.NotifyPropertyChangedImplementer`1.#ctor(System.Linq.Expressions.Expression{System.Func{System.ComponentModel.PropertyChangedEventHandler}})">
+            <summary>
+            Creates a new implementer for the type.
+            If the eventHandlerFieldExpression is null, it will create the event and its backing field,
+            if not it will consider that such expression is acessing the right field that contains
+            the event to be invoked.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.AbstractTypeImplementers.NotifyPropertyChangedImplementer`1.CreateTypeBuilder(System.Type[])">
+            <summary>
+            Creates the typebuilder and the NotifyPropertyChangedGenerator.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.AbstractTypeImplementers.NotifyPropertyChangedImplementer`1.ImplementProperty``1(Pfz.TypeBuilding.FluentTypeBuilder{`0},System.Reflection.PropertyInfo)">
+            <summary>
+            Asks the NotifyPropertyChangedGenerator to implement the property
+            using its own backing field.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.AbstractTypeImplementers.NotifyPropertyChangedImplementer`1.ImplementEvent``1(Pfz.TypeBuilding.FluentTypeBuilder{`0},System.Reflection.EventInfo)">
+            <summary>
+            If the property is PropertyChanged it does nothing.
+            For any other property this method will throw a NotSupportedException().
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.AbstractTypeImplementers.NotifyPropertyChangedImplementer`1.ImplementMethod(Pfz.TypeBuilding.FluentTypeBuilder{`0},System.Reflection.MethodInfo)">
+            <summary>
+            Throws a NotSupportedException as this type only implements properties.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.AbstractTypeImplementers.NotifyPropertyChangedImplementer`1.ImplementIndexerUntyped(Pfz.TypeBuilding.FluentTypeBuilder{`0},System.Reflection.PropertyInfo)">
+            <summary>
+            Throws a NotSupportedException as this type only implements properties.
+            </summary>
+        </member>
+        <member name="T:Pfz.TypeBuilding.Blocks.FluentForBuilder`1">
+            <summary>
+            This class is returned when calling For() on a FluentMethodBuilder.Body or
+            on any of its sub-blocks. Instances of this class can be used to add the actions
+            that you want to be executed inside the for loop.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentForBuilder`1.EndFor">
+            <summary>
+            Ends the actual for block and returns its containing block.
+            </summary>
+        </member>
+        <member name="T:Pfz.TypeBuilding.FluentParameterKind">
+            <summary>
+            Determines how the parameter works (input only or input and output).
+            </summary>
+        </member>
+        <member name="F:Pfz.TypeBuilding.FluentParameterKind.Input">
+            <summary>
+            This is the default value and means the parameter is for input only.
+            </summary>
+        </member>
+        <member name="F:Pfz.TypeBuilding.FluentParameterKind.InputAndOutput">
+            <summary>
+            This means the parameter is given as a reference, so it
+            can work as input and as output.
+            </summary>
+        </member>
+        <member name="T:Pfz.TypeBuilding.Blocks.FluentUsingBuilder`1">
+            <summary>
+            This class is returned when calling Using() on a FluentMethodBuilder.Body or
+            on any of its sub-blocks. Instances of this class can be used to add the actions
+            that you want to be executed inside the using clause.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentUsingBuilder`1.EndUsing">
+            <summary>
+            Finishes the using clause and returns its containing block.
+            </summary>
+        </member>
+        <member name="T:Pfz.TypeBuilding.NotifyPropertyChangedGenerator">
+            <summary>
+            This class only helps using type-inference to create the right
+            NotifyPropertyChanged&lt;&gt; instance by the generic type of the
+            FluentTypeBuilder.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.NotifyPropertyChangedGenerator.Create``1(Pfz.TypeBuilding.FluentTypeBuilder{``0})">
+            <summary>
+            Creates a new NotifyPropertyChangedGenerator that will work with the given typeBuilder.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.NotifyPropertyChangedGenerator.Create``1(Pfz.TypeBuilding.FluentTypeBuilder{``0},System.Linq.Expressions.Expression{System.Func{System.ComponentModel.PropertyChangedEventHandler}})">
+            <summary>
+            Creates a new NotifyPropertyChangedGenerator that will work with the given typeBuilder
+            and also let you tell where is the field that stores the PropertyChanged delegates.
+            </summary>
+        </member>
+        <member name="T:Pfz.TypeBuilding.NotifyPropertyChangedGenerator`1">
+            <summary>
+            This class helps in building types at run-time that implement the
+            INotifyPropertyChanged interface.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.NotifyPropertyChangedGenerator`1.#ctor(Pfz.TypeBuilding.FluentTypeBuilder{`0})">
+            <summary>
+            Creates a new NotifyPropertyChangedGenerator that will work with the given typeBuilder.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.NotifyPropertyChangedGenerator`1.#ctor(Pfz.TypeBuilding.FluentTypeBuilder{`0},System.Linq.Expressions.Expression{System.Func{System.ComponentModel.PropertyChangedEventHandler}})">
+            <summary>
+            Creates a new NotifyPropertyChangedGenerator that will work with the given typeBuilder
+            and also let you tell where is the field that stores the PropertyChanged delegates.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.NotifyPropertyChangedGenerator`1.AddProperty(System.String,System.Type,System.String[])">
+            <summary>
+            Adds a new property to the generated type.
+            The property will have its own field. You can optionally
+            tell which other properties should be notified as having
+            changed by the change on the actual property (this happens
+            when you use calculated properties).
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.NotifyPropertyChangedGenerator`1.AddProperty``1(System.String,System.String[])">
+            <summary>
+            Adds a new property to the generated type.
+            The property will have its own field. You can optionally
+            tell which other properties should be notified as having
+            changed by the change on the actual property (this happens
+            when you use calculated properties).
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.NotifyPropertyChangedGenerator`1.AddProperty``1(System.String,System.Linq.Expressions.Expression{System.Func{``0}},System.Linq.Expressions.Expression{System.Action},System.Linq.Expressions.Expression{System.Func{``0}},System.String[])">
+            <summary>
+            Adds a property to the type being built. In this overload you should
+            give the expressions that represent the get and the set, without invoking
+            the PropertyChanged event. The effective get will be unchanged, but the
+            set will verify if the value was really changed before doing the actual
+            call to your set and notifying observers of the change.
+            </summary>
+            <typeparam name="T">The type of the property.</typeparam>
+            <param name="name">The name of the property.</param>
+            <param name="getValueExpression">The expression that represents the get.</param>
+            <param name="setValueExpression">
+            The expression that represents a direct set (that is, your expression should
+            not invoke the PropertyChanged event).
+            </param>
+            <param name="valueExpression">
+            An expression that access a local variable. Such variable will be considered to
+            be the "value" variable for the set method.
+            </param>
+            <param name="otherPropertiesToNotify">
+            Optional names of other properties that should be notified as changed when this
+            property is changed. This will happen on calculated properties based on this
+            property.
+            </param>
+        </member>
+        <member name="M:Pfz.TypeBuilding.NotifyPropertyChangedGenerator`1.AddProperty``1(System.String,System.Linq.Expressions.Expression{System.Func{``0}},Pfz.TypeBuilding.FluentMethodBuilder,System.Linq.Expressions.Expression{System.Func{``0}},System.String[])">
+            <summary>
+            Adds a property to the type being built. In this overload you should
+            give the expressions that represent the get and the set, without invoking
+            the PropertyChanged event. The effective get will be unchanged, but the
+            set will verify if the value was really changed before doing the actual
+            call to your set and notifying observers of the change.
+            </summary>
+            <typeparam name="T">The type of the property.</typeparam>
+            <param name="name">The name of the property.</param>
+            <param name="getValueExpression">The expression that represents the get.</param>
+            <param name="setValueAction">An action that does the set.</param>
+            <param name="valueExpression">
+            An expression that access a local variable. Such variable will be considered to
+            be the "value" variable for the set method.
+            </param>
+            <param name="otherPropertiesToNotify">
+            Optional names of other properties that should be notified as changed when this
+            property is changed. This will happen on calculated properties based on this
+            property.
+            </param>
+        </member>
+        <member name="T:Pfz.TypeBuilding.Blocks.FluentWhileBuilder`1">
+            <summary>
+            This class is the result of the While() method of the FluentMethodBuilder.Body
+            or any inner block. Use this instance to add the actions that will be executed
+            inside the while that will be generated.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentWhileBuilder`1.EndWhile">
+            <summary>
+            Ends this While block and return to its containing block.
+            </summary>
+        </member>
+        <member name="T:Pfz.TypeBuilding.FluentExpression">
+            <summary>
+            Represents an Expression that can be modified using a fluent API.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.Create(System.Linq.Expressions.Expression)">
+            <summary>
+            Creates a new fluent expression based on an already existing expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.Create``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Creates a new fluent expression based on an already existing expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.Assign``2(System.Linq.Expressions.Expression{System.Func{``0}},System.Linq.Expressions.Expression{System.Func{``1}})">
+            <summary>
+            Creates an Assign expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.op_Implicit(System.Linq.Expressions.Expression)~Pfz.TypeBuilding.FluentExpression">
+            <summary>
+            Does an implicit conversion from a fluent expression to a linq expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.op_Implicit(Pfz.TypeBuilding.FluentExpression)~System.Linq.Expressions.Expression">
+            <summary>
+            Does an implicit conversion from a linq expression to a fluent expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.Call(System.Reflection.MethodInfo,Pfz.TypeBuilding.FluentExpression[])">
+            <summary>
+            Adds a non-static Call to this expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.MemberAccess(System.Reflection.MemberInfo)">
+            <summary>
+            Adds a member access to this expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.Not``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Creates a new expression that inverts the bits of the result of the given expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.Not">
+            <summary>
+            Adds an inversion of the bits as the last statement of this expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.Negate``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Creates a new expression that "negates" the given one.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.Negate">
+            <summary>
+            Adds a final "negate" to this expression.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.BitwiseAnd(Pfz.TypeBuilding.FluentExpression)">
+            <summary>
+            Adds a bitwise and to this expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.BitwiseOr(Pfz.TypeBuilding.FluentExpression)">
+            <summary>
+            Adds a bitwise or to this expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.BitwiseXor(Pfz.TypeBuilding.FluentExpression)">
+            <summary>
+            Adds a bitwise xor to this expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.ConditionalAnd(Pfz.TypeBuilding.FluentExpression)">
+            <summary>
+            Adds a condition (boolean) and to this expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.ConditionalOr(Pfz.TypeBuilding.FluentExpression)">
+            <summary>
+            Adds a conditional (boolean) or to this expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.Convert(System.Type)">
+            <summary>
+            Adds a value conversion to this expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.Unbox(System.Type)">
+            <summary>
+            Adds an Unbox to this expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.Add(Pfz.TypeBuilding.FluentExpression)">
+            <summary>
+            Adds an arithmatic Add to this expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.Subtract(Pfz.TypeBuilding.FluentExpression)">
+            <summary>
+            Adds an arithmatic Subtract to this expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.Multiply(Pfz.TypeBuilding.FluentExpression)">
+            <summary>
+            Adds an arithmatic Multiply to this expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.Divide(Pfz.TypeBuilding.FluentExpression)">
+            <summary>
+            Adds an arithmatic Divide to this expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.Equal``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Adds an Equal comparison to this expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.Equal(Pfz.TypeBuilding.FluentExpression)">
+            <summary>
+            Adds an Equal comparison to this expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.NotEqual``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Adds a Different comparison to this expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.NotEqual(Pfz.TypeBuilding.FluentExpression)">
+            <summary>
+            Adds a Different comparison to this expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.GreaterThan(Pfz.TypeBuilding.FluentExpression)">
+            <summary>
+            Adds a GreaterThan comparison to this expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.GreaterThanOrEqual(Pfz.TypeBuilding.FluentExpression)">
+            <summary>
+            Adds a GreaterThanOrEqual comparison to this expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.LessThan(Pfz.TypeBuilding.FluentExpression)">
+            <summary>
+            Adds a LessThan comparison to this expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.LessThanOrEqual(Pfz.TypeBuilding.FluentExpression)">
+            <summary>
+            Adds a LessThanOrEqual comparison to this expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.Increment``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Creates an Increment expression over the given one.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.Increment">
+            <summary>
+            Adds an Increment to this expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.Decrement``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Creates a Decrement expression over the given one.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.Decrement">
+            <summary>
+            Adds a Decrement to this expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentExpression.StaticCall(System.Reflection.MethodInfo,Pfz.TypeBuilding.FluentExpression[])">
+            <summary>
+            Creates an expression that is doing a static call to a method.
+            </summary>
+        </member>
+        <member name="P:Pfz.TypeBuilding.FluentExpression.Expression">
+            <summary>
+            Gets the LINQ expression held by this FluentExpression.
+            </summary>
+        </member>
+        <member name="T:Pfz.TypeBuilding.Blocks.FluentBodyBuilder">
+            <summary>
+            Instances of this class are returned by the FluentMethodBuilder.Body
+            property and can be used to "build" the method.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentBodyBuilder.EndBody">
+            <summary>
+            Finishes the body of the method.
+            </summary>
+        </member>
+        <member name="T:Pfz.TypeBuilding.FluentEventBuilder">
+            <summary>
+            This class is the result of calls to the FluentTypeBuilder.AddEvent method and
+            should be used to build the body of the Add and Remove methods of the event.
+            </summary>
+        </member>
+        <member name="P:Pfz.TypeBuilding.FluentEventBuilder.Name">
+            <summary>
+            Gets the name of the event.
+            </summary>
+        </member>
+        <member name="P:Pfz.TypeBuilding.FluentEventBuilder.Type">
+            <summary>
+            Gets the type of the handlers of the event.
+            </summary>
+        </member>
+        <member name="P:Pfz.TypeBuilding.FluentEventBuilder.IsStatic">
+            <summary>
+            Gets a value indicating if this event is static.
+            </summary>
+        </member>
+        <member name="P:Pfz.TypeBuilding.FluentEventBuilder.AddMethod">
+            <summary>
+            Gets the method builder that you must use to implement the
+            event add.
+            </summary>
+        </member>
+        <member name="P:Pfz.TypeBuilding.FluentEventBuilder.RemoveMethod">
+            <summary>
+            Gets the method builder that you must use to implement the
+            event remove.
+            </summary>
+        </member>
+        <member name="T:Pfz.TypeBuilding.FluentMethodBuilder">
+            <summary>
+            Instances of this class are capable of creating methods at run-time using a 
+            fluent interface combined with the .NET expressions that is very
+            easy to use.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentMethodBuilder.#ctor(System.Type)">
+            <summary>
+            Creates a new method builder.
+            </summary>
+            <param name="returnType">The type of the return of the method that will be generated.</param>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentMethodBuilder.CreateAction">
+            <summary>
+            Creates a new FluentMethodBuilder that has the interface of an Action.
+            That is: It does not receive any parameters and does not return values.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentMethodBuilder.CreateAction(System.Linq.Expressions.Expression{System.Action})">
+            <summary>
+            Creates a new FluentMethodBuilder based on the given action expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentMethodBuilder.AddParameter``1(System.Linq.Expressions.Expression{System.Func{``0}},Pfz.TypeBuilding.FluentParameterKind)">
+            <summary>
+            Adds a new parameter to this method.
+            </summary>
+            <param name="expression">
+            An expression that access a local variable that represents the parameter to be added.
+            All other references to such local variable will be compiled as an access
+            to the parameter.
+            </param>
+            <param name="kind">
+            Determines if the parameter is input only or if it can be used as output too.
+            </param>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentMethodBuilder.AddLocal``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Adds a new local to this method.
+            </summary>
+            <param name="expression">
+            An expression that access a local variable (of the generator method) that 
+            represents the local variable that will exist on the generated method.
+            All other references to such local variable will be compiled as an access
+            to a real local variable on the generated method, without sharing the 
+            variable of the generator method.
+            </param>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentMethodBuilder.AddExternal``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Allows an external variable (including locals of the generator method) to be accessed by
+            the method that will be generated.
+            </summary>
+            <param name="expression">
+            An expression that access a variable that will be acessible to the
+            generated method.
+            </param>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentMethodBuilder.Compile(System.Type)">
+            <summary>
+            Compiles this method. You can optionally tell to which 
+            delegate type it should be compiled.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentMethodBuilder.Compile``1">
+            <summary>
+            Compiles this method to an specific delegate type.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentMethodBuilder.MakeParametersReadOnly">
+            <summary>
+            After a call to this method the parameters will not be modifiable anymore.
+            This is useful if you create the "method signature" but want to let the 
+            implementation to be done by some other code.
+            </summary>
+        </member>
+        <member name="P:Pfz.TypeBuilding.FluentMethodBuilder.Name">
+            <summary>
+            Gets the Name of the method that is being built.
+            </summary>
+        </member>
+        <member name="P:Pfz.TypeBuilding.FluentMethodBuilder.ReturnType">
+            <summary>
+            Gets the ReturnType of the method that is being built.
+            </summary>
+        </member>
+        <member name="P:Pfz.TypeBuilding.FluentMethodBuilder.IsStatic">
+            <summary>
+            Gets a value indicating if the generated method will be static.
+            </summary>
+        </member>
+        <member name="P:Pfz.TypeBuilding.FluentMethodBuilder.Body">
+            <summary>
+            Gets the Body block of the method, which is the entry point to
+            built it.
+            </summary>
+        </member>
+        <member name="T:Pfz.TypeBuilding.FluentMethodBuilder.Box`1">
+            <summary>
+            A class that is used to "box" values so they can be passed as
+            references even if the LINQ expressions don't accept that.
+            You should not use this class directly.
+            </summary>
+        </member>
+        <member name="F:Pfz.TypeBuilding.FluentMethodBuilder.Box`1.Value">
+            <summary>
+            This is the value that is "boxed". Note that this is a public field
+            on purpose, as this keeps field accesses as field accesses when
+            generating dynamic code.
+            </summary>
+        </member>
+        <member name="T:Pfz.TypeBuilding.FluentVoidMethodBuilder">
+            <summary>
+            Typed version of the FluentMethodBuilder, which will have no result.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentVoidMethodBuilder.#ctor">
+            <summary>
+            Create a new method builder instance.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentVoidMethodBuilder.Call(System.Object[])">
+            <summary>
+            This method is here only to make it possible to generate expressions that call it.
+            If you invoke it directly an InvalidOperationException will be thrown.
+            </summary>
+        </member>
+        <member name="T:Pfz.TypeBuilding.FluentMethodBuilder`1">
+            <summary>
+            Typed version of the FluentMethodBuilder.
+            The T is the type of results this method will generate.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentMethodBuilder`1.#ctor">
+            <summary>
+            Creates a new type builder instance.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentMethodBuilder`1.Call(System.Object[])">
+            <summary>
+            This method is here only to make it possible to generate expressions that call it.
+            If you invoke it directly an InvalidOperationException will be thrown.
+            </summary>
+        </member>
+        <member name="T:Pfz.TypeBuilding.FluentPropertyBuilder">
+            <summary>
+            Instances of this class are returned by a call to the FluentTypeBuilder.AddProperty.
+            You should use this class to build the Get and Set methods.
+            </summary>
+        </member>
+        <member name="P:Pfz.TypeBuilding.FluentPropertyBuilder.Name">
+            <summary>
+            Gets the name of this property.
+            </summary>
+        </member>
+        <member name="P:Pfz.TypeBuilding.FluentPropertyBuilder.PropertyType">
+            <summary>
+            Gets the type of this property.
+            </summary>
+        </member>
+        <member name="P:Pfz.TypeBuilding.FluentPropertyBuilder.GetMethod">
+            <summary>
+            Gets the method builder that defines the property get.
+            </summary>
+        </member>
+        <member name="P:Pfz.TypeBuilding.FluentPropertyBuilder.SetMethod">
+            <summary>
+            Gets the method builder that defines the property set.
+            </summary>
+        </member>
+        <member name="T:Pfz.TypeBuilding.Blocks.FluentTryBuilder`1">
+            <summary>
+            This class is returned when calling Try() on a FluentMethodBuilder.Body or
+            on any of its sub-blocks. Instances of this class can be used to add the actions
+            the Try and to add finally and catch blocks.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentTryBuilder`1.Catch``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Ends the actual Try and creates a Catch block.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentTryBuilder`1.Finally">
+            <summary>
+            Ends the actual Try and creates a finally block.
+            </summary>
+        </member>
+        <member name="T:Pfz.TypeBuilding.FluentTypeBuilder`1">
+            <summary>
+            This class with the FluentMethodBuider are the most important classes of this
+            namespace. With this class you can create entire new types at run-time using
+            easy to understand methods like AddMethod, AddProperty and AddEvent.
+            </summary>
+            <typeparam name="TBase">The type from which the new type will inherit. If you don't require any special type, use object.</typeparam>
+        </member>
+        <member name="F:Pfz.TypeBuilding.FluentTypeBuilder`1.This">
+            <summary>
+            Use this field when building your expressions if you want the generated code to access
+            the "this" instance.
+            This is published as a public field on purpose. as it is required to build the right expression.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentTypeBuilder`1.#ctor(System.Type[])">
+            <summary>
+            Creates a new fluent type builder using the name of the TBase as the
+            name of the generated type and optionally telling which interfaces 
+            should be implemented.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentTypeBuilder`1.#ctor(System.String,System.Type[])">
+            <summary>
+            Creates a new fluent type builder using the given name 
+            and optionally telling which interfaces should be implemented.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentTypeBuilder`1.#ctor(System.String,System.Boolean,System.Type[])">
+            <summary>
+            Creates a new fluent type builder using the given name, telling if the
+            generated type will be collectible (if you use the other overloads,
+            this value is true) and optionally telling which interfaces should be
+            implemented.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentTypeBuilder`1.AddMethod(System.Type,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Adds a new method to this type.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentTypeBuilder`1.AddVoidMethod(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Adds a new method that has a return type of void to this method.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentTypeBuilder`1.AddMethod``1(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Adds a method to this type.
+            </summary>
+            <typeparam name="T">The type of the result this method will generate.</typeparam>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentTypeBuilder`1.Compile">
+            <summary>
+            Compiles the type that is being built and returns its run-time Type.
+            If you want to create instances directly, see the GetConstructorDelegate.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentTypeBuilder`1.GetConstructorDelegate">
+            <summary>
+            Compiles the type and returns a delegate capable of creating new instances of that type
+            without the performance overhead of reflection.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentTypeBuilder`1.AddField``1(System.String,System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Adds a new field to this type. You should give an expression that access a local
+            variable, as this will be marked as the local variable that represents the field
+            in all other calls.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentTypeBuilder`1.AddProperty``1(System.String,System.Linq.Expressions.Expression{System.Func{``0}},System.Boolean,System.Boolean)">
+            <summary>
+            Adds a new property to the type.
+            </summary>
+            <param name="name">The name of the property.</param>
+            <param name="valueParameterExpression">
+            An expression that access a local variable of the calling method that 
+            will be seen as the "value" variable passed to the set method.
+            </param>
+            <param name="isStatic">Will the generated method be static?</param>
+            <param name="respectVisibility">When the respectVisibility is true the generated code avoids a virtual call, but it will be unable to access internal or private members.</param>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentTypeBuilder`1.AddPropertyWithDefaultImplementation(System.String,System.Type)">
+            <summary>
+            Creates a property of the given type that has direct get and set implementations.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentTypeBuilder`1.AddPropertyWithDefaultImplementation``1(System.String)">
+            <summary>
+            Creates a property of type T that has direct get and set implementations.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentTypeBuilder`1.AddEvent``1(System.String,System.Linq.Expressions.Expression{System.Func{``0}},System.Boolean,System.Boolean)">
+            <summary>
+            Adds an event to the type.
+            </summary>
+            <param name="name">The name of the generated event.</param>
+            <param name="valueParameterExpression">
+            An expression that access a local variable of the calling method that 
+            will be seen as the "value" variable passed to the add and remove methods.
+            </param>
+            <param name="isStatic">Will the generated event be static?</param>
+            <param name="respectVisibility">When the respectVisibility is true the generated code avoids a virtual call, but it will be unable to access internal or private members.</param>
+        </member>
+        <member name="M:Pfz.TypeBuilding.FluentTypeBuilder`1.AddEventWithDefaultImplementation``1(System.String,System.Linq.Expressions.Expression{System.Func{``0}},System.Boolean)">
+            <summary>
+            Adds a new event that will have the default add/remove behavior.
+            </summary>
+            <param name="name">The name of the generated event.</param>
+            <param name="handlerFieldExpression">
+            An expression that access a local variable of the calling method.
+            Such variable should be used when generating the expressions that 
+            will invoke the event.
+            </param>
+            <param name="isStatic">Will the generated method be static?</param>
+        </member>
+        <member name="P:Pfz.TypeBuilding.FluentTypeBuilder`1.ThisExpression">
+            <summary>
+            Gets an already built expression that access the "this" instance when
+            a method is compiled.
+            </summary>
+        </member>
+        <member name="T:Pfz.TypeBuilding.Blocks.FluentIfBuilder`1">
+            <summary>
+            This class is returned when calling If() on a FluentMethodBuilder.Body or
+            on any of its sub-blocks. Instances of this class can be used to add the actions
+            that you want to be executed inside the if clause and to create an else clause.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentIfBuilder`1.Else">
+            <summary>
+            Ends the actual If and starts an else block.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentIfBuilder`1.EndIf">
+            <summary>
+            Ends the actual If and returns to the containing block.
+            </summary>
+        </member>
+        <member name="T:Pfz.TypeBuilding.Blocks.FluentLoopBuilder`1">
+            <summary>
+            This class is returned when calling Using() on a FluentMethodBuilder.Body or
+            on any of its sub-blocks. Instances of this class can be used to add the actions
+            that you want to be executed inside the loop.
+            </summary>
+        </member>
+        <member name="M:Pfz.TypeBuilding.Blocks.FluentLoopBuilder`1.EndLoop">
+            <summary>
+            Ends the actual loop and returns the containing block so you can add new
+            actions to it.
+            </summary>
+        </member>
+    </members>
+</doc>
