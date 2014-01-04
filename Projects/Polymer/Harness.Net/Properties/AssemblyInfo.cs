@@ -6,10 +6,10 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 
 [assembly: AssemblyTitle("Harness.Net")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("System.Portable implementations for the full .Net framework")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Harness.Net")]
+[assembly: AssemblyCompany("Nick Daniels")]
+[assembly: AssemblyProduct("Harness")]
 [assembly: AssemblyCopyright("Copyright © 2011-2013 Nick Daniels")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

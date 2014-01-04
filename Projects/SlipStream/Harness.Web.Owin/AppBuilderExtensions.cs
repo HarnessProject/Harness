@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Composition;
 using System.Events;
+using System.Portable.Runtime;
 using System.Tasks;
 using System.Threading.Tasks;
 using Autofac;
@@ -19,7 +20,8 @@ namespace Harness.Web.Owin {
                 scopeFactory(x);
             });
             var startEvent = new ApplicationStartEvent(app, Application.Global);
-            await Application.EventMessenger().Trigger(startEvent);
+            await Application.EventMessenger().Get("Global:Application").Trigger(startEvent);
+            
             return app;
         }
 
@@ -34,14 +36,14 @@ namespace Harness.Web.Owin {
             bool r =
                 app.Try(
                     x => {
-                        x.Use(Application.Global.Container.GetInstance<T>());       
+                        x.Use(Application.Global.Container.Obtain<T>());       
                         return true;
                     })
                     .Catch<Exception>(
                         (x, ex) => {
                             e = ex;
                             return false;
-                        })
+                    })
                     .Invoke();
 
             if (!r) throw new Exception("Middleware " + typeof (T).FullName + " failed to load.", e);
@@ -49,14 +51,14 @@ namespace Harness.Web.Owin {
         }
 
         public static IAppBuilder Map<T>(this IAppBuilder app, string path = null) where T : IApplication {
-            var m = Application.Global.Container.GetInstance<T>();
+            var m = Application.Global.Container.Obtain<T>();
             app.Map(path ?? m.BasePath, m.Configure);
             return app;
         }
 
         public static Task<IAppBuilder> MapAllAsync<T>(this IAppBuilder app) where T : IApplication {
             return app.Func(async a => {
-                var m = Application.Global.Container.GetAllInstances<T>();
+                var m = Application.Global.Container.ObtainAll<T>();
                 await m.EachAsync(x => app.Map(x.BasePath, x.Configure));
                 return a;
             });

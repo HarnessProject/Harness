@@ -18,6 +18,5 @@ namespace System.Portable.Events
         DateTime TimeStamp { get; }
         IEvent Parent { get; } 
         ICancelToken Token { get; }
-       
     }
 }

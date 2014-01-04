@@ -25,6 +25,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -43,7 +45,14 @@
     <Compile Include="Collections\Generic\EnumerableExtensions.cs" />
     <Compile Include="Collections\Generic\LookupTable.cs" />
     <Compile Include="Contracts\IToken.cs" />
+    <Compile Include="IO\Directory.cs" />
+    <Compile Include="IO\File.cs" />
+    <Compile Include="Portable\Events\DelegatePipeline.cs" />
     <Compile Include="Portable\Events\IEvent.cs" />
+    <Compile Include="Portable\Events\IEventHandler.cs" />
+    <Compile Include="Portable\Events\IProvideCallback.cs" />
+    <Compile Include="Portable\Events\RegisteredEventFilter.cs" />
+    <Compile Include="Portable\Events\RegisteredAction.cs" />
     <Compile Include="Portable\IHold.cs" />
     <Compile Include="Portable\Messaging\IMessenger.cs" />
     <Compile Include="Portable\Messaging\IReceive.cs" />
@@ -51,7 +60,6 @@
     <Compile Include="Composition\DependencyContainerExtensions.cs" />
     <Compile Include="Composition\DependencyExtensions.cs" />
     <Compile Include="Composition\INotifyPropertyChange.cs" />
-    <Compile Include="Composition\IProperty.cs" />
     <Compile Include="Composition\IPropertyChangeEvent.cs" />
     <Compile Include="Composition\NullDependencyContainer.cs" />
     <Compile Include="Determine.cs" />
@@ -82,6 +90,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="System.Portable.Base.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Threading.Tasks">
@@ -107,6 +116,11 @@
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
     <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>cd "$(ProjectDir)"
+$(SolutionDir)\.nuget\nuget pack -IncludeReferencedProjects
+move *.nupkg "$(SolutionDir)..\..\packages"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

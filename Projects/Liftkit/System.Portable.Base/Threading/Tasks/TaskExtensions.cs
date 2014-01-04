@@ -65,7 +65,7 @@ namespace System.Threading.Tasks {
         }
 
         public static void Await(this Task task) {
-            Task.WaitAll(new Task[] {task});
+            task.Wait();
         }
 
         public static T AwaitResult<T>(this Task<T> task) {

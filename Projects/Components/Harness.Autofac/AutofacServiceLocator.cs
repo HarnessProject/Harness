@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Composition;
 using System.Linq;
 using System.Portable.Runtime;
-using System.Tasks;
+
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Core;
@@ -73,11 +73,7 @@ namespace Harness.Autofac
         protected Func<Type, bool> Requirements<T>()
         {
             return x => 
-                Determine
-                    .If<Type>(y => y.Is<T>())
-                    .And(y => y.IsPublic)
-                    .And(y => !y.IsAbstract)
-                    .And(y => !y.IsInterface)(x);
+                x.Is<T>() && x.IsPublic && !x.IsAbstract && !x.IsInterface;
         }
 
         

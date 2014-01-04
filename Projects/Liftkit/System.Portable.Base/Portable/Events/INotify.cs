@@ -1,17 +1,25 @@
-﻿using System.Events;
+﻿using System.Contracts;
+using System.Events;
 using System.Threading.Tasks;
 
 namespace System.Portable.Events
 {
-    public interface INotify
-    {
-       void Subscribe<TX>(Action<TX> handler);
-       Task Trigger<TX>(TX tEvent) where TX : IEvent;
+    public abstract class NotificationEvent : Event {
+        public string Icon { get; set; }
+        protected NotificationEvent(object sender, IEvent parent, string icon, string title, string description, ICancelToken token) {
+            Icon = icon;
+            Token = token;
+            Parent = parent;
+            TimeStamp = DateTime.Now;
+            Description = description;
+            Title = title;
+            Sender = sender;
+        }
+
     }
 
-    public interface INotify<T> where T : IEvent
-    {
-        void Subscribe(Action<T> handler);
-        Task Trigger(T tEvent);
+    public interface INotify {
+        void Notify(NotificationEvent eEvent);
+        void NotifyAsync(NotificationEvent eEvent);
     }
 }

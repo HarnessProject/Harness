@@ -40,7 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationStartEvent.cs" />
-    <Compile Include="IApplicationLifecycleService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HttpTypeProvider.cs" />
   </ItemGroup>
@@ -49,7 +48,7 @@
       <Project>{7b4aac1f-b7ee-4cdb-ade4-9df44a0199eb}</Project>
       <Name>System.Portable.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Harness.Net\Harness.Net.csproj">
+    <ProjectReference Include="..\..\Polymer\Harness.Net\Harness.Net.csproj">
       <Project>{6ce26d39-1740-4a99-bef4-8edbd7fe2811}</Project>
       <Name>Harness.Net</Name>
     </ProjectReference>

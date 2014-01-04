@@ -6,7 +6,7 @@ namespace System.Collections.Generic
 
     public class LookupTable<TKey,TValue> : ILookup<TKey,TValue> {
         private int _nextIndex;
-        protected HashSet<Tuple<int, TKey>> KeysDictionary { get; set; }
+        protected IDictionary<int, TKey> KeysDictionary { get; set; }
         protected HashSet<Tuple<int,TValue>> ValuesList { get; set; }
 
         public IEnumerable<TKey> Keys { get { return KeysDictionary.Values; } }

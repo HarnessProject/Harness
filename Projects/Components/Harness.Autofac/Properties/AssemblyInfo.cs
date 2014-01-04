@@ -7,11 +7,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Harness.Autofac")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Autofac container support for System.Portable")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Harness.Autofac")]
-[assembly: AssemblyCopyright("Copyright ©  2013")]
+[assembly: AssemblyCompany("Nick Daniels")]
+[assembly: AssemblyProduct("Autofac for Harness")]
+[assembly: AssemblyCopyright("Copyright © Nick Daniels 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("en")]
