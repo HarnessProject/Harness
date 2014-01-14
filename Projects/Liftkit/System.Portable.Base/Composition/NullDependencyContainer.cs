@@ -3,7 +3,7 @@ using System.Portable.Runtime;
 using System.Threading.Tasks;
 
 namespace System.Composition {
-    public class NullDependencyContainer : IDependencyContainer
+    public class NullDependencyContainer : IDependencyProvider
     {
         public object GetService(Type serviceType) {
             return default(object);
@@ -37,11 +37,11 @@ namespace System.Composition {
             return default(T);
         }
 
-        public bool GetImplementation<T>(Action<T> action) where T : IDependencyContainer {
+        public bool GetImplementation<T>(Action<T> action) where T : IDependencyProvider {
             return false;
         }
 
-        public Task<bool> GetImplementationAsync<T>(Action<T> action) where T : IDependencyContainer {
+        public Task<bool> GetImplementationAsync<T>(Action<T> action) where T : IDependencyProvider {
             return new Task<bool>(() => false);
         }
 

@@ -1,6 +1,6 @@
 ﻿using System.Composition;
-using System.Events;
 using System.Messaging;
+using System.Portable.Runtime;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -14,6 +14,16 @@ namespace System.Portable.Events
     }
 
     public class EventManager : IEventManager {
-        
+        public Task Trigger(IEvent evnt) {
+            throw new NotImplementedException();
+        }
+
+        public Guid Handle<T>(DelegateAction<T> handler, DelegateFilter<T> filter = null) where T : IEvent {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveHandler(Guid guid) {
+            throw new NotImplementedException();
+        }
     }
 }

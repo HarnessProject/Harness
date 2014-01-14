@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Composition;
 using System.Dynamic;
-using System.Events;
 using System.Messaging;
 using System.Portable.Events;
 using System.Runtime.CompilerServices;
@@ -14,7 +13,7 @@ namespace System.Portable.Runtime {
     {
 
         #region Static Members
-        public static StrongBox<object> Handle { get; set; } 
+        public static IStrongBox Handle { get; set; } 
         public static IScope Global { get; private set; }
         private static Action<IScope> ScopeInitializer { get; set; }
         
@@ -39,7 +38,7 @@ namespace System.Portable.Runtime {
         }
         #endregion
 
-        public static IDependencyContainer Container()
+        public static IDependencyProvider Container()
         {
             return Global.Container;
         }
@@ -71,7 +70,7 @@ namespace System.Portable.Runtime {
     public class Scope : IScope {
         #region Instance Members
         public IDictionary<string, object> State { get; private set; } 
-        public IDependencyContainer Container { get; set; }
+        public IDependencyProvider Container { get; set; }
         public IMessengerHub MessengerHub { get; set; }
         public IEventManager EventMessenger { get; set; }
         #endregion

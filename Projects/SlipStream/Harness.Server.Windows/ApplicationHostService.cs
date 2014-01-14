@@ -5,7 +5,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.ServiceProcess;
-using System.Tasks;
+
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,7 +26,7 @@ namespace Harness.Server.Windows
         }
 
         protected override async void OnStop() {
-            await Host.Applications.EachAsync(x => x.StopService());
+            await Host.Applications.EachAsync(x => x.Stop());
         }
     }
 }

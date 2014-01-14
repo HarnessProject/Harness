@@ -1,6 +1,4 @@
 ﻿using System.Contracts;
-using System.Events;
-using System.Threading.Tasks;
 
 namespace System.Portable.Events
 {

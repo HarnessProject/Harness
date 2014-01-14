@@ -55,21 +55,21 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Liftkit\System.Portable.Base\System.Portable.Base.csproj">
+      <Project>{7b4aac1f-b7ee-4cdb-ade4-9df44a0199eb}</Project>
+      <Name>System.Portable.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Liftkit\System.Portable.Web\System.Portable.Web.csproj">
+      <Project>{6fbc0e13-b5a6-47b2-8931-c093aed7652d}</Project>
+      <Name>System.Portable.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Harness.Http\Harness.Http.csproj">
+      <Project>{e9f64644-6a70-40ad-b210-68a9d439e050}</Project>
+      <Name>Harness.Http</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Harness.Server\Harness.Server.csproj">
       <Project>{65212f1f-bd71-436b-b442-e405582f4c91}</Project>
       <Name>Harness.Server</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\System.Abstractions\System.Abstractions.csproj">
-      <Project>{b0722a49-4916-46a2-bfb2-909ecded2b77}</Project>
-      <Name>System.Abstractions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\System.Composition\System.Composition.csproj">
-      <Project>{56c5a053-85f1-41cf-b704-faa427c91c37}</Project>
-      <Name>System.Composition</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\System.Extensions\System.Extensions.csproj">
-      <Project>{ca7ab995-1105-40ee-9d3d-3d2a87778e00}</Project>
-      <Name>System.Extensions</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

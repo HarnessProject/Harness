@@ -16,7 +16,14 @@ using System.Linq;
 
 namespace System {
     public static class TypeExtensions {
-       
+
+        public static bool Is(this object o, Type t) {
+            return o.GetType().Is(t);
+        }
+
+        public static bool Is<T>(this object o) {
+            return o.GetType().Is<T>();
+        }
 
         public static bool Is(this Type type, Type t) {
             return t.IsAssignableFrom(type);

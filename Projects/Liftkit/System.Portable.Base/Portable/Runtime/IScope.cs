@@ -5,7 +5,7 @@ using System.Portable.Events;
 
 namespace System.Portable.Runtime {
     public interface IScope : IDisposable {
-        IDependencyContainer Container { get; set; }
+        IDependencyProvider Container { get; set; }
         IMessengerHub MessengerHub { get; set; }
         IEventManager EventMessenger { get; set; }
         IDictionary<string, object> State { get; }

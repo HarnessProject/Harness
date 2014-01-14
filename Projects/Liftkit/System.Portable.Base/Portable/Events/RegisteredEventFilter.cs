@@ -1,4 +1,6 @@
-﻿namespace System.Portable.Events {
+﻿using System.Portable.Runtime;
+
+namespace System.Portable.Events {
     public class RegisteredFilter {
         public DelegatePipeline Pipeline { get; set; }
         public Guid Id { get; set; }

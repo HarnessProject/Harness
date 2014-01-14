@@ -26,7 +26,7 @@ namespace Harness.Autofac {
         #endregion
 
         public IEnumerable<Action<IRegistrationBuilder<object, ConcreteReflectionActivatorData, SingleRegistrationStyle>>> HandlersFor(Type t) {
-            return from key in _handlers.Keys where key.IsAssignableFrom(t) from h in _handlers[key] select h;
+            return from key in _handlers.Keys where key.Is(t) from h in _handlers[key] select h;
         }
     }
 }

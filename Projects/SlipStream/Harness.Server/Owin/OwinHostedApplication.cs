@@ -57,7 +57,7 @@ namespace Harness.Server.Owin
             Scope = NewScope;
         }
 
-        public void StartService() {
+        public void Start() {
             var owinbuilder = new AppBuilder();
             OwinServerFactory.Initialize(owinbuilder.Properties);
             this.Configuration(owinbuilder);
@@ -77,7 +77,7 @@ namespace Harness.Server.Owin
             Service = AsIf<IHttpService>(service); //If it quacks like a duck....
         }
 
-        public void StopService() {
+        public void Stop() {
             INowinServer service = Service.UndoActLike().As<INowinServer>();
             service.Dispose();
             Service = null;

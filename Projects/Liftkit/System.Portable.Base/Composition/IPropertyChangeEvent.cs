@@ -1,5 +1,4 @@
-﻿using System.Events;
-using System.Portable.Events;
+﻿using System.Portable.Events;
 
 namespace System.Composition {
     public interface IPropertyChangeEvent : IEvent {

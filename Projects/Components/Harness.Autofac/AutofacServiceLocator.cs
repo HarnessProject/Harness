@@ -11,7 +11,7 @@ using Autofac.Core;
 
 namespace Harness.Autofac
 {
-    public class AutofacDependencyContainer : IDependencyContainer {
+    public class AutofacDependencyContainer : IDependencyProvider {
         public IContainer Container { get; set; }
 
         public AutofacDependencyContainer(ITypeProvider environment) {
@@ -22,11 +22,11 @@ namespace Harness.Autofac
             Container = container;
         }
 
-        public bool GetImplementation<T>(Action<T> action) where T : IDependencyContainer {
+        public bool GetImplementation<T>(Action<T> action) where T : IDependencyProvider {
             return this.ExecuteIf<AutofacDependencyContainer>(x => action(x.As<T>()));
         }
 
-        public Task<bool> GetImplementationAsync<T>(Action<T> action) where T : IDependencyContainer {
+        public Task<bool> GetImplementationAsync<T>(Action<T> action) where T : IDependencyProvider {
             return this.AsTask(x => GetImplementation(action));
         }
 

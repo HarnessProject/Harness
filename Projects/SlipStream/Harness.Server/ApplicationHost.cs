@@ -24,7 +24,7 @@ namespace Harness.Server
         
         public void Add(IHostedApplication application) {
             Applications.Add(application);
-            application.AsTask(x => x.StartService());
+            application.AsTask(x => x.Start());
         }
 
         IEnumerator<IHostedApplication> IEnumerable<IHostedApplication>.GetEnumerator() {

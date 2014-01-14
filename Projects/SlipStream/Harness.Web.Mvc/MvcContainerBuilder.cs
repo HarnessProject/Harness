@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Composition;
-using System.Events;
-using System.Linq;
 using System.Portable.Events;
+using System.Linq;
 using System.Portable.Runtime;
 using System.Runtime.CompilerServices;
-using System.Runtime.Environment;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -18,6 +16,7 @@ using Harness.Http;
 
 namespace Harness.Web.Mvc {
     public class MvcContainerBuilder : IRegistrationProvider<ContainerBuilder>, IEventHandler {
+        protected List<Guid> RegisteredEventHandlers = new List<Guid>();
         public async void Register(ITypeProvider typeProvider, ContainerBuilder builder) {
             await  
                 typeProvider.Assemblies.AsParallel().ProcessAsync(
@@ -31,9 +30,9 @@ namespace Harness.Web.Mvc {
             RouteTable.Routes.MapMvcAttributeRoutes();
             var scope = e.Scope;
             
-            var routes = scope.Container.GetAllInstances<IRouteProvider>();
-            var filters = scope.Container.GetAllInstances<IFilterProvider>();
-            var bundles = scope.Container.GetAllInstances<IBundleProvider>();
+            var routes = scope.Container.ObtainAll<IRouteProvider>();
+            var filters = scope.Container.ObtainAll<IFilterProvider>();
+            var bundles = scope.Container.ObtainAll<IBundleProvider>();
             
             await routes.AsParallel().EachAsync(x => x.AddRoutes(RouteTable.Routes));
             await filters.AsParallel().EachAsync(x => x.AddFilters(GlobalFilters.Filters));
@@ -54,20 +53,20 @@ namespace Harness.Web.Mvc {
             Handle = null;
         }
 
-        public IDictionary<IStrongBox, EventPipeline> Registrations { get; set; }
-        public bool ShouldRegister(EventPipeline pipeline)
+        public IDictionary<IStrongBox, DelegatePipeline> Registrations { get; set; }
+        public bool ShouldRegister(DelegatePipeline pipeline)
         {
             return true;
         }
 
-        public void Register(EventPipeline pipeline)
+        public void Register(DelegatePipeline pipeline)
         {
-            pipeline.AddHandler<ApplicationStartEvent>(HandleAppStart);
+            pipeline.AddDelegate<ApplicationStartEvent>(HandleAppStart);
         }
 
-        public void UnRegister(EventPipeline pipeline)
+        public void UnRegister(DelegatePipeline pipeline)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

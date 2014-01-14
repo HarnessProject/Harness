@@ -25,6 +25,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.Http", "..\SlipStre
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.Web.Owin", "..\SlipStream\Harness.Web.Owin\Harness.Web.Owin.csproj", "{66F01FBB-782B-45D4-9A92-6F266B3887C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.Server", "..\SlipStream\Harness.Server\Harness.Server.csproj", "{65212F1F-BD71-436B-B442-E405582F4C91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.Web.WebApi2", "..\SlipStream\Harness.Web.WebApi2\Harness.Web.WebApi2.csproj", "{12C779DE-C8DB-4894-AA53-797C191A62F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Portable.Web", "System.Portable.Web\System.Portable.Web.csproj", "{6FBC0E13-B5A6-47B2-8931-C093AED7652D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.Server.Windows", "..\SlipStream\Harness.Server.Windows\Harness.Server.Windows.csproj", "{A3C77E43-8663-445B-8C06-F82DA3F32402}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.Web.Mvc", "..\SlipStream\Harness.Web.Mvc\Harness.Web.Mvc.csproj", "{39462A18-20A4-4EB6-A917-93B3162EA39A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +61,26 @@ Global
 		{66F01FBB-782B-45D4-9A92-6F266B3887C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66F01FBB-782B-45D4-9A92-6F266B3887C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66F01FBB-782B-45D4-9A92-6F266B3887C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65212F1F-BD71-436B-B442-E405582F4C91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65212F1F-BD71-436B-B442-E405582F4C91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65212F1F-BD71-436B-B442-E405582F4C91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65212F1F-BD71-436B-B442-E405582F4C91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12C779DE-C8DB-4894-AA53-797C191A62F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12C779DE-C8DB-4894-AA53-797C191A62F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12C779DE-C8DB-4894-AA53-797C191A62F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12C779DE-C8DB-4894-AA53-797C191A62F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FBC0E13-B5A6-47B2-8931-C093AED7652D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FBC0E13-B5A6-47B2-8931-C093AED7652D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FBC0E13-B5A6-47B2-8931-C093AED7652D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FBC0E13-B5A6-47B2-8931-C093AED7652D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3C77E43-8663-445B-8C06-F82DA3F32402}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3C77E43-8663-445B-8C06-F82DA3F32402}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3C77E43-8663-445B-8C06-F82DA3F32402}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3C77E43-8663-445B-8C06-F82DA3F32402}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39462A18-20A4-4EB6-A917-93B3162EA39A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39462A18-20A4-4EB6-A917-93B3162EA39A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39462A18-20A4-4EB6-A917-93B3162EA39A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39462A18-20A4-4EB6-A917-93B3162EA39A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,7 +4,7 @@ namespace System.Portable.Runtime {
     /*
      * An implementation of the Common Service Locator Pattern
      */
-    public interface IDependencyContainer : IDisposable
+    public interface IDependencyProvider : IDisposable
     {
         object Obtain(Type serviceType);
         object Obtain(Type serviceType, string key);
@@ -12,8 +12,6 @@ namespace System.Portable.Runtime {
         T Obtain<T>();
         T Obtain<T>(string key);
         IEnumerable<T> ObtainAll<T>();
-        T GetInstanceOf<T>(string type);
-
     }
 
     

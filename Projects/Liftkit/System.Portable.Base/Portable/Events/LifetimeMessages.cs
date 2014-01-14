@@ -4,7 +4,7 @@ using System.Portable.Events;
 using System.Portable.Runtime;
 using System.Threading;
 
-namespace System.Events
+namespace System.Portable.Events
 {
     
     
