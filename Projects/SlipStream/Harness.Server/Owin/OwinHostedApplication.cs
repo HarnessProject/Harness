@@ -50,7 +50,7 @@ namespace Harness.Server.Owin
             Config = config;
             Applications = applications;
             ScopeBuilder = x => {
-                x.Container = new AutofacDependencyContainer(new HttpTypeProvider());
+                x.Container = new AutofacDependencyProvider(new HttpTypeProvider());
                 x.MessengerHub = new TinyMessengerHub();
                 x.EventMessenger = new EventMessenger(x.MessengerHub, x);
             };
@@ -105,7 +105,7 @@ namespace Harness.Server.Owin
             .AttachScope(Scope)
             
             .WithScope((a,s) => a.Use((context, previous) => {
-                s.EventMessenger.Trigger(new RequestReceivedEvent {Parameter = context});
+                s.EventManager.Trigger(new RequestReceivedEvent {Parameter = context});
                 return previous();
             }))
             .AddBuilder(async x => {

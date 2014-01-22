@@ -3,7 +3,6 @@ using System.Composition;
 using System.Events;
 using System.Linq;
 using System.Portable.Runtime;
-using System.Runtime.Environment;
 using System.Security.Cryptography.X509Certificates;
 using System.Tasks;
 using System.Threading.Tasks;

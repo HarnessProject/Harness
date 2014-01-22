@@ -4,6 +4,7 @@ using System.Composition;
 using System.Events;
 using System.Linq;
 using System.Net;
+using System.Portable;
 using System.Portable.Runtime;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +28,7 @@ namespace Harness.Server.Http
             Config = config;
             Applications = applications;
             ScopeBuilder = x => {
-                x.Container = new AutofacDependencyContainer(new HttpTypeProvider());
+                x.Container = new AutofacDependencyProvider(new HttpTypeProvider());
             };
             Scope = NewScope;
         }

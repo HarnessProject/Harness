@@ -35,7 +35,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AutofacServiceLocator.cs" />
+    <Compile Include="AutofacContainerFactory.cs" />
+    <Compile Include="AutofacDependencyProvider.cs" />
     <Compile Include="IComponentRegistrationService.cs" />
     <Compile Include="IContainerBuilderService.cs" />
     <Compile Include="IModule.cs" />

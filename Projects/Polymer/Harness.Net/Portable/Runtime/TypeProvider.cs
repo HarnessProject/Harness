@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Portable.Runtime;
 using System.Reflection;
 using System.Threading.Tasks;
+using ImpromptuInterface;
+using ImpromptuInterface.InvokeExt;
 
-namespace System.Portable.Runtime.Environment {
-    public class TypeProvider : ITypeProvider {
-       
-
-        protected IEnumerable<Assembly> AssemblyCache { get; set; }
-        protected IEnumerable<Type> TypeCache { get; set; }
-        public virtual async Task<IEnumerable<Assembly>> GetAssemblies(string extensionsPath = null) {
+namespace System.Portable.Runtime {
+    public sealed class TypeProvider : ITypeProvider {
+        private IEnumerable<Assembly> AssemblyCache { get; set; }
+        private IEnumerable<Type> TypeCache { get; set; }
+        public async Task<IEnumerable<Assembly>> GetAssemblies(string extensionsPath = null) {
             extensionsPath = extensionsPath ?? AppDomain.CurrentDomain.BaseDirectory;
             
             if (Directory.Exists(extensionsPath))
@@ -25,7 +24,7 @@ namespace System.Portable.Runtime.Environment {
         }
 
         
-        public virtual async Task<IEnumerable<Type>> GetTypes(Func<Type, bool> predicate, string extensionsPath) {
+        public async Task<IEnumerable<Type>> GetTypes(Func<Type, bool> predicate, string extensionsPath) {
             TypeCache = TypeCache.NotNull() ? TypeCache : (AssemblyCache ?? await GetAssemblies(extensionsPath))
                 .SelectMany(x => x.Try(
                     y => predicate.NotNull() ? y.ExportedTypes.Where(predicate) : y.ExportedTypes
@@ -37,7 +36,7 @@ namespace System.Portable.Runtime.Environment {
             return GetTypes(predicate, null).AwaitResult();
         }
 
-        public TypeProvider() {
+        private TypeProvider() {
             AssemblyCache = new List<Assembly>();
             TypeCache = new List<Type>();
 
@@ -53,19 +52,37 @@ namespace System.Portable.Runtime.Environment {
 
         public IEnumerable<Assembly> Assemblies { get { return AssemblyCache; } }
         public IEnumerable<Type> Types { get { return TypeCache; } }
-        
-    }
 
-    public static class TypeProviders {
-        public static ITypeProvider DefaultInstance { get; set; }
-        public static IFactory<T> FactoryFor<T>(this object o, Action<IFactory<T>> initalizer = null) {
-            DefaultInstance = DefaultInstance ?? new TypeProvider();
-            var factoryType = DefaultInstance.Types.FirstOrDefault(x => x.Is<IFactory<T>>());
-            if (factoryType.NotNull()) return default(IFactory<T>);
+        private static TypeProvider _provider;
+        public static TypeProvider Instance {
+            get {
+                return _provider ?? (_provider = new TypeProvider());
+            }
+        }
 
-            var factory = (IFactory<T>)Activator.CreateInstance(factoryType);
-            initalizer.NotNull(x => x(factory));
+        public object GetDefault(Type t)
+        {
+            Func<object> f = GetDefault<object>;
+            return Impromptu.InvokeMember(this, "GetDefault".WithGenericArgs(t));
+        }
+
+        public object GetDefault<T>()
+        {
+            return default(T);
+        }
+
+        public static IFactory<T> FactoryFor<T>(Action<IFactory<T>> initalizer = null, params object[] args)
+        {
+            var factoryType = Instance.Types.FirstOrDefault(x => x.Is<IFactory<T>>());
+            if (factoryType.IsNull()) return Instance.GetDefault<IFactory<T>>().As<IFactory<T>>();
+
+            var factory = Impromptu.InvokeConstructor(factoryType, args).As<IFactory<T>>();
+
+            initalizer.NotNull(x => factory.NotNull(x));
+
             return factory;
         }
     }
+
+  
 }

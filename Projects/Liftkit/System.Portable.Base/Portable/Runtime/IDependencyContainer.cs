@@ -1,21 +1,50 @@
+#region ApacheLicense
+
+// System.Portable.Base
+// Copyright © 2013 Nick Daniels et all, All Rights Reserved.
+// 
+// Licensed under the Apache License, Version 2.0 (the "License") with the following exception:
+// 	Some source code is licensed under compatible licenses as required.
+// 	See the attribution headers of the applicable source files for specific licensing 	terms.
+// 
+// You may not use this file except in compliance with its License(s).
+// 
+// You may obtain a copy of the Apache License, Version 2.0 at
+// 
+// http://www.apache.org/licenses/LICENSE-2.0
+// 
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+// 
+
+#endregion
+
+#region
+
 using System.Collections.Generic;
 
-namespace System.Portable.Runtime {
-    /*
-     * An implementation of the Common Service Locator Pattern
-     */
-    public interface IDependencyProvider : IDisposable
-    {
-        object Obtain(Type serviceType);
-        object Obtain(Type serviceType, string key);
-        IEnumerable<object> ObtainAll(Type serviceType);
-        T Obtain<T>();
-        T Obtain<T>(string key);
-        IEnumerable<T> ObtainAll<T>();
-    }
+#endregion
 
-    
+namespace System.Portable.Runtime {
+    //
+    // An implementation of the Common Service Locator Pattern
+    // I prefer Obtain as a neutral verb for resolution as opposed to GetService
+    // 
+
+    public interface IDependencyProvider : IDisposable, IServiceProvider {
+        object Get(Type serviceType);
+        object Get(Type serviceType, string key);
+        IEnumerable<object> GetAll(Type serviceType);
+        T Get<T>();
+        T Get<T>(string key);
+        IEnumerable<T> GetAll<T>();
+    }
 }
+
+#region CSLP
 /*
 // Portable IServiceLocator for recompiling components expecting the Microsoft ServiceLocator
 namespace Microsoft.Practices.ServiceLocation {
@@ -204,3 +233,4 @@ namespace Microsoft.Practices.ServiceLocation {
 }
 
 */
+#endregion

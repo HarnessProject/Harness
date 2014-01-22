@@ -1,6 +1,34 @@
-﻿using System.Collections.Generic;
+﻿#region ApacheLicense
+
+// System.Portable.Base
+// Copyright © 2013 Nick Daniels et all, All Rights Reserved.
+// 
+// Licensed under the Apache License, Version 2.0 (the "License") with the following exception:
+// 	Some source code is licensed under compatible licenses as required.
+// 	See the attribution headers of the applicable source files for specific licensing 	terms.
+// 
+// You may not use this file except in compliance with its License(s).
+// 
+// You may obtain a copy of the Apache License, Version 2.0 at
+// 
+// http://www.apache.org/licenses/LICENSE-2.0
+// 
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+// 
+
+#endregion
+
+#region
+
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+
+#endregion
 
 namespace System.Threading.Tasks {
     public static class TaskExtensions {
@@ -9,10 +37,11 @@ namespace System.Threading.Tasks {
                 c => Task.WaitAll(
                     c.Select(
                         x => x.AsTask(action)
-                    ).ToArray()    
-                )
-            );
+                        ).ToArray()
+                    )
+                );
         }
+
         public static async Task EachAsync<T>(this Task<IEnumerable<T>> collection, Action<T> action) {
             await (await collection).EachAsync(action);
         }
@@ -20,11 +49,12 @@ namespace System.Threading.Tasks {
         public static async Task<IQueryable<TY>> SelectAsync<T, TY>(this Task<IEnumerable<T>> collection, Func<T, TY> action) {
             return await (await collection).AsTask(c => c.Select(action).AsQueryable());
         }
+
         public static Task EachAsync<T, TY>(this IEnumerable<T> collection, Action<T, TY> action, TY context) {
             var a = action;
-            var h = ((Expression<Action<T>>)  (y => a(y, context) )).Compile();
-            var i = ((Expression<Action<T>>) ( y => h(y) )).Compile();
-            var t = ((Expression<Func<T,Task>>) ( x => x.AsTask(i) )).Compile();
+            var h = ((Expression<Action<T>>) (y => a(y, context))).Compile();
+            var i = ((Expression<Action<T>>) (y => h(y))).Compile();
+            var t = ((Expression<Func<T, Task>>) (x => x.AsTask(i))).Compile();
             return collection.AsTask(c => Task.WaitAll(c.Select(t).ToArray()));
         }
 
@@ -42,7 +72,6 @@ namespace System.Threading.Tasks {
 
         public static async Task<TY> FuncAsync<T, TY>(this Task<T> task, Func<T, TY> func) {
             return await (await task).AsTask(func);
-
         }
 
         public static Task<T> AsTask<T>(this T t) {
@@ -50,17 +79,14 @@ namespace System.Threading.Tasks {
         }
 
         public static Task<TY> AsTask<T, TY>(this T t, Func<T, TY> func) {
-            return Task.Factory.StartNew(x => func(x.As<T>()) , t);
-
+            return Task.Factory.StartNew(x => func(x.As<T>()), t);
         }
 
         public static Task AsTask<T>(this T t, Action<T> action) {
-           
             return Task.Factory.StartNew(x => action(x.As<T>()), t);
         }
 
-        public static async Task<TY> AsTask<T,TY>(this T t, Func<T,Task<TY>> func) {
-
+        public static async Task<TY> AsTask<T, TY>(this T t, Func<T, Task<TY>> func) {
             return await func(t);
         }
 

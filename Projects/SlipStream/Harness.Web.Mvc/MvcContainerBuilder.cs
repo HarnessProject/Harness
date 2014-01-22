@@ -38,7 +38,7 @@ namespace Harness.Web.Mvc {
             await filters.AsParallel().EachAsync(x => x.AddFilters(GlobalFilters.Filters));
             await bundles.AsParallel().EachAsync(x => x.AddBundle(BundleTable.Bundles));
 
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(scope.Container.As<AutofacDependencyContainer>().Container));
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(scope.Container.As<AutofacDependencyProvider>().Container));
         }
 
         
