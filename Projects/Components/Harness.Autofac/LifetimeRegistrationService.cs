@@ -1,4 +1,5 @@
 ﻿using System.Composition;
+using System.Portable.Runtime;
 
 namespace Harness.Autofac {
     public class LifetimeRegistrationService : IComponentRegistrationService<IDependency> {

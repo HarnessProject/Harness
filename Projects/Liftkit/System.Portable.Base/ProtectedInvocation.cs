@@ -1,6 +1,33 @@
-﻿using System.Collections.Generic;
+﻿#region ApacheLicense
+
+// System.Portable.Base
+// Copyright © 2013 Nick Daniels et all, All Rights Reserved.
+// 
+// Licensed under the Apache License, Version 2.0 (the "License") with the following exception:
+// 	Some source code is licensed under compatible licenses as required.
+// 	See the attribution headers of the applicable source files for specific licensing 	terms.
+// 
+// You may not use this file except in compliance with its License(s).
+// 
+// You may obtain a copy of the Apache License, Version 2.0 at
+// 
+// http://www.apache.org/licenses/LICENSE-2.0
+// 
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+// 
+
+#endregion
+
+#region
+
+using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
+
+#endregion
 
 namespace System {
     public interface IProtectedInvocation<T, TY> {
@@ -14,9 +41,9 @@ namespace System {
         private readonly Dictionary<int, Dictionary<Type, Func<T, Exception, TY>>> _exceptionFuncs;
         private readonly Dictionary<int, Action<TY>> _finallyFuncs;
         private readonly Dictionary<int, Func<T, TY>> _protectedFuncs;
+        private readonly T _target;
         private int _currentFunc;
         private int _indexSeed = -1;
-        private readonly T _target;
 
         public ProtectedInvocation(T target) {
             _protectedFuncs = new Dictionary<int, Func<T, TY>>();
@@ -25,13 +52,13 @@ namespace System {
             _finallyFuncs = new Dictionary<int, Action<TY>>();
         }
 
+        #region IProtectedInvocation<T,TY> Members
+
         public IProtectedInvocation<T, TY> Try(Func<T, TY> tTry) {
             _protectedFuncs.Add(++_indexSeed, tTry);
             _currentFunc = _indexSeed;
             return this;
         }
-
-        
 
         public IProtectedInvocation<T, TY> Catch<TX>(Func<T, TX, TY> tCatch) where TX : Exception {
             if (!_exceptionFuncs.ContainsKey(_indexSeed)) _exceptionFuncs[_indexSeed] = new Dictionary<Type, Func<T, Exception, TY>>();
@@ -54,31 +81,25 @@ namespace System {
                     Type ext = ex.GetType();
                     T t = _target;
                     TY r = default(TY);
-                    if (!_exceptionFuncs.ContainsKey(f.Key))
-                        return r;
+                    if (!_exceptionFuncs.ContainsKey(f.Key)) return r;
                     if (_exceptionFuncs[f.Key].ContainsKey(ext)) r = _exceptionFuncs[f.Key][ext](t, ex);
-
                     r = _exceptionFuncs[f.Key].ContainsKey(typeof (Exception)) ? _exceptionFuncs[f.Key][typeof (Exception)](t, ex) : r;
-
                     if (_exceptionFuncs[f.Key].ContainsKey(ext)) _finallyFuncs[f.Key](r);
 
                     result = r;
                 }
 
-            return (TY) result;
+            return result;
         }
 
-        
+        #endregion
     }
 
-    public static class ProtectedInvocationExtensions
-    {
-        public static ProtectedInvocation<T, TY> Try<T, TY>(this T obj, Func<T, TY> tTry)
-        {
+    public static class ProtectedInvocationExtensions {
+        public static ProtectedInvocation<T, TY> Try<T, TY>(this T obj, Func<T, TY> tTry) {
             var p = new ProtectedInvocation<T, TY>(obj);
             p.Try(tTry);
             return p;
-        } 
+        }
     }
-
 }

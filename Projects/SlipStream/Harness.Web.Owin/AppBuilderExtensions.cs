@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Composition;
 using System.Events;
+using System.Portable;
 using System.Portable.Runtime;
 using System.Tasks;
 using System.Threading.Tasks;
@@ -15,12 +16,12 @@ namespace Harness.Web.Owin {
     public static class AppBuilderExtensions {
         public static async Task<IAppBuilder> InitializeApplicationScope(this IAppBuilder app, Action<IScope> scopeFactory, ContainerBuilder builder = null) {
 
-            await Application.InitializeAsync(x => {
-                x.Container = builder.NotNull() ? new AutofacDependencyContainer(builder.Build()) : new AutofacDependencyContainer(new HttpTypeProvider());
+            await App.InitializeAsync(x => {
+                x.Container = builder.NotNull() ? new AutofacDependencyProvider(builder.Build()) : new AutofacDependencyProvider(new HttpTypeProvider());
                 scopeFactory(x);
             });
-            var startEvent = new ApplicationStartEvent(app, Application.Global);
-            await Application.EventMessenger().Get("Global:Application").Trigger(startEvent);
+            var startEvent = new ApplicationStartEvent(app, App.Global);
+            await App.EventMessenger().Get("Global:Application").Trigger(startEvent);
             
             return app;
         }
@@ -36,7 +37,7 @@ namespace Harness.Web.Owin {
             bool r =
                 app.Try(
                     x => {
-                        x.Use(Application.Global.Container.Obtain<T>());       
+                        x.Use(App.Global.Container.Get<T>());       
                         return true;
                     })
                     .Catch<Exception>(
@@ -51,14 +52,14 @@ namespace Harness.Web.Owin {
         }
 
         public static IAppBuilder Map<T>(this IAppBuilder app, string path = null) where T : IApplication {
-            var m = Application.Global.Container.Obtain<T>();
+            var m = App.Global.Container.Get<T>();
             app.Map(path ?? m.BasePath, m.Configure);
             return app;
         }
 
         public static Task<IAppBuilder> MapAllAsync<T>(this IAppBuilder app) where T : IApplication {
             return app.Func(async a => {
-                var m = Application.Global.Container.ObtainAll<T>();
+                var m = App.Global.Container.GetAll<T>();
                 await m.EachAsync(x => app.Map(x.BasePath, x.Configure));
                 return a;
             });

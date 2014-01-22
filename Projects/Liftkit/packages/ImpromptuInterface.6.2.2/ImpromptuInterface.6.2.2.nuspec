@@ -3,6 +3,7 @@
   <metadata>
     <id>ImpromptuInterface</id>
     <version>6.2.2</version>
+    <title>ImpromptuInterface</title>
     <authors>Jay Tuley</authors>
     <owners>Jay Tuley</owners>
     <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
@@ -10,6 +11,8 @@
     <iconUrl>http://impromptu-interface.googlecode.com/files/ImpromptuInterface-Icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A Lightweight Duck Casting Framework for dynamic C# 4.0 (.net4 &amp; silverlight4 &amp; silveright5 ). Includes helper methods for dynamic invocation via method and property names known only at runtime (runs faster than reflection).</description>
+    <releaseNotes />
+    <copyright />
     <language>en-US</language>
     <tags>ducktyping duckcasting dynamic .net40 Silverlight proxy impromptu interface reflection dlr currying</tags>
     <frameworkAssemblies>

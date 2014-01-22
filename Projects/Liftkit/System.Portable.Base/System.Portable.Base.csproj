@@ -44,23 +44,37 @@
     <Compile Include="Collections\EnumerationExtensions.cs" />
     <Compile Include="Collections\Generic\EnumerableExtensions.cs" />
     <Compile Include="Collections\Generic\LookupTable.cs" />
+    <Compile Include="Contracts\Assertion.cs" />
     <Compile Include="Contracts\ContractAssertionException.cs" />
-    <Compile Include="Contracts\ContractExtensions.cs" />
+    <Compile Include="Contracts\ContractAttribute.cs" />
+    <Compile Include="Contracts\Contract.cs" />
+    <Compile Include="Contracts\ContractPropertyAttribute.cs" />
+    <Compile Include="Contracts\IAssert.cs" />
+    <Compile Include="Contracts\InSetAttribute.cs" />
     <Compile Include="Contracts\IToken.cs" />
+    <Compile Include="Contracts\NotDefaultAttribute.cs" />
+    <Compile Include="Contracts\StringLengthAttribute.cs" />
+    <Compile Include="Contracts\ValidationResult.cs" />
+    <Compile Include="Contracts\ValidationResults.cs" />
+    <Compile Include="Data\IQuery.cs" />
     <Compile Include="IO\Directory.cs" />
     <Compile Include="IO\File.cs" />
+    <Compile Include="Portable\Runtime\DelegatePipeline.cs" />
     <Compile Include="Portable\Events\IEvent.cs" />
     <Compile Include="Portable\Events\IEventHandler.cs" />
-    <Compile Include="Portable\Events\IProvideCallback.cs" />
+    <Compile Include="Portable\Runtime\Dynamic\DynamicDelegate.cs" />
+    <Compile Include="Portable\Runtime\ICacheService.cs" />
+    <Compile Include="Portable\Runtime\RegisteredEventFilter.cs" />
+    <Compile Include="Portable\Runtime\RegisteredAction.cs" />
     <Compile Include="Portable\IHold.cs" />
     <Compile Include="Portable\Messaging\IMessenger.cs" />
     <Compile Include="Portable\Messaging\IReceive.cs" />
-    <Compile Include="Portable\Runtime\Application.cs" />
+    <Compile Include="Portable\Application.cs" />
     <Compile Include="Composition\DependencyContainerExtensions.cs" />
     <Compile Include="Composition\DependencyExtensions.cs" />
     <Compile Include="Composition\INotifyPropertyChange.cs" />
     <Compile Include="Composition\IPropertyChangeEvent.cs" />
-    <Compile Include="Composition\NullDependencyContainer.cs" />
+    <Compile Include="Portable\Runtime\NullDependencyContainer.cs" />
     <Compile Include="Determine.cs" />
     <Compile Include="Portable\Events\EventMessenger.cs" />
     <Compile Include="Portable\Events\INotify.cs" />
@@ -78,6 +92,8 @@
     <Compile Include="Portable\Runtime\IScope.cs" />
     <Compile Include="Portable\Runtime\ITypeProvider.cs" />
     <Compile Include="Portable\Runtime\Reflection\ReflectionExtensions.cs" />
+    <Compile Include="Portable\Runtime\SuppressDependencyAttribute.cs" />
+    <Compile Include="Portable\Runtime\Scope.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProtectedInvocation.cs" />
     <Compile Include="StringExtensions.cs" />
@@ -86,7 +102,6 @@
     <Compile Include="TypeExtensions.cs" />
     <Compile Include="UriExtensions.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
@@ -109,6 +124,7 @@
       <HintPath>..\packages\Microsoft.Bcl.1.1.6\lib\portable-net40+sl5+win8+wp8\System.Threading.Tasks.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" />

@@ -8,16 +8,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packaging", "Packaging", "{
 		Liftkit.nuspec = Liftkit.nuspec
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Portable.Base", "System.Portable.Base\System.Portable.Base.csproj", "{7B4AAC1F-B7EE-4CDB-ADE4-9DF44A0199EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.Autofac", "..\Components\Harness.Autofac\Harness.Autofac.csproj", "{C22014C9-5F4E-45CF-8EA0-2A714D66C0CB}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{8E0BEB13-A881-40E4-8A30-137F76415FBB}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Portable.Base", "System.Portable.Base\System.Portable.Base.csproj", "{7B4AAC1F-B7EE-4CDB-ADE4-9DF44A0199EB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.Autofac", "..\Components\Harness.Autofac\Harness.Autofac.csproj", "{C22014C9-5F4E-45CF-8EA0-2A714D66C0CB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.Net", "..\Polymer\Harness.Net\Harness.Net.csproj", "{6CE26D39-1740-4A99-BEF4-8EDBD7FE2811}"
 EndProject
@@ -35,7 +35,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.Server.Windows", ".
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.Web.Mvc", "..\SlipStream\Harness.Web.Mvc\Harness.Web.Mvc.csproj", "{39462A18-20A4-4EB6-A917-93B3162EA39A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.Net.Caliburn.Micro", "Harness.Net.Caliburn.Micro\Harness.Net.Caliburn.Micro.csproj", "{C9009BC2-3472-4CC1-ABE5-413B3E1CECF9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.Net.EF", "Harness.Net.EF\Harness.Net.EF.csproj", "{3A1D4F14-5A15-4911-9565-C615940D69A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,10 +83,10 @@ Global
 		{39462A18-20A4-4EB6-A917-93B3162EA39A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39462A18-20A4-4EB6-A917-93B3162EA39A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39462A18-20A4-4EB6-A917-93B3162EA39A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C9009BC2-3472-4CC1-ABE5-413B3E1CECF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C9009BC2-3472-4CC1-ABE5-413B3E1CECF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C9009BC2-3472-4CC1-ABE5-413B3E1CECF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C9009BC2-3472-4CC1-ABE5-413B3E1CECF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A1D4F14-5A15-4911-9565-C615940D69A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A1D4F14-5A15-4911-9565-C615940D69A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A1D4F14-5A15-4911-9565-C615940D69A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A1D4F14-5A15-4911-9565-C615940D69A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
