@@ -37,15 +37,13 @@ namespace System.Portable.Runtime {
         }
 
         private TypeProvider() {
-            AssemblyCache = new List<Assembly>();
-            TypeCache = new List<Type>();
+            
 
             GetTypes();
         }
 
         public TypeProvider(string extensionPath) {
-            AssemblyCache = new List<Assembly>();
-            TypeCache = new List<Type>();
+            
 
             GetTypes(null, extensionPath).Await();
         }
@@ -63,10 +61,10 @@ namespace System.Portable.Runtime {
         public object GetDefault(Type t)
         {
             Func<object> f = GetDefault<object>;
-            return Impromptu.InvokeMember(this, "GetDefault".WithGenericArgs(t));
+            return (object)Impromptu.InvokeMember(this, "GetDefault".WithGenericArgs(t));
         }
 
-        public object GetDefault<T>()
+        public T GetDefault<T>()
         {
             return default(T);
         }
