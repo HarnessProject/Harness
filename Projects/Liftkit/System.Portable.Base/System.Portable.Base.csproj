@@ -49,12 +49,9 @@
     <Compile Include="Contracts\IToken.cs" />
     <Compile Include="IO\Directory.cs" />
     <Compile Include="IO\File.cs" />
-    <Compile Include="Portable\Runtime\DelegatePipeline.cs" />
     <Compile Include="Portable\Events\IEvent.cs" />
     <Compile Include="Portable\Events\IEventHandler.cs" />
     <Compile Include="Portable\Events\IProvideCallback.cs" />
-    <Compile Include="Portable\Events\RegisteredEventFilter.cs" />
-    <Compile Include="Portable\Events\RegisteredAction.cs" />
     <Compile Include="Portable\IHold.cs" />
     <Compile Include="Portable\Messaging\IMessenger.cs" />
     <Compile Include="Portable\Messaging\IReceive.cs" />

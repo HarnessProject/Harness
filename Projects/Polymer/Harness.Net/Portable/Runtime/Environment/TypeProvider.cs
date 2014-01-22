@@ -38,15 +38,13 @@ namespace System.Portable.Runtime.Environment {
         }
 
         public TypeProvider() {
-            AssemblyCache = new List<Assembly>();
-            TypeCache = new List<Type>();
+            
 
             GetTypes();
         }
 
         public TypeProvider(string extensionPath) {
-            AssemblyCache = new List<Assembly>();
-            TypeCache = new List<Type>();
+           
 
             GetTypes(null, extensionPath).Await();
         }

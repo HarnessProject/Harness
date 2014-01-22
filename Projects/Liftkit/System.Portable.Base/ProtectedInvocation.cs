@@ -54,7 +54,8 @@ namespace System {
                     Type ext = ex.GetType();
                     T t = _target;
                     TY r = default(TY);
-
+                    if (!_exceptionFuncs.ContainsKey(f.Key))
+                        return r;
                     if (_exceptionFuncs[f.Key].ContainsKey(ext)) r = _exceptionFuncs[f.Key][ext](t, ex);
 
                     r = _exceptionFuncs[f.Key].ContainsKey(typeof (Exception)) ? _exceptionFuncs[f.Key][typeof (Exception)](t, ex) : r;

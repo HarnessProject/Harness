@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Tasks;
 using System.Threading.Tasks;
 using Autofac.Core;
 using Caliburn.Micro;

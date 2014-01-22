@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Composition;
-using System.Tasks;
+using System.Portable.Runtime;
+using System.Threading.Tasks;
 using Autofac;
 
 namespace Harness.Net.Caliburn.Micro.ViewModels {
@@ -13,7 +14,7 @@ namespace Harness.Net.Caliburn.Micro.ViewModels {
         }
 
         public T Get<T>() {
-            return Scope.Container.GetInstance<T>();
+            return Scope.Container.Obtain<T>();
         }
 
         protected override void OnDeactivate(bool close) {

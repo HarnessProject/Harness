@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace System.Portable.Events
 {
+    public delegate void DelegateAction<T>(T action);
+
+    public delegate void DelegateFilter<T>(T filter);
 
     public interface IEventManager {
         Task Trigger(IEvent evnt);
