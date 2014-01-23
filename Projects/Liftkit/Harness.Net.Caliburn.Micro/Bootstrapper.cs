@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Portable;
 using System.Portable.Runtime;
 using System.Portable.Runtime.Environment;
 using System.Security.Policy;
@@ -9,20 +10,21 @@ using Harness.Autofac;
 
 namespace Harness.Net.Caliburn.Micro {
     public class Bootstrapper : AutofacBootstrapper<IShell> {
-        public bool Configured { get; set; }
+        //public bool Configured { get; set; }
         protected override void ConfigureContainer(ContainerBuilder builder) {
-            new AutofacContainerFactory {TypeProvider = new TypeProvider()}.CreateContainerBuilder((ContainerBuilder)builder);
+            new AutofacContainerFactory {TypeProvider = TypeProvider.Instance}
+                .CreateContainerBuilder((ContainerBuilder)builder);
         }
 
         protected override object GetInstance(Type service, string key)
         {
-            if (!Configured) Configure();
+            //if (!Configured) Configure();
             return base.GetInstance(service, key);
         }
 
         protected override IEnumerable<object> GetAllInstances(Type service)
         {
-            if (!Configured) Configure();
+            //if (!Configured) Configure();
             return base.GetAllInstances(service);
         }
 
@@ -36,11 +38,11 @@ namespace Harness.Net.Caliburn.Micro {
         protected override void Configure() {
             base.Configure();
 
-            System.Portable.Runtime.Application.Initialize(x => {
-                x.Container = new AutofacDependencyContainer(Container);
+            App.Initialize(x => {
+                x.Container = new AutofacDependencyProvider(Container);
             });
 
-            Configured = true;
+            //Configured = true;
         }
     }
 }

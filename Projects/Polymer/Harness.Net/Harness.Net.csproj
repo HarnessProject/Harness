@@ -36,20 +36,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Common.Logging">
-      <HintPath>..\..\Liftkit\packages\Common.Logging.2.1.2\lib\net40\Common.Logging.dll</HintPath>
-    </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>..\..\Liftkit\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
     <Reference Include="ImpromptuInterface">
       <HintPath>..\..\Liftkit\packages\ImpromptuInterface.6.2.2\lib\net40\ImpromptuInterface.dll</HintPath>
-    </Reference>
-    <Reference Include="Lucene.Net">
-      <HintPath>..\..\Liftkit\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
-    </Reference>
-    <Reference Include="Lucene.Net.Linq">
-      <HintPath>..\..\Liftkit\packages\Lucene.Net.Linq.3.2.55\lib\net40\Lucene.Net.Linq.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -65,10 +53,6 @@
     </Reference>
     <Reference Include="RaptorDB">
       <HintPath>..\..\Liftkit\packages\RaptorDB.2.6\lib\net40\RaptorDB.dll</HintPath>
-    </Reference>
-    <Reference Include="Remotion.Linq, Version=1.15.9.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Liftkit\packages\Remotion.Linq.1.15.9.0\lib\net45\Remotion.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -91,10 +75,7 @@
     <Compile Include="Data\Csv\ParseErrorAction.cs" />
     <Compile Include="Data\Csv\Resources\ExceptionMessage.Designer.cs" />
     <Compile Include="Data\Csv\ValueTrimmingOptions.cs" />
-    <Compile Include="Data\EFDatabase.cs" />
     <Compile Include="Data\IExpire.cs" />
-    <Compile Include="Data\ObjectDatabaseExtensions.cs" />
-    <Compile Include="Data\ObjectDatabase.cs" />
     <Compile Include="Portable\IO\PhysicalFileSystem.cs" />
     <Compile Include="Portable\Runtime\Dynamic\DynamicInvoker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -106,6 +87,7 @@
     <None Include="app.config" />
     <None Include="Harness.Net.nuspec" />
     <None Include="packages.config" />
+    <None Include="bin\RunTests.csx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Liftkit\System.Portable.Base\System.Portable.Base.csproj">

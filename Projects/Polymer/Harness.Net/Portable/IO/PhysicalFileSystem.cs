@@ -16,18 +16,18 @@ namespace System.Portable.IO
     public class RuntimeFile : RuntimeFileSystemElement, IFile
     {
         public long Length { get; private set; }
-        public Stream Open(FileAccess fileAccess)
+        public Stream Open(FileAccessType fileAccess)
         {
             Stream r = null;
             switch (fileAccess)
             {
-                case FileAccess.Read:
+                case FileAccessType.Read:
                     r = File.Open(Path, FileMode.Open, System.IO.FileAccess.Read);
                     break;
-                case FileAccess.ReadWrite:
+                case FileAccessType.ReadWrite:
                     r = File.Open(Path, FileMode.OpenOrCreate, System.IO.FileAccess.ReadWrite);
                     break;
-                case FileAccess.Write:
+                case FileAccessType.Write:
                     r = File.Open(Path, FileMode.OpenOrCreate, System.IO.FileAccess.Write);
                     break;
                 default:
@@ -37,7 +37,7 @@ namespace System.Portable.IO
             return r;
         }
 
-        public Task<Stream> OpenAsync(FileAccess fileAccess)
+        public Task<Stream> OpenAsync(FileAccessType fileAccess)
         {
             return this.AsTask(x => Open(fileAccess));
         }
@@ -162,14 +162,20 @@ public class RuntimeDirectory : RuntimeFileSystemElement, IDirectory {
     }
 
 
-    public static explicit operator RuntimeDirectory(DirectoryInfo directory) {
+    public static explicit operator RuntimeDirectory(DirectoryInfo directory)
+    {
+        if (!directory.Exists) throw new DirectoryNotFoundException("The Directory specified does not exist : " + directory.FullName);
+        var dirCount = directory.EnumerateDirectories().LongCount();
+        var fileCount = directory.EnumerateFiles().LongCount();
+        
         var r = new RuntimeDirectory {
-            DirectoryCount = directory.EnumerateDirectories().LongCount(), 
+            DirectoryCount = dirCount, 
             Exists = directory.Exists, 
-            FileCount = directory.EnumerateFiles().LongCount(), 
+            FileCount = fileCount, 
             Name = directory.Name, 
             Path = directory.FullName
         };
+
         return r;
     }
 
@@ -180,7 +186,7 @@ public class RuntimeDirectory : RuntimeFileSystemElement, IDirectory {
 
 public class RuntimeFileSystem : IFileSystem
     {
-        public IDirectory AppDirectory { get { return AppDomain.CurrentDomain.BaseDirectory.As<IDirectory>(); } }
+        public IDirectory AppDirectory { get { return AppDomain.CurrentDomain.BaseDirectory.As<RuntimeDirectory>(); } }
 
         public IFile GetFile(string path) {
             return path.As<RuntimeFile>();

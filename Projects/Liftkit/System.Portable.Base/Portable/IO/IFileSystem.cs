@@ -24,12 +24,13 @@
 
 #region
 
+using System.Portable.Runtime;
 using System.Threading.Tasks;
 
 #endregion
 
 namespace System.Portable.IO {
-    public interface IFileSystem {
+    public interface IFileSystem : IDependency {
         IDirectory AppDirectory { get; }
         IFile GetFile(string path);
         Task<IFile> GetFileAsync(string path);

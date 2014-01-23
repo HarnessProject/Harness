@@ -32,5 +32,6 @@ namespace System.Portable.Runtime {
     public interface IFactory<T> {
         Task<T> CreateAsync();
         T Create();
+        T Create(params object[] args);
     }
 }

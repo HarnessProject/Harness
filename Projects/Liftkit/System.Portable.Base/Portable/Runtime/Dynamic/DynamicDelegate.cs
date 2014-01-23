@@ -30,7 +30,7 @@ using System.Composition;
 
 namespace System.Portable.Runtime.Dynamic {
     public interface IDynamicInvoker : IDependency {
-        object InvokeReturn(Delegate del, params dynamic[] args);
-        void InvokeAction(Delegate del, params dynamic[] args);
+        object InvokeReturn(Delegate del, params object[] args);
+        void InvokeAction(Delegate del, params object[] args);
     }
 }

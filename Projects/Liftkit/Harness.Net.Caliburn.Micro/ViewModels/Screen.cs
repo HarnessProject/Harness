@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Composition;
+using System.Portable;
 using System.Portable.Runtime;
 using System.Threading.Tasks;
 using Autofac;
@@ -9,12 +10,13 @@ namespace Harness.Net.Caliburn.Micro.ViewModels {
     {
         protected IScope Scope;
 
-        protected Screen() {
-            Scope = Application.NewAsync().AwaitResult();
+        protected Screen()
+        {
+            Scope = App.NewScope();
         }
 
         public T Get<T>() {
-            return Scope.Container.Obtain<T>();
+            return Scope.Container.Get<T>();
         }
 
         protected override void OnDeactivate(bool close) {

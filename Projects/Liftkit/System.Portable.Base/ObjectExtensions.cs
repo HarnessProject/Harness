@@ -24,12 +24,17 @@
 
 #region
 
+using System.Collections;
 using System.Collections.Generic;
 using System.Portable;
+using System.Threading.Tasks;
 
 #endregion
 
 namespace System {
+
+    public delegate Task<TY> AsyncFunc<in T, TY>(T o);
+
     public static class ObjectExtensions {
         public static T Action<T>(this T obj, params Action<T>[] actions) {
             actions.Each(x => x(obj));
@@ -45,8 +50,15 @@ namespace System {
         }
 
         public static T NotNull<T>(this T o, Action<T> action) where T : class {
-            var b = o != null;
-            if (b) action(o);
+            var n = NotNull(o);
+            if (n) action(o);
+            return o;
+        }
+
+        public static async Task<T> NotNullAsync<T>(this T o, Action<T> asyncAction) where T : class
+        {
+            var n = NotNull(o);
+            if (n) await o.AsTask(asyncAction);
             return o;
         }
 
@@ -58,9 +70,20 @@ namespace System {
             return o == null;
         }
 
-        public static T IsNull<T>(this T o, Func<T> initializer) {
-            return initializer();
+        public static T IsNull<T>(this T o, Func<T> initializer) where T : class
+        {
+            return IsNull(o) ? initializer() : o;
         }
+
+        public static async Task<T> IsNullAsync<T>(this T o, Func<T> asyncInit) where T : class
+        {
+            return IsNull(o) ? await o.AsTask(x => asyncInit()) : o;
+        }
+        public static async Task<T> IsNullAsync<T>(this T o, Func<Task<T>> asyncInit) where T : class
+        {
+            return IsNull(o) ? await asyncInit() : o;
+        }
+
 
         // ONLY TO BE USED FOR TESTING PURPOSES
         // Makes a one liner end in whatever value you want.

@@ -27,8 +27,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Portable;
-using System.Portable.App;
-using System.Portable.App.Dynamic;
+ 
+
 using System.Portable.Runtime.Dynamic;
 
 #endregion

@@ -32,7 +32,6 @@ using System.Linq;
 namespace System.Contracts {
     public abstract class ContractAttribute : Attribute {
         protected IList<Assertion> Assertions;
-
         protected ValidationResults Assert(object v, string name, params object[] args) {
             var results = new ValidationResults();
             Assertions.Select(x => v.Assert(name, x, args)).AddTo(results);

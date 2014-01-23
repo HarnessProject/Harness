@@ -10,7 +10,7 @@ namespace System.Portable.Runtime.Dynamic
     public class DynamicInvoker : IDynamicInvoker
     {
         public object InvokeReturn(Delegate del, params dynamic[] args) {
-            return del.FastDynamicInvoke(args);
+            return del.FastDynamicInvoke((object[])args);
         }
 
         public void InvokeAction(Delegate del, params dynamic[] args) {

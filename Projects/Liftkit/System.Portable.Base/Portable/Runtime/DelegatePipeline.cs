@@ -27,7 +27,7 @@
 using System.Collections.Generic;
 using System.Contracts;
 using System.Linq;
-using System.Portable.App.Dynamic;
+
 using System.Portable.Runtime.Dynamic;
 using System.Threading.Tasks;
 

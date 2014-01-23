@@ -32,8 +32,8 @@ using System.Threading.Tasks;
 namespace System.Portable.IO {
     public interface IFile : IFileSystemElement {
         long Length { get; }
-        Stream Open(FileAccess fileAccess);
-        Task<Stream> OpenAsync(FileAccess fileAccess);
+        Stream Open(FileAccessType fileAccess);
+        Task<Stream> OpenAsync(FileAccessType fileAccess);
         void Delete();
         Task DeleteAsync();
     }

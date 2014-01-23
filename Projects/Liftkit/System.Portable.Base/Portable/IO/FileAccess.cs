@@ -28,7 +28,7 @@
 // This code is dual licensed under the Apache License 2.0 and the MIT License
 
 namespace System.Portable.IO {
-    public enum FileAccess {
+    public enum FileAccessType {
         Read,
         Write,
         ReadWrite

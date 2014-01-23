@@ -25,7 +25,7 @@
 #region
 
 using System.Contracts;
-using System.Portable.App;
+using System.Portable.Runtime;
 
 #endregion
 
