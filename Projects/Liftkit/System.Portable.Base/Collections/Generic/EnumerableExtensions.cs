@@ -50,5 +50,15 @@ namespace System.Collections.Generic {
             collection.Each(list.Add);
             return list;
         }
+
+        public static IList<TY> AddTo<T, TY>(this IEnumerable<T> collection, IList<TY> list, Func<T, TY> transform) 
+        {
+            collection.Each(x =>
+            {
+                var i = transform(x);
+                list.Add(i);
+            });
+            return list;
+        }
     }
 }

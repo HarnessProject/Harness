@@ -63,7 +63,7 @@ namespace System {
         }
 
         public static bool NotDefault<T>(this T o) {
-            return App.TypeProvider.GetDefault<T>().As<object>() == o.As<object>();
+            return App.TypeProvider.GetDefault(typeof(T)) == o.As<object>();
         }
 
         public static bool IsNull<T>(this T o) where T : class {

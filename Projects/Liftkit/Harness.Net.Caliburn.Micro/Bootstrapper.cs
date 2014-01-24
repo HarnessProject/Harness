@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Portable;
 using System.Portable.Runtime;
-using System.Portable.Runtime.Environment;
 using System.Security.Policy;
 using Autofac;
 using Caliburn.Micro.Autofac;

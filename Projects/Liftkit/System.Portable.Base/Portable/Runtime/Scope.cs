@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Messaging;
 using System.Portable.Events;
+using System.Portable.Messaging;
 
 namespace System.Portable.Runtime {
     public class Scope : IScope {

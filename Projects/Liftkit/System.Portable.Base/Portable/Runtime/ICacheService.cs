@@ -22,7 +22,7 @@
 
 #endregion
 
-namespace System.Portable.Runtime.Environment {
+namespace System.Portable.Runtime {
     public interface ICacheService : IDisposable {
         T Get<T>(string name);
         void Set<T>(string name, T value);

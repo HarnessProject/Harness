@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Portable.Runtime;
-using System.Portable.Runtime.Environment;
 
 namespace Harness.Http {
     public class HttpTypeProvider : TypeProvider {

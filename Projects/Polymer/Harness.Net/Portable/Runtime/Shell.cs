@@ -1,4 +1,4 @@
-﻿namespace System.Portable.Runtime.Environment
+﻿namespace System.Portable.Runtime
 {
     public class Shell
     {

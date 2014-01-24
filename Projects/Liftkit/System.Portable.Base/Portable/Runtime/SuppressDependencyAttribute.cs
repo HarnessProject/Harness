@@ -28,7 +28,6 @@ namespace System.Portable.Runtime {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
     public class SuppressDependencyAttribute : Attribute {
         public readonly Type Type;
-
         public SuppressDependencyAttribute(Type type) {
             Type = type;
         }

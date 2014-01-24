@@ -74,7 +74,7 @@ namespace System.Portable.Runtime {
         public static IFactory<T> FactoryFor<T>(Action<IFactory<T>> initalizer = null, params object[] args)
         {
             var factoryType = Instance.Types.FirstOrDefault(x => x.Is<IFactory<T>>());
-            if (factoryType.IsNull()) return Instance.GetDefault<IFactory<T>>();
+            if (factoryType.IsNull()) return null;//Impromptu.InvokeConstructor(factoryType, args).As<T>();
 
             var factory = Impromptu.InvokeConstructor(factoryType, args).As<IFactory<T>>();
 
@@ -84,61 +84,6 @@ namespace System.Portable.Runtime {
         }
     }
 
-    public class DynamicObjectFactory<T> : IFactory<object>, IDependencyProvider
-    {
-        public Task<object> CreateAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public object Create(params object[] args)
-        {
-            return Impromptu.InvokeConstructor(typeof (T), args);
-        }
-
-        public object Create()
-        {
-            return Create(new object[] {});
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
-
-        public object GetService(Type serviceType)
-        {
-            throw new NotImplementedException();
-        }
-
-        public object Get(Type serviceType)
-        {
-            throw new NotImplementedException();
-        }
-
-        public object Get(Type serviceType, string key)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<object> GetAll(Type serviceType)
-        {
-            throw new NotImplementedException();
-        }
-
-        public T Get<T>()
-        {
-            throw new NotImplementedException();
-        }
-
-        public T Get<T>(string key)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<T> GetAll<T>()
-        {
-            throw new NotImplementedException();
-        }
-    }
+   
+    
 }

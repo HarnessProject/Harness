@@ -45,6 +45,7 @@
     <Compile Include="Collections\EnumerationExtensions.cs" />
     <Compile Include="Collections\Generic\EnumerableExtensions.cs" />
     <Compile Include="Collections\Generic\LookupTable.cs" />
+    <Compile Include="Composition\Notifier.cs" />
     <Compile Include="Contracts\Assertion.cs" />
     <Compile Include="Contracts\ContractAssertionException.cs" />
     <Compile Include="Contracts\ContractAttribute.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="Contracts\IAssert.cs" />
     <Compile Include="Contracts\InSetAttribute.cs" />
     <Compile Include="Contracts\IToken.cs" />
+    <Compile Include="Contracts\Metrics.cs" />
     <Compile Include="Contracts\NotDefaultAttribute.cs" />
     <Compile Include="Contracts\StringLengthAttribute.cs" />
     <Compile Include="Contracts\ValidationResult.cs" />
@@ -60,10 +62,20 @@
     <Compile Include="Data\IQuery.cs" />
     <Compile Include="IO\Directory.cs" />
     <Compile Include="IO\File.cs" />
-    <Compile Include="Portable\Runtime\DelegatePipeline.cs" />
+    <Compile Include="Portable\Runtime\Pipeline.cs" />
     <Compile Include="Portable\Events\IEvent.cs" />
     <Compile Include="Portable\Events\IEventHandler.cs" />
     <Compile Include="Portable\Runtime\Dynamic\DynamicDelegate.cs" />
+    <Compile Include="Filter.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Filter.tt</DependentUpon>
+    </Compile>
+    <Content Include="GenericTypeParameters.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GenericTypeParameters.tt</DependentUpon>
+    </Content>
     <Compile Include="Portable\Runtime\ICacheService.cs" />
     <Compile Include="Portable\Runtime\RegisteredEventFilter.cs" />
     <Compile Include="Portable\Runtime\RegisteredAction.cs" />
@@ -95,6 +107,8 @@
     <Compile Include="Portable\Runtime\Reflection\ReflectionExtensions.cs" />
     <Compile Include="Portable\Runtime\SuppressDependencyAttribute.cs" />
     <Compile Include="Portable\Runtime\Scope.cs" />
+    <Compile Include="Portable\Runtime\WrappedAction.cs" />
+    <Compile Include="Portable\Runtime\WrappedFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProtectedInvocation.cs" />
     <Compile Include="Q.cs" />
@@ -107,6 +121,14 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="Filter.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Filter.cs</LastGenOutput>
+    </None>
+    <None Include="GenericTypeParameters.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GenericTypeParameters.cs</LastGenOutput>
+    </None>
     <None Include="System.Portable.Base.nuspec" />
   </ItemGroup>
   <ItemGroup>
@@ -126,7 +148,9 @@
       <HintPath>..\packages\Microsoft.Bcl.1.1.6\lib\portable-net40+sl5+win8+wp8\System.Threading.Tasks.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" />

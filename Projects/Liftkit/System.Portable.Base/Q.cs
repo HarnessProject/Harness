@@ -23,7 +23,7 @@ namespace System {
         }
 
         public static bool Result<T>(this Func<T, bool> func, T target = default(T)) {
-            return func.Try(x => x(target)).Catch<Exception>((y, ex) => false).Invoke() == false;
+            return func.Try(x => x(target)).Catch<Exception>((y, ex) => false).Invoke();
         }
 
         public static bool True<T>(this Func<T, bool> func, T target = default(T)) {

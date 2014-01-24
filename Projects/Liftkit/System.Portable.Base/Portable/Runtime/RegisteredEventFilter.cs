@@ -26,6 +26,6 @@ namespace System.Portable.Runtime {
     public class RegisteredFilter {
         public Guid Id { get; set; }
         public Type TargetType { get; set; }
-        public DelegateFilter Filter { get; set; }
+        public WrappedFilter WrappedFilter { get; set; }
     }
 }

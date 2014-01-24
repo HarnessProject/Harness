@@ -30,6 +30,10 @@ namespace Harness.Autofac {
             return container == null ? null : container.Build();
         }
 
+        public IContainer Create(params object[] args)
+        {
+            return Create();
+        }
         public AutofacContainerFactory(ITypeProvider provider = null) {
             TypeProvider = provider;
         }

@@ -53,18 +53,18 @@ namespace Harness.Web.Mvc {
             Handle = null;
         }
 
-        public IDictionary<IStrongBox, DelegatePipeline> Registrations { get; set; }
-        public bool ShouldRegister(DelegatePipeline pipeline)
+        public IDictionary<IStrongBox, Pipeline> Registrations { get; set; }
+        public bool ShouldRegister(Pipeline pipeline)
         {
             return true;
         }
 
-        public void Register(DelegatePipeline pipeline)
+        public void Register(Pipeline pipeline)
         {
             pipeline.AddDelegate<ApplicationStartEvent>(HandleAppStart);
         }
 
-        public void UnRegister(DelegatePipeline pipeline)
+        public void UnRegister(Pipeline pipeline)
         {
             
         }

@@ -28,7 +28,7 @@ using System.Contracts;
 
 #endregion
 
-namespace System.Messaging {
+namespace System.Portable.Messaging {
 
     #region Message Types / Interfaces
 

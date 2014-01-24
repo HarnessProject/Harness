@@ -27,38 +27,13 @@
 using System.Portable.Events;
  
 using System.Portable.Runtime;
-using System.Threading.Tasks;
 
 #endregion
 
 namespace System.Composition {
     public interface INotifyPropertyChange : INotify<IPropertyChangeEvent> {
         void PropertyChanged(string property, object oldvalue, object newValue);
-        void OnPropertyChange(string property, DelegateAction<IPropertyChangeEvent> action);
-    }
-
-    public abstract class Notifier<T> : INotify<T> where T : IEvent {
-        protected Notifier() {
-            EventPipeline = new DelegatePipeline();
-        }
-
-        protected DelegatePipeline EventPipeline { get; set; }
-
-        #region INotify<T> Members
-
-        public async void Notify(T eEvent) {
-            await EventPipeline.Process(eEvent);
-        }
-
-        public Task NotifyAsync(T eEvent) {
-            return EventPipeline.Process(eEvent);
-        }
-
-        public void OnNotice(DelegateAction<T> action, DelegateFilter<T> filter) {
-            EventPipeline.AddDelegate(action, filter);
-        }
-
-        #endregion
+        void OnPropertyChange(string property, Action<IPropertyChangeEvent> action);
     }
 
     public abstract class NotifyPropertyChanged : Notifier<IPropertyChangeEvent>, INotifyPropertyChange {
@@ -68,7 +43,7 @@ namespace System.Composition {
             Notify(new PropertyChangeEvent {PropertyName = property, OldValue = oldvalue, NewValue = newValue});
         }
 
-        public void OnPropertyChange(string property, DelegateAction<IPropertyChangeEvent> action) {
+        public void OnPropertyChange(string property, Action<IPropertyChangeEvent> action) {
             OnNotice(action, x => x.PropertyName == property);
         }
 

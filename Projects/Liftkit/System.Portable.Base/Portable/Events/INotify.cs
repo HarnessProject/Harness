@@ -45,6 +45,6 @@ namespace System.Portable.Events {
     public interface INotify<T> where T : IEvent {
         void Notify(T eEvent);
         Task NotifyAsync(T eEvent);
-        void OnNotice(DelegateAction<T> action, DelegateFilter<T> filter);
+        void OnNotice(Action<T> action, Filter<T> filter);
     }
 }

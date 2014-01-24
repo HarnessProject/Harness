@@ -39,7 +39,7 @@ namespace System.Contracts {
             Exception e = null;
             var arguments = new List<object> {o};
             args.NotNull(a => a.AddTo(arguments));
-            if (assertion.Try(a => App.Container.Get<IDynamicInvoker>().InvokeReturn(a, arguments).As<bool>()).Catch<Exception>((x, ex) => {
+            if (assertion.Try(a => (bool)App.Container.Get<IDynamicInvoker>().InvokeReturn(a, arguments)).Catch<Exception>((x, ex) => {
                 e = ex;
                 return false;
             }).Invoke()) return new ValidationResult(targetName, true, ex: e);

@@ -25,12 +25,32 @@
 #region
 
 using System.Collections.Generic;
+using System.Contracts;
+using System.Diagnostics.Contracts;
+using System.Dynamic;
+using System.Globalization;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Portable.Runtime;
+using System.Reflection;
 
 #endregion
 
 namespace System {
     public static class TypeExtensions {
+        private static TY ExpressionConvert<T,TY>(Expression<Func<object>> source)
+        {
+
+            var converted = Expression.Convert(source.Body, typeof(TY));
+            return Expression.Lambda<Func<TY>>(converted).Compile()();
+        }
+
+        private static TY ReflectedConvert<TY>(Expression<Func<object>> o)
+        {
+            var m = typeof(TypeExtensions).GetMethods(BindingFlags.Static | BindingFlags.NonPublic).FirstOrDefault(x => x.Name.Contains("ExpressionConvert"));
+            return (TY)m.MakeGenericMethod(o.Compile()().GetType(), typeof(TY)).Invoke(null, new object[] { o });
+
+        }
         public static bool Is(this object o, Type t) {
             return o.GetType().Is(t);
         }
@@ -51,13 +71,19 @@ namespace System {
         //{
         //    return type.Is(typeof(T).GetTypeInfo());
         //}
-        public static T As<T>(this object obj) {
-            return obj.Try(o => (T) o).Catch<Exception>((o, ex) => default(T)).Invoke();
+        public static TY As<TY>(this object obj)
+        {
+            var d = (object)((dynamic) obj);
+            Expression<Func<object>> o = () => d;
+            var m = typeof(TypeExtensions).GetMethods(BindingFlags.Static | BindingFlags.NonPublic).FirstOrDefault(x => x.Name.Contains("ExpressionConvert"));
+            return (TY)m.MakeGenericMethod(obj.GetType(), typeof(TY)).Invoke(null, new object[] { o });
+            //return (dynamic)obj;
         }
 
-        public static T As<T>(this object obj, Action<T> initializer) {
-            var t = obj.As<T>();
+        public static TY As<TY>(this object obj, Action<TY> initializer)  {
+            var t = obj.As<TY>();
             initializer(t);
+           
             return t;
         }
 

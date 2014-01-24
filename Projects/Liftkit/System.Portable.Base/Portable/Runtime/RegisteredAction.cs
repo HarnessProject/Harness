@@ -26,7 +26,7 @@ namespace System.Portable.Runtime {
     public class RegisteredAction {
         public Guid Id { get; set; }
         public Type TargetType { get; set; }
-        public DelegateAction Handler { get; set; }
-        public DelegateFilter Filter { get; set; }
+        public WrappedAction WrappedAction { get; set; }
+        public WrappedFilter WrappedFilter { get; set; }
     }
 }

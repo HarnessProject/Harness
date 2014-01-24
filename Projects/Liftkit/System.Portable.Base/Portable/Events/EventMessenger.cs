@@ -33,12 +33,12 @@ using System.Threading.Tasks;
 namespace System.Portable.Events {
     public interface IEventManager {
         Task Trigger(IEvent evnt);
-        Guid Handle<T>(DelegateAction<T> handler, DelegateFilter<T> filter = null) where T : IEvent;
+        Guid Handle<T>(Action<T> handler, Filter<T> filter = null) where T : IEvent;
         void RemoveHandler(Guid guid);
     }
 
     public class EventManager : IEventManager {
-        protected DelegatePipeline Pipeline;
+        protected Pipeline Pipeline;
 
         #region IEventManager Members
 
@@ -46,7 +46,7 @@ namespace System.Portable.Events {
             return Pipeline.Process(evnt); //THUNK 
         }
 
-        public Guid Handle<T>(DelegateAction<T> handler, DelegateFilter<T> filter = null) where T : IEvent {
+        public Guid Handle<T>(Action<T> handler, Filter<T> filter = null) where T : IEvent {
             return Pipeline.AddDelegate(handler, filter);
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Composition;
 using System.Events;
 using System.Net;
+using System.Portable.Runtime;
 using System.Runtime.Remoting;
 using System.Tasks;
 using System.Web.Http;
@@ -64,7 +65,7 @@ namespace Harness.Server.Owin
             var builder = ServerBuilder.New();
             
 
-            Config.When(c => !string.IsNullOrEmpty(c.HostName), c => builder.SetServerHeader(c.HostName));
+            Config.If(c => !string.IsNullOrEmpty(c.HostName), c => builder.SetServerHeader(c.HostName));
             Config.If(c => c.Port <= 0, c => builder.SetPort(c.Port), c => builder.SetPort(8888));
             Config.If(c => !c.IPAddress.Equals(IPAddress.None), c => builder.SetAddress(c.IPAddress), c => builder.SetAddress(IPAddress.Any));
 

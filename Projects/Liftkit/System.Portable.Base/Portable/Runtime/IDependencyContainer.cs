@@ -31,8 +31,7 @@ using System.Collections.Generic;
 namespace System.Portable.Runtime {
     //
     // An implementation of the Common Service Locator Pattern
-    // I prefer Obtain as a neutral verb for resolution as opposed to GetService
-    // 
+    // I prefer Get to GetService
 
     public interface IDependencyProvider : IDisposable, IServiceProvider {
         object Get(Type serviceType);

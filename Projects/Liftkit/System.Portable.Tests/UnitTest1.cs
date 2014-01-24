@@ -15,7 +15,7 @@ namespace System.Portable.Tests
         {
             var provider = TypeProvider.Instance;
             
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(x => !x.IsDynamic);
             var types = AppDomain.CurrentDomain.GetAssemblies().Where(x => !x.IsDynamic).SelectMany(x => x.ExportedTypes);
             
             Assert.IsNotNull(provider.Assemblies, "the TypeProvider has failed to yield any assemblies");

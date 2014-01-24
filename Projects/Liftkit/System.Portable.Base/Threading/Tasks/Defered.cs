@@ -47,7 +47,7 @@ namespace System.Threading.Tasks {
         protected Func<T> Op { get; set; }
 
         public T Result() {
-            return Op();
+            return this.Try(x => x.Op()).Catch<Exception>((y, ex) => default(T)).Invoke();
         }
 
         public Task<T> ResultAsync() {

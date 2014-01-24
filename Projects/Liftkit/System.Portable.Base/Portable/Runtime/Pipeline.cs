@@ -34,14 +34,6 @@ using System.Threading.Tasks;
 #endregion
 
 namespace System.Portable.Runtime {
-    public delegate void DelegateAction(object tObject);
-
-    public delegate void DelegateAction<in T>(T tObject);
-
-    public delegate bool DelegateFilter(object tObject);
-
-    public delegate bool DelegateFilter<in T>(T tObject);
-
     /// <summary>
     ///     Manages the execution of one or more delegates registered to perform an action on an object provided at run time.
     ///     Notes:
@@ -57,23 +49,23 @@ namespace System.Portable.Runtime {
     ///     We also need fast and easy registration.
     ///     TODO: Create Examples of usage beyond EventManager
     /// </summary>
-    public class DelegatePipeline : IDependency {
-        public DelegatePipeline() {
+    public class Pipeline : IDependency {
+        public Pipeline(IDynamicInvoker invoker) {
             Actions = new HashSet<RegisteredAction>();
-            Invoker = App.Container.Get<IDynamicInvoker>();
+            Invoker = invoker;
         }
 
         protected HashSet<RegisteredAction> Actions { get; set; }
         protected HashSet<RegisteredFilter> Filters { get; set; }
         protected IDynamicInvoker Invoker { get; set; }
 
-        public Guid AddDelegate<T>(DelegateAction<T> action, DelegateFilter<T> filter = null) {
-            var compiledAction = CreateAction(action);
-            var compiledFilter = CreateFilter(filter);
+        public Guid AddDelegate<T>(Action<T> action, Filter<T> filter = null) {
+            var compiledAction = CreateActionWrapper(action);
+            var compiledFilter = CreateFilterWrapper(filter);
             var newHandler = new RegisteredAction {
                 Id = Guid.NewGuid(),
-                Filter = compiledFilter,
-                Handler = compiledAction,
+                WrappedFilter = compiledFilter,
+                WrappedAction = compiledAction,
                 TargetType = typeof (T)
             };
             Actions.Add(newHandler);
@@ -84,11 +76,11 @@ namespace System.Portable.Runtime {
             Actions.RemoveWhere(x => x.Id == id);
         }
 
-        public Guid AddFilter<T>(DelegateFilter<T> filter) {
-            var compiledFilter = CreateFilter(filter);
+        public Guid AddFilter<T>(Filter<T> filter) {
+            var compiledFilter = CreateFilterWrapper(filter);
             var newFilter = new RegisteredFilter {
                 Id = Guid.NewGuid(),
-                Filter = compiledFilter,
+                WrappedFilter = compiledFilter,
                 TargetType = typeof (T)
             };
             Filters.Add(newFilter);
@@ -117,8 +109,8 @@ namespace System.Portable.Runtime {
                 Filters
                     .Where(y => y.TargetType.Is<T>())
                     .Aggregate(
-                        new DelegateFilter(DefaultFilter),
-                        (filter, filterHandler) => filter + filterHandler.Filter
+                        new WrappedFilter(DefaultFilter),
+                        (filter, filterHandler) => filter + filterHandler.WrappedFilter
                     );
 
             return () => ExecuteFilter(f, tObject);
@@ -128,15 +120,15 @@ namespace System.Portable.Runtime {
             var h =
                 Actions
                     .Where(x => x.TargetType.Is<T>())
-                    .Where(x => x.Filter(tObject))
+                    .Where(x => x.WrappedFilter(tObject))
                     .Aggregate(
-                        new DelegateAction(DefaultAction),
-                        (action, actionHandler) => action + actionHandler.Handler
+                        new WrappedAction(DefaultAction),
+                        (action, actionHandler) => action + actionHandler.WrappedAction
                     );
             return () => ExecuteAction(h, tObject);
         }
 
-        protected DelegateAction CreateAction<T>(DelegateAction<T> action) {
+        protected WrappedAction CreateActionWrapper<T>(Action<T> action) {
             return x => {
                 var t = typeof (T);
                 if (t.Is<ICancel>() && x.As<ICancel>().Token.Canceled) return;
@@ -145,16 +137,16 @@ namespace System.Portable.Runtime {
             }; // THUNK
         }
 
-        protected DelegateFilter CreateFilter<T>(DelegateFilter<T> filter) {
+        protected WrappedFilter CreateFilterWrapper<T>(Filter<T> filter) {
             return x => filter.IsNull() || filter(x.As<T>());
         }
 
-        protected void ExecuteAction(DelegateAction action, object tObject) {
+        protected void ExecuteAction(WrappedAction action, object tObject) {
             Invoker.InvokeAction(action, tObject);
         }
 
-        protected bool ExecuteFilter(DelegateFilter filter, object tObject) {
-            return Invoker.InvokeReturn(filter, tObject).As<bool>();
+        protected bool ExecuteFilter(WrappedFilter wrappedFilter, object tObject) {
+            return Invoker.InvokeReturn(wrappedFilter, tObject).As<bool>();
         }
     }
 }
