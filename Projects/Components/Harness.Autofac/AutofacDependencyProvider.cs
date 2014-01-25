@@ -55,8 +55,6 @@ namespace Harness.Autofac
             return Container.Resolve<IEnumerable<TService>>();
         }
 
-        public T GetInstanceOf<T>(string type) {
-            return Container.Resolve(Type.GetType(type)).As<T>();
-        }
+        
     }
 }

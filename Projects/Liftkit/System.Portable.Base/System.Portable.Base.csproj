@@ -71,11 +71,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Filter.tt</DependentUpon>
     </Compile>
-    <Content Include="GenericTypeParameters.cs">
+    <None Include="GenericTypeParameters.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GenericTypeParameters.tt</DependentUpon>
-    </Content>
+    </None>
     <Compile Include="Portable\Runtime\ICacheService.cs" />
     <Compile Include="Portable\Runtime\RegisteredEventFilter.cs" />
     <Compile Include="Portable\Runtime\RegisteredAction.cs" />

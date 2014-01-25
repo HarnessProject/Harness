@@ -10,24 +10,24 @@ namespace System.Portable.Runtime {
     public class TypeProvider : ITypeProvider {
         private IEnumerable<Assembly> AssemblyCache { get; set; }
         private IEnumerable<Type> TypeCache { get; set; }
-        public async Task<IEnumerable<Assembly>> GetAssemblies(string extensionsPath = null) {
+        public IEnumerable<Assembly> GetAssemblies(string extensionsPath = null) {
             extensionsPath = extensionsPath ?? AppDomain.CurrentDomain.BaseDirectory;
-            
+
             if (Directory.Exists(extensionsPath))
-                await 
+               
                 Directory.EnumerateFiles(
                     extensionsPath, "*.dll", SearchOption.AllDirectories
-                ).EachAsync(x => x.Try(Assembly.LoadFrom).Invoke());
+                ).Each(x => x.Try(Assembly.LoadFrom).Invoke());
 
             AssemblyCache = AppDomain.CurrentDomain.GetAssemblies().Where(x => !x.IsDynamic);
             return AssemblyCache;
         }
 
         
-        public async Task<IEnumerable<Type>> GetTypesAsync(Func<Type, bool> predicate, string extensionsPath)
+        public IEnumerable<Type> GetTypes(Func<Type, bool> predicate, string extensionsPath)
         {
-            TypeCache = await TypeCache.IsNullAsync(async () =>
-                (AssemblyCache.IsNull() ? await GetAssemblies(extensionsPath) : AssemblyCache)
+            TypeCache = TypeCache.IsNull(() =>
+                (AssemblyCache.IsNull() ? GetAssemblies(extensionsPath) : AssemblyCache)
                 .SelectMany(x => x.Try(
                     y => predicate.NotNull() ? y.ExportedTypes.Where(predicate) : y.ExportedTypes
                 ).Invoke()));
@@ -36,7 +36,7 @@ namespace System.Portable.Runtime {
         }
 
         public IEnumerable<Type> GetTypes(Func<Type, bool> predicate = null) {
-            return GetTypesAsync(predicate, null).AwaitResult();
+            return GetTypes(predicate, null);
         }
 
         private TypeProvider() {
@@ -46,7 +46,7 @@ namespace System.Portable.Runtime {
         public TypeProvider(string extensionPath) {
             
 
-            GetTypesAsync(null, extensionPath).Await();
+            GetTypes(null, extensionPath);
         }
 
         public IEnumerable<Assembly> Assemblies { get { return AssemblyCache; } }
@@ -57,6 +57,11 @@ namespace System.Portable.Runtime {
             get {
                 return _provider ?? (_provider = new TypeProvider());
             }
+        }
+
+        public TY Cast<TY>(object o)
+        {
+            return (TY) o;
         }
 
         public object GetDefault(Type t)

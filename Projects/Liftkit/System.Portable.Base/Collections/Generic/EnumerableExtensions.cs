@@ -30,23 +30,30 @@ using System.Threading.Tasks;
 
 namespace System.Collections.Generic {
     public static class EnumerableExtensions {
-        public static async void Each<T>(this IEnumerable<T> collection, Action<T> action) {
-            await collection.EachAsync(action);
+        public static void Each<T>(this IEnumerable<T> collection, Action<T> action)
+        {
+            foreach (var i in collection) action(i);
         }
 
-        public static void Each<T>(this IEnumerable<T> collection, params Action<T>[] actions) {
+        public static void Each<T>(this IEnumerable<T> collection, params Action<T>[] actions) 
+        {
             actions.Each(collection.Each);
         }
 
-        public static void Each<T, TY>(this IEnumerable<T> collection, TY state, params Action<T, TY>[] actions) {
+        public static void Each<T, TY>(this IEnumerable<T> collection, TY state, params Action<T, TY>[] actions) 
+        {
             actions.Each(x => collection.Each(x, state));
         }
 
-        public static void Each<T, TY>(this IEnumerable<T> collection, Action<T, TY> action, TY state) {
+        public static void Each<T, TY>(this IEnumerable<T> collection, Action<T, TY> action, TY state) 
+        {
             collection.Each(x => action(x, state));
         }
 
-        public static TY AddTo<T, TY>(this IEnumerable<T> collection, TY list) where TY : IList<T> {
+        public static TY AddTo<T, TY>(this IEnumerable<T> collection, TY list)
+            where TY : IList<T>
+           
+        {
             collection.Each(list.Add);
             return list;
         }

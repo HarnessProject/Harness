@@ -24,7 +24,7 @@
 
 namespace System.Portable.Runtime {
     public interface ICacheService : IDisposable {
-        T Get<T>(string name);
-        void Set<T>(string name, T value);
+        T Get<T>(string name) where T : class;
+        void Set<T>(string name, T value) where T : class;
     }
 }

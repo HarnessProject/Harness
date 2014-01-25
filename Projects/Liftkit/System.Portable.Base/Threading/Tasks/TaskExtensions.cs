@@ -32,7 +32,8 @@ using System.Linq.Expressions;
 
 namespace System.Threading.Tasks {
     public static class TaskExtensions {
-        public static async Task EachAsync<T>(this IEnumerable<T> collection, Action<T> action) {
+        public static async Task EachAsync<T>(this IEnumerable<T> collection, Action<T> action) 
+        {
             await collection.AsTask(
                 c => Task.WaitAll(
                     c.Select(
@@ -42,7 +43,8 @@ namespace System.Threading.Tasks {
                 );
         }
 
-        public static async Task EachAsync<T>(this Task<IEnumerable<T>> collection, Action<T> action) {
+        public static async Task EachAsync<T>(this Task<IEnumerable<T>> collection, Action<T> action) 
+        {
             await (await collection).EachAsync(action);
         }
 
@@ -50,7 +52,8 @@ namespace System.Threading.Tasks {
             return await (await collection).AsTask(c => c.Select(action).AsQueryable());
         }
 
-        public static Task EachAsync<T, TY>(this IEnumerable<T> collection, Action<T, TY> action, TY context) {
+        public static Task EachAsync<T, TY>(this IEnumerable<T> collection, Action<T, TY> action, TY context) 
+        {
             var a = action;
             var h = ((Expression<Action<T>>) (y => a(y, context))).Compile();
             var i = ((Expression<Action<T>>) (y => h(y))).Compile();
@@ -58,19 +61,22 @@ namespace System.Threading.Tasks {
             return collection.AsTask(c => Task.WaitAll(c.Select(t).ToArray()));
         }
 
-        public static async Task EachAsync<T, TY>(this Task<IEnumerable<T>> collection, Action<T, TY> action, TY context) {
+        public static async Task EachAsync<T, TY>(this Task<IEnumerable<T>> collection, Action<T, TY> action, TY context) 
+        {
             await EachAsync(await collection, action, context);
         }
 
-        public static async Task ProcessAsync<T>(this IEnumerable<T> collection, params Action<T>[] actions) {
+        public static async Task ProcessAsync<T>(this IEnumerable<T> collection, params Action<T>[] actions) 
+        {
             await collection.EachAsync(async x => await actions.EachAsync(y => y(x)));
         }
 
-        public static async Task ActionAsync<T>(this Task<T> task, Action<T> action) {
+        public static async Task ActionAsync<T>(this Task<T> task, Action<T> action) 
+        {
             await (await task).AsTask(action);
         }
 
-        public static async Task<TY> FuncAsync<T, TY>(this Task<T> task, Func<T, TY> func) {
+        public static async Task<TY> FuncAsync<T, TY>(this Task<T> task, Func<T, TY> func)  {
             return await (await task).AsTask(func);
         }
 
@@ -78,11 +84,12 @@ namespace System.Threading.Tasks {
             return Task.Factory.StartNew(() => t);
         }
 
-        public static Task<TY> AsTask<T, TY>(this T t, Func<T, TY> func) {
+        public static Task<TY> AsTask<T, TY>(this T t, Func<T, TY> func)  {
             return Task.Factory.StartNew(x => func(x.As<T>()), t);
         }
 
-        public static Task AsTask<T>(this T t, Action<T> action) {
+        public static Task AsTask<T>(this T t, Action<T> action) 
+        {
             return Task.Factory.StartNew(x => action(x.As<T>()), t);
         }
 

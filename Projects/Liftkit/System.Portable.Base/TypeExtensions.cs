@@ -31,24 +31,26 @@ using System.Dynamic;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Portable;
 using System.Portable.Runtime;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 #endregion
 
 namespace System {
     public static class TypeExtensions {
-        private static TY ExpressionConvert<T,TY>(Expression<Func<object>> source)
+        private static TY ExpressionConvert<T,TY>(Expression<Func<object>> source, Type oType)
         {
-
-            var converted = Expression.Convert(source.Body, typeof(TY));
+            var unboxed = Expression.Convert(source.Body, oType);
+            var converted = Expression.Convert(unboxed, typeof(TY));
             return Expression.Lambda<Func<TY>>(converted).Compile()();
         }
 
-        private static TY ReflectedConvert<TY>(Expression<Func<object>> o)
+        private static TY ReflectedConvert<TY>(Expression<Func<object>> o, Type oType)
         {
             var m = typeof(TypeExtensions).GetMethods(BindingFlags.Static | BindingFlags.NonPublic).FirstOrDefault(x => x.Name.Contains("ExpressionConvert"));
-            return (TY)m.MakeGenericMethod(o.Compile()().GetType(), typeof(TY)).Invoke(null, new object[] { o });
+            return (TY)m.MakeGenericMethod(o.Compile()().GetType(), typeof(TY)).Invoke(null, new object[] { o, oType });
 
         }
         public static bool Is(this object o, Type t) {
@@ -71,16 +73,20 @@ namespace System {
         //{
         //    return type.Is(typeof(T).GetTypeInfo());
         //}
-        public static TY As<TY>(this object obj)
+        
+
+        private static MethodInfo GetMethod<TY>(Expression<Func<TY>> d)
         {
-            var d = (object)((dynamic) obj);
-            Expression<Func<object>> o = () => d;
-            var m = typeof(TypeExtensions).GetMethods(BindingFlags.Static | BindingFlags.NonPublic).FirstOrDefault(x => x.Name.Contains("ExpressionConvert"));
-            return (TY)m.MakeGenericMethod(obj.GetType(), typeof(TY)).Invoke(null, new object[] { o });
-            //return (dynamic)obj;
+            var m = (MethodCallExpression)d.Body;
+            return m.Method;
         }
 
-        public static TY As<TY>(this object obj, Action<TY> initializer)  {
+        public static TY As<TY>(this object obj)
+        {
+            return ReflectedConvert<TY>(() => obj, obj.GetType());
+        }
+
+        public static TY As<TY>(this object obj, Action<TY> initializer) where TY : class {
             var t = obj.As<TY>();
             initializer(t);
            

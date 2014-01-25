@@ -16,13 +16,14 @@ namespace System.Portable.Runtime
             Cache = new RaptorDB<string>(f.Path, false);
         }
 
-        public T Get<T>(string name) {
+        public T Get<T>(string name) where T : class {
             string r;
             Cache.Get(name, out r);
             return JObject.Parse(r).As<T>();
         }
 
-        public void Set<T>(string name, T value) {
+        public void Set<T>(string name, T value) where T : class
+        {
             Cache.Set(name, new JObject(value).ToString(Formatting.None));
         }
 

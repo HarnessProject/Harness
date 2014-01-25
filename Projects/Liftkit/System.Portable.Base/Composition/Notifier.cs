@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace System.Composition
 {
-    public abstract class Notifier<T> : INotify<T> where T : IEvent {
+    public abstract class Notifier<T> : INotify<T> where T :IEvent {
         protected Notifier() {
             EventPipeline = App.Container.Get<Pipeline>();
         }
@@ -22,7 +22,7 @@ namespace System.Composition
             return EventPipeline.Process(eEvent);
         }
 
-        public void OnNotice(Action<T> action, Filter<T> filter) {
+        public void OnNotice(Action<T> action, Filter<T> filter)  {
             EventPipeline.AddDelegate(action, filter);
         }
 

@@ -12,20 +12,10 @@ namespace Harness.Net.Caliburn.Micro {
         //public bool Configured { get; set; }
         protected override void ConfigureContainer(ContainerBuilder builder) {
             new AutofacContainerFactory {TypeProvider = TypeProvider.Instance}
-                .CreateContainerBuilder((ContainerBuilder)builder);
+                .CreateContainerBuilder(builder);
         }
 
-        protected override object GetInstance(Type service, string key)
-        {
-            //if (!Configured) Configure();
-            return base.GetInstance(service, key);
-        }
-
-        protected override IEnumerable<object> GetAllInstances(Type service)
-        {
-            //if (!Configured) Configure();
-            return base.GetAllInstances(service);
-        }
+       
 
         protected override void ConfigureBootstrapper() {
             //  you must call the base version first!

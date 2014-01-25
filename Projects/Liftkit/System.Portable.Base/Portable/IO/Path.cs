@@ -46,7 +46,7 @@ namespace System.Portable.IO {
         }
 
         public static string GetPattern(PathType t) {
-            return t == PathType.Unknown ? "" : KnownRoots[t.As<int>()];
+            return t == PathType.Unknown ? "" : KnownRoots[(int)t];
         }
 
         public static bool IsWindowsPath(string path) {

@@ -88,7 +88,7 @@ namespace Harness.Autofac {
                             .Select(y => new RegisteredSuppression {OwnerType = x, SuppressionType = y.Type, ScoreSeed = i})
                             .OrderBy(y => y.Score);
                     }
-                    ).ToArray();
+                ).ToArray();
 
             iDependencies.Each((type, c) => {
                 var suppresed = suppressionAttributes.Where(x => x.SuppressionType == type);

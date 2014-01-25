@@ -40,19 +40,23 @@ namespace System.Collections {
             return collection.Where(x => x.NotDefault());
         }
 
-        public static async void Each<T>(this IEnumerable collection, Action<T> action) {
+        public static async void Each<T>(this IEnumerable collection, Action<T> action) 
+        {
             await collection.WhereIs<T>().EachAsync(action);
         }
 
-        public static void Each<T>(this IEnumerable collection, params Action<T>[] actions) {
+        public static void Each<T>(this IEnumerable collection, params Action<T>[] actions) 
+        {
             actions.Each(collection.Each);
         }
 
-        public static void Each<T, TY>(this IEnumerable collection, TY state, params Action<T, TY>[] actions) {
+        public static void Each<T, TY>(this IEnumerable collection, TY state, params Action<T, TY>[] actions) 
+        {
             actions.Each(x => collection.Each(x, state));
         }
 
-        public static void Each<T, TY>(this IEnumerable collection, Action<T, TY> action, TY state) {
+        public static void Each<T, TY>(this IEnumerable collection, Action<T, TY> action, TY state) 
+        {
             collection.Each<T>(i => action(i, state));
         }
     }

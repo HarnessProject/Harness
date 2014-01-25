@@ -99,7 +99,7 @@ namespace System.Portable.Runtime {
 
         public async Task Process<T>(T tObject) {
             await this.AsTask(o => {
-                if (!Invoker.InvokeReturn(CreateFilter(tObject)).As<bool>()) return;
+                if (!(bool)Invoker.InvokeReturn(CreateFilter(tObject))) return;
                 Invoker.InvokeAction(CreateAction(tObject));
             });
         }
@@ -128,7 +128,7 @@ namespace System.Portable.Runtime {
             return () => ExecuteAction(h, tObject);
         }
 
-        protected WrappedAction CreateActionWrapper<T>(Action<T> action) {
+        protected WrappedAction CreateActionWrapper<T>(Action<T> action){
             return x => {
                 var t = typeof (T);
                 if (t.Is<ICancel>() && x.As<ICancel>().Token.Canceled) return;
@@ -146,7 +146,7 @@ namespace System.Portable.Runtime {
         }
 
         protected bool ExecuteFilter(WrappedFilter wrappedFilter, object tObject) {
-            return Invoker.InvokeReturn(wrappedFilter, tObject).As<bool>();
+            return (bool)Invoker.InvokeReturn(wrappedFilter, tObject);
         }
     }
 }

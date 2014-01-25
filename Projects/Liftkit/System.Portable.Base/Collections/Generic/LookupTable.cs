@@ -29,7 +29,8 @@ using System.Linq;
 #endregion
 
 namespace System.Collections.Generic {
-    public class LookupTable<TKey, TValue> : ILookup<TKey, TValue> {
+    public class LookupTable<TKey, TValue> : ILookup<TKey, TValue> where TValue : class
+    {
         private int _nextIndex;
         protected IDictionary<int, TKey> KeysDictionary { get; set; }
         protected HashSet<Tuple<int, TValue>> ValuesList { get; set; }

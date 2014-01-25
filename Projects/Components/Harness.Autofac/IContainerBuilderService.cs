@@ -19,7 +19,7 @@ namespace Harness.Autofac {
                 EventManager = scope.EventManager,
                 MessengerHub = scope.MessengerHub,
             };
-            scope.State.Each(x => newScope.State.Add(x));
+            foreach (var k in scope.State) newScope.State.Add(k.Key, k.Value);
             return newScope;
         }
     }

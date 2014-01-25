@@ -35,5 +35,7 @@ namespace System.Portable.Runtime {
         IEnumerable<Type> Types { get; }
         object GetDefault(Type t);
         T GetDefault<T>();
+
+        TY Cast<TY>(object o);
     }
 }
