@@ -44,7 +44,7 @@ namespace Harness.Web.Owin {
                             e = ex;
                             return false;
                     })
-                    .Invoke();
+                    .Act();
 
             if (!r) throw new Exception("Middleware " + typeof (T).FullName + " failed to load.", e);
             return app;

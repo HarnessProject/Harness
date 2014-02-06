@@ -27,7 +27,7 @@ namespace Harness.Net.Caliburn.Micro{
                         }
                     )
                     .Catch<Exception>((y, ex) => false)
-                    .AsTask(y => y.Invoke())
+                    .AsTask(y => y.Act())
                     
                 );
         }

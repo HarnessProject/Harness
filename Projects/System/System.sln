@@ -1,0 +1,79 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Portable", "System.Portable\System.Portable.csproj", "{356C0C83-E896-43D5-8294-6D5C1FF18050}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{C76CF480-ACCB-4071-8476-5A145884A966}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.NetFramework", "System.NetFramework\System.NetFramework.csproj", "{95EEF4A4-7F04-495B-8DD2-544E2FE02E05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Composition.Autofac", "System.Composition.Autofac\System.Composition.Autofac.csproj", "{15CF52D3-B7F4-4FED-BE83-9A4E8B941DD4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Composition", "System.Composition\System.Composition.csproj", "{18186B4E-339F-4CFE-832C-D440F6F154F5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Autofac", "Autofac", "{26A0705C-F68B-4877-B980-CAC93F4B0053}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Caliburn.Micro", "Caliburn.Micro", "{A3560D61-5985-47B8-B3C0-6B6FAC46DD0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox", "Sandbox\Sandbox.csproj", "{539D9945-49CA-4AC3-BAF5-1BAA63E4397E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{32E62CF5-79E7-47EB-B2E8-035BDD8B9916}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Composition.CaliburnMicro", "System.Composition.CaliburnMicro\System.Composition.CaliburnMicro.csproj", "{0D6B185A-D6DA-4995-B6AF-238FB7E3BFBD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Composition.CaliburnMicro.Autofac", "System.Composition.CaliburnMicro.Autofac\System.Composition.CaliburnMicro.Autofac.csproj", "{00F47F69-E339-44E2-8E30-D61D1FC0A213}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{356C0C83-E896-43D5-8294-6D5C1FF18050}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{356C0C83-E896-43D5-8294-6D5C1FF18050}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{356C0C83-E896-43D5-8294-6D5C1FF18050}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{356C0C83-E896-43D5-8294-6D5C1FF18050}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95EEF4A4-7F04-495B-8DD2-544E2FE02E05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95EEF4A4-7F04-495B-8DD2-544E2FE02E05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95EEF4A4-7F04-495B-8DD2-544E2FE02E05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95EEF4A4-7F04-495B-8DD2-544E2FE02E05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15CF52D3-B7F4-4FED-BE83-9A4E8B941DD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15CF52D3-B7F4-4FED-BE83-9A4E8B941DD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15CF52D3-B7F4-4FED-BE83-9A4E8B941DD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15CF52D3-B7F4-4FED-BE83-9A4E8B941DD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18186B4E-339F-4CFE-832C-D440F6F154F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18186B4E-339F-4CFE-832C-D440F6F154F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18186B4E-339F-4CFE-832C-D440F6F154F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18186B4E-339F-4CFE-832C-D440F6F154F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{539D9945-49CA-4AC3-BAF5-1BAA63E4397E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{539D9945-49CA-4AC3-BAF5-1BAA63E4397E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{539D9945-49CA-4AC3-BAF5-1BAA63E4397E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{539D9945-49CA-4AC3-BAF5-1BAA63E4397E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D6B185A-D6DA-4995-B6AF-238FB7E3BFBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D6B185A-D6DA-4995-B6AF-238FB7E3BFBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D6B185A-D6DA-4995-B6AF-238FB7E3BFBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D6B185A-D6DA-4995-B6AF-238FB7E3BFBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00F47F69-E339-44E2-8E30-D61D1FC0A213}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00F47F69-E339-44E2-8E30-D61D1FC0A213}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00F47F69-E339-44E2-8E30-D61D1FC0A213}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00F47F69-E339-44E2-8E30-D61D1FC0A213}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{95EEF4A4-7F04-495B-8DD2-544E2FE02E05} = {32E62CF5-79E7-47EB-B2E8-035BDD8B9916}
+		{18186B4E-339F-4CFE-832C-D440F6F154F5} = {32E62CF5-79E7-47EB-B2E8-035BDD8B9916}
+		{356C0C83-E896-43D5-8294-6D5C1FF18050} = {32E62CF5-79E7-47EB-B2E8-035BDD8B9916}
+		{15CF52D3-B7F4-4FED-BE83-9A4E8B941DD4} = {26A0705C-F68B-4877-B980-CAC93F4B0053}
+		{00F47F69-E339-44E2-8E30-D61D1FC0A213} = {26A0705C-F68B-4877-B980-CAC93F4B0053}
+		{0D6B185A-D6DA-4995-B6AF-238FB7E3BFBD} = {A3560D61-5985-47B8-B3C0-6B6FAC46DD0F}
+	EndGlobalSection
+EndGlobal

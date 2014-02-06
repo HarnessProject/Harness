@@ -15,57 +15,33 @@ using Harness.Autofac;
 using Harness.Http;
 
 namespace Harness.Web.Mvc {
-    public class MvcContainerBuilder : IRegistrationProvider<ContainerBuilder>, IEventHandler {
+    public class MvcContainerBuilder : IRegistrationProvider<ContainerBuilder>, IEventHandler<ApplicationStartEvent> {
         protected List<Guid> RegisteredEventHandlers = new List<Guid>();
-        public async void Register(ITypeProvider typeProvider, ContainerBuilder builder) {
-            await  
-                typeProvider.Assemblies.AsParallel().ProcessAsync(
+        public void Register(ITypeProvider typeProvider, ContainerBuilder builder) {
+            
+                typeProvider.Assemblies.AsParallel().Each(
                     x => builder.RegisterControllers(x).InstancePerHttpRequest(),
                     x => builder.RegisterModelBinders(x).InstancePerHttpRequest()
                 );
         }
 
-        public async void HandleAppStart(ApplicationStartEvent e) {
+        public void Handle(ApplicationStartEvent e) {
             AreaRegistration.RegisterAllAreas();
             RouteTable.Routes.MapMvcAttributeRoutes();
             var scope = e.Scope;
             
-            var routes = scope.Container.ObtainAll<IRouteProvider>();
-            var filters = scope.Container.ObtainAll<IFilterProvider>();
-            var bundles = scope.Container.ObtainAll<IBundleProvider>();
+            var routes = scope.Container.GetAll<IRouteProvider>();
+            var filters = scope.Container.GetAll<IFilterProvider>();
+            var bundles = scope.Container.GetAll<IBundleProvider>();
             
-            await routes.AsParallel().EachAsync(x => x.AddRoutes(RouteTable.Routes));
-            await filters.AsParallel().EachAsync(x => x.AddFilters(GlobalFilters.Filters));
-            await bundles.AsParallel().EachAsync(x => x.AddBundle(BundleTable.Bundles));
+            routes.AsParallel().Each(x => x.AddRoutes(RouteTable.Routes));
+            filters.AsParallel().Each(x => x.AddFilters(GlobalFilters.Filters));
+            bundles.AsParallel().Each(x => x.AddBundle(BundleTable.Bundles));
 
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(scope.Container.As<AutofacDependencyProvider>().Container));
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(scope.AutofacContainer()));
         }
 
-        
-        public void Dispose()
-        {
-            ReleaseHandle();
-        }
-
-        public IStrongBox Handle { get; set; }
-        public void ReleaseHandle()
-        {
-            Handle = null;
-        }
-
-        public IDictionary<IStrongBox, Pipeline> Registrations { get; set; }
-        public bool ShouldRegister(Pipeline pipeline)
-        {
-            return true;
-        }
-
-        public void Register(Pipeline pipeline)
-        {
-            pipeline.AddDelegate<ApplicationStartEvent>(HandleAppStart);
-        }
-
-        public void UnRegister(Pipeline pipeline)
-        {
+        public void Dispose() {
             
         }
     }

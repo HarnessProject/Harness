@@ -24,9 +24,12 @@
 
 #region
 
+using System.Linq.Expressions;
+using System.Portable;
 using System.Portable.Events;
  
 using System.Portable.Runtime;
+using System.Reflection;
 
 #endregion
 
@@ -38,6 +41,14 @@ namespace System.Composition {
 
     public abstract class NotifyPropertyChanged : Notifier<IPropertyChangeEvent>, INotifyPropertyChange {
         #region INotifyPropertyChange Members
+        public string Message { get; set; }
+        public void ChangeProperty<TY>(Expression<Func<TY>> prop, TY newValue) {
+            var member = (MemberExpression) prop.Body;
+            var p = ((PropertyInfo) member.Member);
+            var old = p.GetValue(this, null);
+            p.SetValue(this, newValue, null);
+            PropertyChanged(p.Name, old, newValue);
+        }
 
         public void PropertyChanged(string property, object oldvalue, object newValue) {
             Notify(new PropertyChangeEvent {PropertyName = property, OldValue = oldvalue, NewValue = newValue});

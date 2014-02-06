@@ -96,18 +96,17 @@ namespace System.Portable.Tests
             Assert.IsNotNull(i, "Can't cast AmClass to IAmInterface");
             Assert.IsNotNull(i2, "Can't cast IAmInterface to AnotherClass");
             Assert.IsNotNull(i3, "Can't cast AnotherClass to AmClass");
-            var dynamicElapsed = Metrics.TimeAction(() =>
-            {
+            var dynamicElapsed = Metrics.TimeAction(() => {
                 i = cl.As<IAmInterface>();
                 i2 = cl.As<AnotherClass>();
                 i3 = i2.As<AmClass>();
             });
             Assert.IsNotNull(i, "Can't cast AmClass to IAmInterface");
-            //Assert.IsNotNull(i2, "Can't cast IAmInterface to AnotherClass");
-            //Assert.IsNotNull(i3, "Can't cast AnotherClass to AmClass");
-            Assert.IsTrue(
-                standardElapsed < reflectedElapsed && reflectedElapsed < expressionElapsed && expressionElapsed < dynamicElapsed, 
-                "As<TY>: " + dynamicElapsed.TotalMilliseconds + 
+            Assert.IsNotNull(i2, "Can't cast IAmInterface to AnotherClass");
+            Assert.IsNotNull(i3, "Can't cast AnotherClass to AmClass");
+            Assert.Fail(
+                //standardElapsed < reflectedElapsed && reflectedElapsed < expressionElapsed && expressionElapsed < dynamicElapsed, 
+                "Dynamic: " + dynamicElapsed.TotalMilliseconds + 
                 ", Expression: " + expressionElapsed.TotalMilliseconds + 
                 ", Expression (Reflection): " + reflectedElapsed.TotalMilliseconds +
                 ", Standard: " + standardElapsed.TotalMilliseconds);

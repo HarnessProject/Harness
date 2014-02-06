@@ -24,25 +24,13 @@
 
 #region
 
-using System.Contracts;
 using System.Portable.Runtime;
 using System.Threading.Tasks;
 
 #endregion
 
 namespace System.Portable.Events {
-    public abstract class NotificationEvent : Event {
-        protected NotificationEvent(object sender, IEvent parent, string title, string description, ICancelToken token) {
-            Token = token;
-            Parent = parent;
-            TimeStamp = DateTime.Now;
-            Description = description;
-            Title = title;
-            Sender = sender;
-        }
-    }
-
-    public interface INotify<T> where T : IEvent {
+    public interface INotify<T> where T :IEvent {
         void Notify(T eEvent);
         Task NotifyAsync(T eEvent);
         void OnNotice(Action<T> action, Filter<T> filter);

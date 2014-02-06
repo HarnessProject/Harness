@@ -7,23 +7,23 @@ namespace System.Composition
 {
     public abstract class Notifier<T> : INotify<T> where T :IEvent {
         protected Notifier() {
-            EventPipeline = App.Container.Get<Pipeline>();
+            Pipeline = App.Container.Get<Pipeline>();
         }
 
-        protected Pipeline EventPipeline { get; set; }
+        protected Pipeline Pipeline { get; set; }
 
         #region INotify<T> Members
 
-        public async void Notify(T eEvent) {
-            await EventPipeline.Process(eEvent);
+        public async void Notify(T eEvent) { // Fire and forget notify.
+            await Pipeline.Process(eEvent);
         }
 
         public Task NotifyAsync(T eEvent) {
-            return EventPipeline.Process(eEvent);
+            return Pipeline.Process(eEvent);
         }
 
         public void OnNotice(Action<T> action, Filter<T> filter)  {
-            EventPipeline.AddDelegate(action, filter);
+            Pipeline.AddDelegate(action, filter);
         }
 
         #endregion

@@ -35,22 +35,28 @@ using System.Portable;
 using System.Portable.Runtime;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Threading;
 
 #endregion
 
 namespace System {
     public static class TypeExtensions {
-        private static TY ExpressionConvert<T,TY>(Expression<Func<object>> source, Type oType)
+        private static IList<Tuple<Type, Type, Delegate>> ConversionCache { get; set; } 
+        private static TY ExpressionConvert<T,TY>(object source)
         {
-            var unboxed = Expression.Convert(source.Body, oType);
-            var converted = Expression.Convert(unboxed, typeof(TY));
-            return Expression.Lambda<Func<TY>>(converted).Compile()();
+            //This fixes a bug in the .Net Framework - Enables casting from object to a compatible type in a PCL
+            var p = Expression.Parameter(typeof (T));
+            var converted = Expression.Convert(p, typeof(TY));
+            return Expression.Lambda<Func<T,TY>>(converted, p).Compile()((T)source);
         }
 
-        private static TY ReflectedConvert<TY>(Expression<Func<object>> o, Type oType)
+        
+
+        private static TY ReflectedConvert<TY>(object o)
         {
+            //This for some UNKNOWN reason is faster than just calling ExpressionConvert - ?? 
             var m = typeof(TypeExtensions).GetMethods(BindingFlags.Static | BindingFlags.NonPublic).FirstOrDefault(x => x.Name.Contains("ExpressionConvert"));
-            return (TY)m.MakeGenericMethod(o.Compile()().GetType(), typeof(TY)).Invoke(null, new object[] { o, oType });
+            return (TY)m.MakeGenericMethod(o.GetType(), typeof(TY)).Invoke(null, new object[] { o });
 
         }
         public static bool Is(this object o, Type t) {
@@ -75,15 +81,15 @@ namespace System {
         //}
         
 
-        private static MethodInfo GetMethod<TY>(Expression<Func<TY>> d)
+        public static MethodInfo GetMethod<TY>(this Expression<Func<TY>> d)
         {
             var m = (MethodCallExpression)d.Body;
             return m.Method;
         }
 
-        public static TY As<TY>(this object obj)
-        {
-            return ReflectedConvert<TY>(() => obj, obj.GetType());
+        public static TY As<TY>(this object obj) {
+           
+            return ReflectedConvert<TY>(obj);
         }
 
         public static TY As<TY>(this object obj, Action<TY> initializer) where TY : class {

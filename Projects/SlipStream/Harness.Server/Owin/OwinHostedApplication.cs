@@ -6,6 +6,7 @@ using System.Net;
 using System.Portable.Runtime;
 using System.Runtime.Remoting;
 using System.Tasks;
+using System.Threading.Tasks;
 using System.Web.Http;
 using Autofac.Integration.WebApi;
 using Harness.Autofac;

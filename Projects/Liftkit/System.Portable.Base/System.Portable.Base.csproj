@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\EnumerationExtensions.cs" />
+    <Compile Include="Collections\Generic\DoubleKeyedDictionary.cs" />
     <Compile Include="Collections\Generic\EnumerableExtensions.cs" />
     <Compile Include="Collections\Generic\LookupTable.cs" />
     <Compile Include="Composition\Notifier.cs" />
@@ -62,10 +63,16 @@
     <Compile Include="Data\IQuery.cs" />
     <Compile Include="IO\Directory.cs" />
     <Compile Include="IO\File.cs" />
+    <Compile Include="Portable\Events\ApplicationEvent.cs" />
+    <Compile Include="Portable\Events\Event.cs" />
+    <Compile Include="Portable\Events\IEventManager.cs" />
+    <Compile Include="Portable\Events\NotificationEvent.cs" />
+    <Compile Include="Portable\Runtime\IRegistrationProvider.cs" />
+    <Compile Include="Portable\Runtime\Reflection\ObjectFactory.cs" />
     <Compile Include="Portable\Runtime\Pipeline.cs" />
     <Compile Include="Portable\Events\IEvent.cs" />
     <Compile Include="Portable\Events\IEventHandler.cs" />
-    <Compile Include="Portable\Runtime\Dynamic\DynamicDelegate.cs" />
+    <Compile Include="Portable\Runtime\Reflection\IReflector.cs" />
     <Compile Include="Filter.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -89,9 +96,9 @@
     <Compile Include="Composition\IPropertyChangeEvent.cs" />
     <Compile Include="Portable\Runtime\NullDependencyContainer.cs" />
     <Compile Include="Determine.cs" />
-    <Compile Include="Portable\Events\EventMessenger.cs" />
+    <Compile Include="Portable\Events\EventManager.cs" />
     <Compile Include="Portable\Events\INotify.cs" />
-    <Compile Include="Portable\Events\LifetimeMessages.cs" />
+    <Compile Include="Portable\Events\ApplicationStartEvent.cs" />
     <Compile Include="ObjectExtensions.cs" />
     <Compile Include="Portable\IO\IDirectory.cs" />
     <Compile Include="Portable\IO\IFile.cs" />
@@ -105,6 +112,7 @@
     <Compile Include="Portable\Runtime\IScope.cs" />
     <Compile Include="Portable\Runtime\ITypeProvider.cs" />
     <Compile Include="Portable\Runtime\Reflection\ReflectionExtensions.cs" />
+    <Compile Include="Portable\Runtime\RegisteredSuppression.cs" />
     <Compile Include="Portable\Runtime\SuppressDependencyAttribute.cs" />
     <Compile Include="Portable\Runtime\Scope.cs" />
     <Compile Include="Portable\Runtime\WrappedAction.cs" />
@@ -150,6 +158,10 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Portable\Runtime\Dynamic\" />
+    <Folder Include="Testing\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

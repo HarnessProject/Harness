@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Composition;
-using System.Events;
 using System.Linq;
+using System.Portable.Events;
 using System.Portable.Runtime;
 using System.Security.Cryptography.X509Certificates;
-using System.Tasks;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Autofac;
@@ -17,7 +16,7 @@ using System.Web.Http;
 namespace Harness.Web.WebApi2 {
     public class WebApiReadyEvent : Event {}
 
-    public class WebApi2ContainerBuilder : IRegistrationProvider<ContainerBuilder>, IHandle<ApplicationStartEvent> {
+    public class WebApi2ContainerBuilder : IRegistrationProvider<ContainerBuilder>, IEventHandler<ApplicationStartEvent> {
 
         public async void Register(ITypeProvider environment, ContainerBuilder builder) {
             await environment.Assemblies.AsParallel().ProcessAsync(
@@ -30,21 +29,25 @@ namespace Harness.Web.WebApi2 {
 
         public async void Handle(ApplicationStartEvent e) {
 
-            var scope = e.Parameter;
+            var scope = e.Scope;
             scope.State.Add("HttpConfig", new Action<HttpConfiguration>((config) => {
                 config.MapHttpAttributeRoutes();
-                var configs = scope.Container.GetAllInstances<IHttpConfigProvider>();
+                var configs = scope.Container.GetAll<IHttpConfigProvider>();
             
                 config.Initializer = async c => {
                     await configs.EachAsync(x => x.Configure(c));
                 };
               
                 config.DependencyResolver = 
-                    new AutofacWebApiDependencyResolver(scope.Container.As<AutofacDependencyContainer>().Container);
+                    new AutofacWebApiDependencyResolver(scope.AutofacContainer());
 
             }));
 
-            await scope.EventMessenger.Trigger(new WebApiReadyEvent());
+            await scope.EventManager.Trigger(new WebApiReadyEvent());
+        }
+
+        public void Dispose() {
+            
         }
     }
 }
