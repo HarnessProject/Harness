@@ -10,4 +10,6 @@
             return new SafeString {Value = s};
         }
     }
+
+    
 }

@@ -24,6 +24,7 @@
 
 #region
 
+using System.Linq.Expressions;
 using System.Reflection;
 
 #endregion
@@ -31,7 +32,8 @@ using System.Reflection;
 namespace System.Contracts {
     public class StringLengthAttribute : ContractPropertyAttribute {
         public StringLengthAttribute(int count) : base(
-            new Assertion<object, PropertyInfo>((x, p) => x.Is<String>() && x.As<String>().Length <= count, "is not a string, or is too long")
-            ) {}
+            new Assertion<object, PropertyInfo>((x, p) => x.Is<String>(), "is not a string"),
+            new Assertion<object, PropertyInfo>((x,p) => x.As<String>().Length <= count, "is too long")
+        ) {}
     }
 }

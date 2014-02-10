@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Portable.Reflection;
 using System.Portable.Runtime;
 using System.Threading.Tasks;
 using Autofac;
@@ -83,7 +84,7 @@ namespace System.Composition.Autofac {
                         return x.GetCustomAttributes(typeof (SuppressDependencyAttribute), true)
                             .Cast<SuppressDependencyAttribute>()
                             .WhereNotDefault()
-                            .Select(y => new RegisteredSuppression {OwnerType = x, SuppressionType = y.Type, ScoreSeed = i})
+                            .Select(y => new RegisteredSuppression {OwnerType = x, SuppressionType = y.Type, ScoreSeed = i++})
                             .OrderBy(y => y.Score);
                     }
                 ).ToArray();

@@ -24,7 +24,11 @@
 
 #region
 
+using System.Collections.Generic;
 using System.Contracts;
+using System.Reactive.Disposables;
+using System.Reactive.Linq;
+using System.Threading;
 
 #endregion
 
@@ -39,5 +43,21 @@ namespace System.Portable.Events {
         string Description { get; }
         DateTime TimeStamp { get; }
         IEvent Parent { get; }
+    }
+
+    public interface IEventManager : IObserver<IEvent>, IObservable<IEvent> {
+    }
+
+    public class EventManager : RelayObserver<IEvent, IEvent>, IEventManager {
+        
+        public override IEvent Process(IEvent t) {
+            return t;
+        }
+    }
+
+    public static class ReactiveEventExtensions {
+        public static IObservable<T> WhereIs<T>(this IObservable<IEvent> o, IObserver<T> observer) where T : IEvent {
+            return o.Where(x => x.Is<T>()).Cast<T>();
+        }
     }
 }

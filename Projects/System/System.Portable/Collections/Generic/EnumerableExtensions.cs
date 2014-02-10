@@ -62,5 +62,9 @@ namespace System.Collections.Generic {
             });
             return list;
         }
+
+        public static void UntilTrue<T>(this IEnumerable<T> collection, Filter<T> filter) {
+            
+        }
     }
 }

@@ -26,6 +26,8 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Portable.Reflection;
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 #endregion
@@ -40,7 +42,8 @@ namespace System {
             return Regex.Matches(str, pattern, options).Cast<Match>();
         }
 
-        public static string Format(this string format, params object[] args) {
+        public static string FormatWith(this string format, object args) {
+            args.GetType().GetProperties(BindingFlags.Public).Each(x => format = format.Replace(String.Format("{0}", x.Name), Container.Get<IReflector>().GetPropertyValue(args,x.Name).ToString()));
             return String.Format(format, args);
         }
     }

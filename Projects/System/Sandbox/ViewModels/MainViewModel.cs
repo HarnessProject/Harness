@@ -7,13 +7,14 @@ using System.Composition.CaliburnMicro;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net.PeerToPeer.Collaboration;
-using System.Portable.Runtime.Reflection;
+using System.Portable.Events;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Autofac.Core;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace Sandbox.ViewModels
 {
@@ -22,7 +23,11 @@ namespace Sandbox.ViewModels
 
         public MainViewModel() {
             _number.Subscribe(x => OnPropertyChanged(new PropertyChangedEventArgs("Number")));
-            
+
+            var f = Filter.If<int>(x => x > 6).And(x => x < 10).As<Func<int,bool>>();
+
+            _number.Where(f).Subscribe(x => MessageBox.Show("Sweet Spot!"));
+
         }
         
         public int Number {

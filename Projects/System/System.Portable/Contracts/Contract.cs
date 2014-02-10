@@ -27,7 +27,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Portable;
-using System.Portable.Runtime.Reflection;
+using System.Portable.Reflection;
 
 #endregion
 
@@ -49,7 +49,7 @@ namespace System.Contracts {
             Exception e = null;
             var arguments = new List<object> {o};
             args.NotNull(a => a.AddTo(arguments));
-            if (assertion.Try(a => (bool)App.Container.Get<IReflector>().InvokeReturn(a, arguments.ToArray()))
+            if (assertion.Try(a => (bool)App.Container.Get<IReflector>().Invoke(a, arguments.ToArray()))
                 .Catch<Exception>((x, ex) => {
                     e = ex;
                     return false;

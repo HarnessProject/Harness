@@ -22,7 +22,7 @@
 
 #endregion
 
-namespace System.Messaging {
+namespace System.Portable.Messaging {
     public interface IReceive<T> {
         bool Deliver(T message);
     }

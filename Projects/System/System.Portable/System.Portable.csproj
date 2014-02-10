@@ -63,7 +63,9 @@
     <Compile Include="Contracts\StringLengthAttribute.cs" />
     <Compile Include="Contracts\ValidationResult.cs" />
     <Compile Include="Contracts\ValidationResults.cs" />
-    <Compile Include="Data\IQuery.cs" />
+    <Compile Include="Composition\ObjectGraft.cs" />
+    <Compile Include="Portable\Data\IExpire.cs" />
+    <Compile Include="Portable\Data\IQuery.cs" />
     <Compile Include="Determine.cs" />
     <Compile Include="Filter1.cs">
       <AutoGen>True</AutoGen>
@@ -74,15 +76,15 @@
     <Compile Include="IO\File.cs" />
     <Compile Include="ObjectExtensions.cs" />
     <Compile Include="Portable\Application.cs" />
+    <Compile Include="Portable\Events\ActionObserver.cs" />
     <Compile Include="Portable\Events\ApplicationEvent.cs" />
     <Compile Include="Portable\Events\ApplicationStartEvent.cs" />
     <Compile Include="Portable\Events\Event.cs" />
-    <Compile Include="Portable\Events\EventManager.cs" />
     <Compile Include="Portable\Events\IEvent.cs" />
     <Compile Include="Portable\Events\IEventHandler.cs" />
-    <Compile Include="Portable\Events\IEventManager.cs" />
-    <Compile Include="Portable\Events\INotify.cs" />
     <Compile Include="Portable\Events\NotificationEvent.cs" />
+    <Compile Include="Portable\Events\Reactive.cs" />
+    <Compile Include="Portable\Events\RelayObserver.cs" />
     <Compile Include="Portable\IHold.cs" />
     <Compile Include="Portable\IO\FileAccess.cs" />
     <Compile Include="Portable\IO\IDirectory.cs" />
@@ -91,25 +93,21 @@
     <Compile Include="Portable\IO\IFileSystemElement.cs" />
     <Compile Include="Portable\Messaging\IMessenger.cs" />
     <Compile Include="Portable\Messaging\IReceive.cs" />
-    <Compile Include="Portable\Runtime\ICacheService.cs" />
+    <Compile Include="Portable\Data\Caching\ICacheService.cs" />
+    <Compile Include="Portable\Reflection\ICast.cs" />
     <Compile Include="Portable\Runtime\IDependency.cs" />
     <Compile Include="Portable\Runtime\IDependencyContainer.cs" />
-    <Compile Include="Portable\Runtime\IFactory.cs" />
+    <Compile Include="Portable\Reflection\IFactory.cs" />
     <Compile Include="Portable\Runtime\IRegistrationProvider.cs" />
     <Compile Include="Portable\Runtime\IScope.cs" />
-    <Compile Include="Portable\Runtime\ITypeProvider.cs" />
+    <Compile Include="Portable\Reflection\ITypeProvider.cs" />
     <Compile Include="Portable\Runtime\NullDependencyContainer.cs" />
-    <Compile Include="Portable\Runtime\Pipeline.cs" />
-    <Compile Include="Portable\Runtime\Reflection\IReflector.cs" />
-    <Compile Include="Portable\Runtime\Reflection\ObjectFactory.cs" />
-    <Compile Include="Portable\Runtime\Reflection\ReflectionExtensions.cs" />
-    <Compile Include="Portable\Runtime\RegisteredAction.cs" />
-    <Compile Include="Portable\Runtime\RegisteredEventFilter.cs" />
+    <Compile Include="Portable\Reflection\IReflector.cs" />
+    <Compile Include="Portable\Reflection\ObjectFactory.cs" />
+    <Compile Include="Portable\Reflection\ReflectionExtensions.cs" />
     <Compile Include="Portable\Runtime\RegisteredSuppression.cs" />
     <Compile Include="Portable\Runtime\Scope.cs" />
     <Compile Include="Portable\Runtime\SuppressDependencyAttribute.cs" />
-    <Compile Include="Portable\Runtime\WrappedAction.cs" />
-    <Compile Include="Portable\Runtime\WrappedFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProtectedInvocation.cs" />
     <Compile Include="Q.cs" />
@@ -127,8 +125,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Composition\" />
-    <Folder Include="Portable\Runtime\Dynamic\" />
+    <Folder Include="Portable\Dynamic\" />
     <Folder Include="Testing\" />
   </ItemGroup>
   <ItemGroup>
@@ -159,16 +156,16 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" />
-  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
-    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
-    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
-  </Target>
   <PropertyGroup>
     <PostBuildEvent>cd "$(ProjectDir)"
 $(SolutionDir)\.nuget\nuget pack -IncludeReferencedProjects
 move *.nupkg "$(SolutionDir)..\..\packages"</PostBuildEvent>
   </PropertyGroup>
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

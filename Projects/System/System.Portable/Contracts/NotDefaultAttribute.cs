@@ -24,6 +24,7 @@
 
 #region
 
+using System.Portable;
 using System.Reflection;
 
 #endregion
@@ -31,16 +32,14 @@ using System.Reflection;
 namespace System.Contracts {
     public class NotDefaultAttribute : ContractPropertyAttribute {
         public NotDefaultAttribute() : base(
-            new Assertion<object, PropertyInfo>((x, p) => x != GetDefault(p.PropertyType), "is default value")
-            ) {}
+            new Assertion<object, PropertyInfo>((x, p) => x != App.TypeProvider.GetDefault(x.GetType()), "is default value")
+        ) {}
 
-        protected static object GetDefault(Type t) {
-            Func<object> f = GetDefault<object>;
-            return f.Method.GetGenericMethodDefinition().MakeGenericMethod(t).Invoke(null, null);
-        }
-
-        protected static T GetDefault<T>() {
-            return default(T);
-        }
+        
     }
+
+    //public class CanParse<T> : ContractPropertyAttribute {
+    //    public CanParse() : base (
+    //        new Assertion<object, PropertyInfo>((x,p) => App.C))  
+    //}
 }

@@ -3,7 +3,7 @@ using System.Portable.Runtime;
 using Caliburn.Micro;
 
 namespace System.Composition.CaliburnMicro {
-    public abstract class ModelBase : NotifyPropertyChange, IDependency, INotifyPropertyChangedEx
+    public abstract class ModelBase : Screen, ITransientDependency
     {
         protected IScope Scope;
 
@@ -16,20 +16,6 @@ namespace System.Composition.CaliburnMicro {
             return Scope.Container.Get<T>();
         }
 
-        protected void OnDeactivate(bool close) {
-           
-            if (close) Scope.Dispose();
-        }
-
-        public void NotifyOfPropertyChange(string propertyName) {
-            IsNotifying = true;
-
-        }
-
-        public void Refresh() {
-            throw new NotImplementedException();
-        }
-
-        public bool IsNotifying { get; set; }
+        
     }
 }

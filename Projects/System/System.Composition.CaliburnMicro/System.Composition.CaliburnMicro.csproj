@@ -69,10 +69,6 @@
     <None Include="System.Composition.CaliburnMicro.nuspec" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\System.Composition\System.Composition.csproj">
-      <Project>{18186b4e-339f-4cfe-832c-d440f6f154f5}</Project>
-      <Name>System.Composition</Name>
-    </ProjectReference>
     <ProjectReference Include="..\System.NetFramework\System.NetFramework.csproj">
       <Project>{95eef4a4-7f04-495b-8dd2-544e2fe02e05}</Project>
       <Name>System.NetFramework</Name>

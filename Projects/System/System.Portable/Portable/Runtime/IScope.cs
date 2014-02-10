@@ -25,7 +25,6 @@
 #region
 
 using System.Collections.Generic;
-using System.Messaging;
 using System.Portable.Events;
 using System.Portable.Messaging;
 

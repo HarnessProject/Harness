@@ -65,16 +65,6 @@ namespace System.Portable.Runtime {
 
         #endregion
 
-        public T GetInstanceOf<T>(string type) {
-            return default(T);
-        }
-
-        public bool GetImplementation<T>(Action<T> action) where T : IDependencyProvider {
-            return false;
-        }
-
-        public Task<bool> GetImplementationAsync<T>(Action<T> action) where T : IDependencyProvider {
-            return new Task<bool>(() => false);
-        }
+        
     }
 }

@@ -57,21 +57,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\Csv\CachedCsvReader.cs" />
-    <Compile Include="Data\Csv\CachedCsvReader.CsvBindingList.cs" />
-    <Compile Include="Data\Csv\CachedCsvReader.CsvPropertyDescriptor.cs" />
-    <Compile Include="Data\Csv\CachedCsvReader.CsvRecordComparer.cs" />
-    <Compile Include="Data\Csv\CsvReader.cs" />
-    <Compile Include="Data\Csv\CsvReader.DataReaderValidations.cs" />
-    <Compile Include="Data\Csv\CsvReader.RecordEnumerator.cs" />
-    <Compile Include="Data\Csv\Events\ParseErrorEventArgs.cs" />
-    <Compile Include="Data\Csv\Exceptions\MalformedCsvException.cs" />
-    <Compile Include="Data\Csv\Exceptions\MissingFieldCsvException.cs" />
-    <Compile Include="Data\Csv\MissingFieldAction.cs" />
-    <Compile Include="Data\Csv\ParseErrorAction.cs" />
-    <Compile Include="Data\Csv\Resources\ExceptionMessage.Designer.cs" />
-    <Compile Include="Data\Csv\ValueTrimmingOptions.cs" />
-    <Compile Include="Data\IExpire.cs" />
     <Compile Include="Portable\IO\RuntimeDirectory.cs" />
     <Compile Include="Portable\IO\RuntimeFile.cs" />
     <Compile Include="Portable\IO\RuntimeFileSystem.cs" />
@@ -80,9 +65,6 @@
     <Compile Include="Portable\Runtime\RuntimeReflector.cs" />
     <Compile Include="Portable\Runtime\TypeProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Data\Csv\Resources\ExceptionMessage.resx" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

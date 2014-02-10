@@ -24,9 +24,9 @@
 
 #region
 
-using System.Messaging;
 using System.Portable.Events;
 using System.Portable.Messaging;
+using System.Portable.Reflection;
 using System.Portable.Runtime;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
