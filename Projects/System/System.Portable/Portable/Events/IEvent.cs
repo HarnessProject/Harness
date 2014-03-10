@@ -1,11 +1,12 @@
 ﻿#region ApacheLicense
 
-// System.Portable.Base
-// Copyright © 2013 Nick Daniels et all, All Rights Reserved.
+// From the Harness Project
+// System.Portable
+// Copyright © 2014 Nick Daniels et all, All Rights Reserved.
 // 
 // Licensed under the Apache License, Version 2.0 (the "License") with the following exception:
 // 	Some source code is licensed under compatible licenses as required.
-// 	See the attribution headers of the applicable source files for specific licensing 	terms.
+// 	See the attribution headers of the applicable source files for specific licensing terms.
 // 
 // You may not use this file except in compliance with its License(s).
 // 
@@ -24,10 +25,6 @@
 
 #region
 
-using System.Collections.Generic;
-using System.Contracts;
-using System.Reactive.Disposables;
-using System.Reactive.Linq;
 using System.Threading;
 
 #endregion
@@ -37,27 +34,12 @@ namespace System.Portable.Events {
     ///     Represents an event.
     ///     This interface should be satisfied to the point that every event fired is loggable.
     /// </summary>
-    public interface IEvent : ICancel {
+    public interface IEvent {
         object Sender { get; }
         string Title { get; }
         string Description { get; }
         DateTime TimeStamp { get; }
         IEvent Parent { get; }
-    }
-
-    public interface IEventManager : IObserver<IEvent>, IObservable<IEvent> {
-    }
-
-    public class EventManager : RelayObserver<IEvent, IEvent>, IEventManager {
-        
-        public override IEvent Process(IEvent t) {
-            return t;
-        }
-    }
-
-    public static class ReactiveEventExtensions {
-        public static IObservable<T> WhereIs<T>(this IObservable<IEvent> o, IObserver<T> observer) where T : IEvent {
-            return o.Where(x => x.Is<T>()).Cast<T>();
-        }
+        CancellationToken Token { get; }
     }
 }

@@ -1,11 +1,12 @@
 ﻿#region ApacheLicense
 
-// System.Portable.Base
-// Copyright © 2013 Nick Daniels et all, All Rights Reserved.
+// From the Harness Project
+// System.Portable
+// Copyright © 2014 Nick Daniels et all, All Rights Reserved.
 // 
 // Licensed under the Apache License, Version 2.0 (the "License") with the following exception:
 // 	Some source code is licensed under compatible licenses as required.
-// 	See the attribution headers of the applicable source files for specific licensing 	terms.
+// 	See the attribution headers of the applicable source files for specific licensing terms.
 // 
 // You may not use this file except in compliance with its License(s).
 // 
@@ -24,14 +25,12 @@
 
 #region
 
-using System.Threading.Tasks;
+
 
 #endregion
 
 namespace System.Portable.Reflection {
     public interface IFactory<T> {
-        Task<T> CreateAsync();
-        T Create();
-        T Create(params object[] args);
+        T Create(dynamic context);
     }
 }

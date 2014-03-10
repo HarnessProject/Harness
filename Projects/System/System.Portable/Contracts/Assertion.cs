@@ -1,11 +1,12 @@
 ﻿#region ApacheLicense
 
-// System.Portable.Base
+// From the Harness Project
+// System.Portable
 // Copyright © 2014 Nick Daniels et all, All Rights Reserved.
 // 
 // Licensed under the Apache License, Version 2.0 (the "License") with the following exception:
 // 	Some source code is licensed under compatible licenses as required.
-// 	See the attribution headers of the applicable source files for specific licensing 	terms.
+// 	See the attribution headers of the applicable source files for specific licensing terms.
 // 
 // You may not use this file except in compliance with its License(s).
 // 
@@ -37,7 +38,7 @@ namespace System.Contracts {
         public Assertion(Filter<T> assertion, string invalidMessage) : base(assertion, invalidMessage) {}
     }
 
-    public abstract class Assertion : IAssert {
+    public abstract class Assertion {
         protected Assertion(Delegate assertion, string invalidMessage, IList<object> args = null) {
             Predicate = assertion;
             InvalidMessage = invalidMessage;
@@ -47,10 +48,6 @@ namespace System.Contracts {
         public IList<object> Arguments { get; protected set; }
         public string InvalidMessage { get; protected set; }
 
-        #region IAssert Members
-
         public Delegate Predicate { get; protected set; }
-
-        #endregion
     }
 }

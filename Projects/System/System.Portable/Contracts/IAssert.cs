@@ -1,11 +1,12 @@
 ﻿#region ApacheLicense
 
-// System.Portable.Base
+// From the Harness Project
+// System.Portable
 // Copyright © 2014 Nick Daniels et all, All Rights Reserved.
 // 
 // Licensed under the Apache License, Version 2.0 (the "License") with the following exception:
 // 	Some source code is licensed under compatible licenses as required.
-// 	See the attribution headers of the applicable source files for specific licensing 	terms.
+// 	See the attribution headers of the applicable source files for specific licensing terms.
 // 
 // You may not use this file except in compliance with its License(s).
 // 
@@ -23,7 +24,7 @@
 #endregion
 
 namespace System.Contracts {
-    public interface IAssert {
-        Delegate Predicate { get; }
+    public interface IAssert<T> {
+        Filter<T> Assertion { get; }
     }
 }

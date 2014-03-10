@@ -1,11 +1,12 @@
 ﻿#region ApacheLicense
 
-// System.Portable.Base
-// Copyright © 2013 Nick Daniels et all, All Rights Reserved.
+// From the Harness Project
+// System.Portable
+// Copyright © 2014 Nick Daniels et all, All Rights Reserved.
 // 
 // Licensed under the Apache License, Version 2.0 (the "License") with the following exception:
 // 	Some source code is licensed under compatible licenses as required.
-// 	See the attribution headers of the applicable source files for specific licensing 	terms.
+// 	See the attribution headers of the applicable source files for specific licensing terms.
 // 
 // You may not use this file except in compliance with its License(s).
 // 
@@ -24,19 +25,15 @@
 
 #region
 
-using System.Threading.Tasks;
-
 #endregion
 
 namespace System.Collections.Generic {
     public static class EnumerableExtensions {
-        public static void Each<T>(this IEnumerable<T> collection, Action<T> action)
-        {
+        public static void Each<T>(this IEnumerable<T> collection, Action<T> action) {
             foreach (var i in collection) action(i);
         }
 
-        public static void Each<T>(this IEnumerable<T> collection, params Action<T>[] actions) 
-        {
+        public static void Each<T>(this IEnumerable<T> collection, params Action<T>[] actions) {
             actions.Each(collection.Each);
         }
 
@@ -54,8 +51,7 @@ namespace System.Collections.Generic {
             return list;
         }
 
-        public static IList<TY> AddTo<T, TY>(this IEnumerable<T> collection, IList<TY> list, Func<T, TY> transform) 
-        {
+        public static IList<TY> AddTo<T, TY>(this IEnumerable<T> collection, IList<TY> list, Func<T, TY> transform) {
             collection.Each(x => {
                 var i = transform(x);
                 list.Add(i);
@@ -64,7 +60,9 @@ namespace System.Collections.Generic {
         }
 
         public static void UntilTrue<T>(this IEnumerable<T> collection, Filter<T> filter) {
-            
+            foreach (var item in collection) {
+                if (filter(item)) break;
+            }
         }
     }
 }

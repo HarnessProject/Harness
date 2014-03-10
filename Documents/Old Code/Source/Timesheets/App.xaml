@@ -1,9 +1,0 @@
-﻿<Application x:Class="Timesheets.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:app ="clr-namespace:Timesheets"
-             StartupUri="MainWindow.xaml">
-    <Application.Resources>
-         <app:Bootstrapper x:Key="Bootstrapper"></app:Bootstrapper>
-    </Application.Resources>
-</Application>

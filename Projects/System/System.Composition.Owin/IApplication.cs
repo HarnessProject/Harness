@@ -1,4 +1,5 @@
-﻿using System.Portable.Runtime;
+﻿using System.Composition.Dependencies;
+using System.Portable.Runtime;
 using System.Threading.Tasks;
 using Microsoft.Owin;
 using Owin;
@@ -10,8 +11,8 @@ namespace System.Composition.Owin{
         void Configure(IAppBuilder app);
     }
 
-    public interface IMiddleware : IDisposableDependency {
-        Task Invoke(IOwinContext context);
+    public interface IMiddleware : ITransientDependency {
+        Task Invoke(OwinHandlerContext context);
     }
 
     

@@ -1,12 +1,12 @@
-﻿using System.Portable.Runtime;
+﻿using System.Composition.Dependencies;
 
 namespace System.Composition.Autofac {
-    public class LifetimeRegistrationService : IComponentRegistrationService<IDependency> {
+    public class LifetimeRegistrationService : IAttachToRegistration<IDependency> {
         #region IComponentRegistrationService<IDependency> Members
 
         public void AttachToRegistration(IRegistrationContext context) {
-            context.RegisterHandlerForType<ISingletonDependency>(x => x.SingleInstance());
-            context.RegisterHandlerForType<ITransientDependency>(x => x.InstancePerDependency());
+            context.RegisterHandlerForType<ISingletonDependency>(x => x.AsSingleton());
+            context.RegisterHandlerForType<ITransientDependency>(x => x.AsTransient());
         }
 
         #endregion

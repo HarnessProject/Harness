@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Autofac.Core;
+using LinqToDB.Data;
 using MahApps.Metro.Controls.Dialogs;
 
 namespace Sandbox.ViewModels
@@ -27,6 +28,9 @@ namespace Sandbox.ViewModels
             var f = Filter.If<int>(x => x > 6).And(x => x < 10).As<Func<int,bool>>();
 
             _number.Where(f).Subscribe(x => MessageBox.Show("Sweet Spot!"));
+            
+
+           
 
         }
         

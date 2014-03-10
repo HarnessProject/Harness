@@ -24,12 +24,7 @@ namespace System.Composition.CaliburnMicro {
 
         protected override void Configure() {
             base.Configure();
-
-            App.Initialize(x => {
-                x.Container = new AutofacDependencyProvider(Container);
-            });
-
-            //Configured = true;
+            Provider.Start(TypeProvider.Instance, new { Container } );
         }
     }
 }

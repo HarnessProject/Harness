@@ -2,28 +2,27 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using RuntimePath = System.IO.Path;
 
 namespace System.Portable.IO
 {
     public class RuntimeDirectory : RuntimeFileSystemElement, IDirectory {
-        public RuntimeDirectory() {
         
-        }
-    
         protected FileInfo GetFileInfo(string name) {
-            return new FileInfo(System.IO.Path.Combine(Path,name));
+            return new FileInfo(Combine(name));
         }
         protected DirectoryInfo GetDirectoryInfo(string name)
         {
-            return new DirectoryInfo(System.IO.Path.Combine(Path, name));
+            return new DirectoryInfo(Combine(name));
         }
-        public long FileCount { get; private set; }
-        public long DirectoryCount { get; private set; }
+        public long FileCount { get { return Directory.EnumerateFiles(Path).Count(); } }
+        public long DirectoryCount { get { return Directory.EnumerateDirectories(Path).Count(); } }
 
         public IFile CreateFile(string name) {
-            var f = GetFileInfo(name);
-            if (!f.Exists) f.Create();
-            return f.As<IFile>();
+            var path = Combine(name);
+            File.Exists(path).True( () => FileSystemException.FileExists(path).Throw() );
+            File.Create(path);
+            return new RuntimeFile { Path = path };
         }
 
         public Task<IFile> CreateFileAsync(string name) {
@@ -31,7 +30,10 @@ namespace System.Portable.IO
         }
 
         public IFile GetFile(string name) {
-            return GetFileInfo(name).As<RuntimeFile>();
+            var path = Combine(name);
+            File.Exists(path)
+                .False(() => FileSystemException.FileNotFound(path));
+            return new RuntimeFile { Path = path };
         }
 
         public Task<IFile> GetFileAsync(string name) {
@@ -39,7 +41,9 @@ namespace System.Portable.IO
         }
 
         public IEnumerable<IFile> GetFiles() {
-            return Directory.GetFiles(Path).Select(x => GetFileInfo(x).As<RuntimeFile>());
+            return 
+            Directory.GetFiles(Path)
+                     .Select(x => new RuntimeFile { Path = x });
         }
 
         public Task<IEnumerable<IFile>> GetFilesAsync() {
@@ -55,9 +59,12 @@ namespace System.Portable.IO
         }
 
         public IDirectory CreateDirectory(string name) {
-            var r = GetDirectoryInfo(name);
-            if (!r.Exists) r.Create();
-            return r.As<IDirectory>();
+            var path = Combine(name);
+            Directory.Exists(path)
+                     .True( () => FileSystemException.DirectoryExists(path).Throw() );
+
+            Directory.CreateDirectory(path);
+            return new RuntimeDirectory() {Path = path};
         }
 
         public Task<IDirectory> CreateDirectoryAsync(string name) {
@@ -65,7 +72,14 @@ namespace System.Portable.IO
         }
 
         public IDirectory GetDirectory(string name) {
-            return GetDirectoryInfo(name).As<IDirectory>();
+            var path = Combine(name);
+            Directory.Exists(path)
+                .False( () => FileSystemException.DirectoryNotFound(path).Throw() );
+            return new RuntimeDirectory {Path = path};
+        }
+
+        protected string Combine(string name) {
+            return RuntimePath.Combine(Path, name);
         }
 
         public Task<IDirectory> GetDirectoryAsync(string name) {
@@ -73,7 +87,9 @@ namespace System.Portable.IO
         }
 
         public IEnumerable<IDirectory> GetDirectories() {
-            return Directory.GetDirectories(Path).Select(x => GetDirectoryInfo(x).As<RuntimeDirectory>());
+            return 
+            Directory.GetDirectories(Path)
+            .Select(x => new RuntimeDirectory() { Path = x });
         }
 
         public Task<IEnumerable<IDirectory>> GetDirectoriesAsync() {
@@ -96,25 +112,28 @@ namespace System.Portable.IO
             return this.AsTask(x => Delete());
         }
 
-        public static implicit operator RuntimeDirectory(DirectoryInfo directory)
-        {
-            if (!directory.Exists) throw new DirectoryNotFoundException("The Directory specified does not exist : " + directory.FullName);
-            var dirCount = directory.EnumerateDirectories().LongCount();
-            var fileCount = directory.EnumerateFiles().LongCount();
-        
-            var r = new RuntimeDirectory {
-                DirectoryCount = dirCount, 
-                Exists = directory.Exists, 
-                FileCount = fileCount, 
-                Name = directory.Name, 
-                Path = directory.FullName
-            };
+        public static implicit operator RuntimeDirectory(DirectoryInfo directory) {
+            
+            directory.Exists
+                .False(
+                    () => 
+                        FileSystemException
+                        .DirectoryNotFound(directory.FullName)
+                        .Throw()
+                );
 
-            return r;
+            return new RuntimeDirectory { Path = directory.FullName };
         }
 
         public static implicit operator RuntimeDirectory(string path) {
-            return new DirectoryInfo(path).As<RuntimeDirectory>();
+            return new RuntimeDirectory() { Path = path } ;
+        }
+
+
+        public override bool Exists {
+            get { return Directory.Exists(Path); }
+            
+
         }
     }
 }

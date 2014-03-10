@@ -3,15 +3,13 @@ using System.Threading.Tasks;
 using Microsoft.Owin;
 
 namespace System.Composition.Owin{
-    public abstract class BaseMiddleWare : OwinMiddleware, IMiddleware {
-        protected BaseMiddleWare() : base(null) {}
+    public abstract class BaseMiddleWare : IMiddleware {
+        protected BaseMiddleWare() { }
         public IScope Scope { get; set; }
 
-        public abstract override Task Invoke(IOwinContext context);
+        public abstract Task Invoke(OwinHandlerContext context);
 
-        public void Dispose() {
-            Scope.Dispose();
-        }
+       
         
     }
 }

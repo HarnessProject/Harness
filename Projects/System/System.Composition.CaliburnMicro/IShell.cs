@@ -1,4 +1,5 @@
-﻿using System.Portable.Runtime;
+﻿using System.Composition.Dependencies;
+using System.Portable.Runtime;
 using Caliburn.Micro;
 
 /* Interfaces for our auto injection scheme... */

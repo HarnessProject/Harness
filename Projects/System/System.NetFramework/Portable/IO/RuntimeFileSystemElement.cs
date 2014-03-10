@@ -1,9 +1,15 @@
+using RuntimePath = System.IO.Path;
+
 namespace System.Portable.IO
 {
-    public class RuntimeFileSystemElement : IFileSystemElement
+    public abstract class RuntimeFileSystemElement : IFileSystemElement
     {
-        public string Name { get; set; }
+        public string Name
+        {
+            get { return System.IO.Path.GetFileName(Path); }
+        }
+
         public string Path { get; set; }
-        public bool Exists { get; set; }
+        public abstract bool Exists { get; }
     }
 }

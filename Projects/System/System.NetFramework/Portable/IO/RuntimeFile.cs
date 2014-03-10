@@ -5,20 +5,20 @@ namespace System.Portable.IO
 {
     public class RuntimeFile : RuntimeFileSystemElement, IFile
     {
-        public long Length { get; private set; }
+        public long Length { get { return new FileInfo(Path).Length; } }
         public Stream Open(FileAccessType fileAccess)
         {
             Stream r = null;
             switch (fileAccess)
             {
                 case FileAccessType.Read:
-                    r = File.Open(Path, FileMode.Open, System.IO.FileAccess.Read);
+                    r = File.Open(Path, FileMode.Open, FileAccess.Read);
                     break;
                 case FileAccessType.ReadWrite:
-                    r = File.Open(Path, FileMode.OpenOrCreate, System.IO.FileAccess.ReadWrite);
+                    r = File.Open(Path, FileMode.OpenOrCreate, FileAccess.ReadWrite);
                     break;
                 case FileAccessType.Write:
-                    r = File.Open(Path, FileMode.OpenOrCreate, System.IO.FileAccess.Write);
+                    r = File.Open(Path, FileMode.OpenOrCreate, FileAccess.Write);
                     break;
                 default:
                     r = null;
@@ -42,21 +42,14 @@ namespace System.Portable.IO
             return this.AsTask(x => Delete());
         }
 
-        public static implicit operator RuntimeFile(FileInfo file)
-        {
-            var f = new RuntimeFile
-            {
-                Path = file.FullName,
-                Name = file.Name,
-                Exists = File.Exists(file.FullName),
-                Length = file.Length
-                
-            };
-            return f;
+        public static implicit operator RuntimeFile(FileInfo file) {
+            return new RuntimeFile {Path = file.FullName};
         }
 
         public static implicit operator RuntimeFile(string file) {
             return new FileInfo(file).As<RuntimeFile>();
         }
+
+        public override bool Exists { get { return File.Exists(Path); } }
     }
 }

@@ -43,14 +43,13 @@
   <ItemGroup>
     <Compile Include="AutofacContainerFactory.cs" />
     <Compile Include="AutofacDependencyProvider.cs" />
-    <Compile Include="Class1.cs" />
-    <Compile Include="IComponentRegistrationService.cs" />
+    <Compile Include="AutofacDependencyProviderFactory.cs" />
+    <Compile Include="AutofacDependencyRegistrar.cs" />
+    <Compile Include="AutofacDependencyRegistration.cs" />
     <Compile Include="IContainerBuilderService.cs" />
     <Compile Include="IModule.cs" />
-    <Compile Include="IRegistrationContext.cs" />
     <Compile Include="LifetimeRegistrationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegistrationContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Autofac">

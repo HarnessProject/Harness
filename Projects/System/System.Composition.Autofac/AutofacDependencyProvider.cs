@@ -1,25 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Composition.Providers;
 using System.Linq;
-using System.Portable.Reflection;
-using System.Portable.Runtime;
+using System.Threading.Tasks;
 using Autofac;
 
 namespace System.Composition.Autofac
 {
     [SuppressDependency(typeof(NullDependencyProvider))]
     public class AutofacDependencyProvider : IDependencyProvider {
-        public IContainer Container { get; set; }
+        public ILifetimeScope Container { get; set; }
 
         public AutofacDependencyProvider(ITypeProvider environment) {
-            Container = new AutofacContainerFactory(environment).Create();
+            Container = new AutofacContainerFactory().Create(new { TypeProvider = environment });
         }
 
-        public AutofacDependencyProvider(IContainer container) {
+        public AutofacDependencyProvider(ILifetimeScope container) {
             Container = container;
         }
 
         public void Dispose() {
+            //Container.Dispose();
+            Container.Disposer.Dispose();
             Container.Dispose();
         }
 
@@ -36,7 +38,13 @@ namespace System.Composition.Autofac
         }
 
         public IEnumerable<object> GetAll(Type serviceType) {
-            return ((IEnumerable)Container.Resolve(typeof(IEnumerable<>).MakeGenericType(serviceType))).Cast<Object>();
+            return (
+                (IEnumerable)Container
+                .Resolve(
+                    typeof(IEnumerable<>)
+                    .MakeGenericType(serviceType))
+                )
+                .Cast<Object>();
         }
 
         public TService Get<TService>() {
