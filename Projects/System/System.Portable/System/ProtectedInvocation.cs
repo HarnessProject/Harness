@@ -67,7 +67,7 @@ namespace System {
         }
 
         public TY Act() {
-            var result = Provider.Types.GetDefault<TY>();
+            var result = default(TY);
             foreach (var f in _protectedFuncs.OrderBy(x => x.Key))
                 try {
                     result = f.Value(_target);

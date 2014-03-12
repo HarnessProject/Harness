@@ -28,6 +28,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Portable;
 using System.Portable.Reflection;
 
 #endregion
@@ -38,7 +39,7 @@ namespace System.Composition {
         protected List<Action<TY>> PostGraftActions = new List<Action<TY>>();
         protected List<Action<T>> PreGraftActions = new List<Action<T>>();
         protected List<Tuple<MemberExpression, MemberExpression>> PropertyGrafts = new List<Tuple<MemberExpression, MemberExpression>>();
-        public IReflector Reflector { get; set; }
+        //public IReflector Reflector { get; set; }
 
         public ObjectGraft<T, TY> GraftProperty<TX, TZ>(Expression<Func<T, TX>> leftExpression, Expression<Func<TY, TZ>> rightExpression) {
             PropertyGrafts.Add(new Tuple<MemberExpression, MemberExpression>(leftExpression.Body.As<MemberExpression>(), rightExpression.Body.As<MemberExpression>()));
@@ -63,8 +64,8 @@ namespace System.Composition {
         public TY Graft(T t, TY ty) {
             PreGraftActions.Each(x => x(t));
             PropertyGrafts.Each(x => {
-                var vL = Reflector.GetPropertyValue(t, x.Item1.Member.Name);
-                Reflector.SetPropertyValue(ty, x.Item2.Member.Name, vL);
+                var vL = Provider.Reflector.GetPropertyValue(t, x.Item1.Member.Name);
+                Provider.Reflector.SetPropertyValue(ty, x.Item2.Member.Name, vL);
             });
             Actions.Each(x => x(t, ty));
             PostGraftActions.Each(x => x(ty));

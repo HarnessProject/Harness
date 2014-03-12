@@ -77,7 +77,7 @@ namespace System {
         }
 
         public static object CreateInstance(this Type type, params object[] args) {
-            return Provider.Get<IReflector>().CreateInstance(type, args);
+            return Provider.Reflector.CreateInstance(type, args);
         }
     }
 }

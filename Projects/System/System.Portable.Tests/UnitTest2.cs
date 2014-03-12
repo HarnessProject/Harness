@@ -8,6 +8,10 @@ namespace System.Portable.Tests
     [TestClass]
     public class ProtectedActionTests
     {
+        public ProtectedActionTests() {
+            Provider.Start(new FrameworkEnvironment());
+        }
+
         [TestMethod]
         public void CatchAll() {
             var r = this.Try(x => {
@@ -41,8 +45,8 @@ namespace System.Portable.Tests
                 throw new InvalidDataException();
                 return 1;
             }).Catch<Exception>((x, ex) => 2)
-                .Finally(x => r2 = x*2)
-                .Act();
+            .Finally(x => r2 = x*2)
+            .Act();
 
             Assert.AreEqual(r, 2);
             Assert.AreEqual(r2, 4);

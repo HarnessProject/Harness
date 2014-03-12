@@ -6,7 +6,7 @@ namespace System.Composition.Autofac {
     public class AutofacDependencyProviderFactory : IFactory<IDependencyProvider> {
         public IDependencyProvider Create(dynamic context) {
             return 
-                context.Is<ILifetimeScope>() ? 
+                TypeExtensions.Is<ILifetimeScope>(context) ?
                 new AutofacDependencyProvider(TypeExtensions.As<ILifetimeScope>(context)): 
                 new AutofacDependencyProvider(TypeExtensions.As<ITypeProvider>(context));
         }

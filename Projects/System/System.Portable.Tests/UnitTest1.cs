@@ -9,7 +9,7 @@ namespace System.Portable.Tests
     public class TypeProviderTestDotNetAutofac
     {
         public TypeProviderTestDotNetAutofac() {
-            Provider.Start();
+            Provider.Start(new FrameworkEnvironment());
         }
 
         [TestMethod]

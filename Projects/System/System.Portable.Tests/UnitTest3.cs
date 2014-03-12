@@ -20,6 +20,7 @@ namespace System.Portable.Tests
 
         [TestMethod]
         public void TestMethod1() {
+            Provider.Start(new FrameworkEnvironment());
             var d = new Type1();
             var e = new Type2();
             

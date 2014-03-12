@@ -24,7 +24,7 @@ namespace System.Composition.CaliburnMicro {
 
         protected override void Configure() {
             base.Configure();
-            Provider.Start(TypeProvider.Instance, new { Container } );
+            Provider.Start( new FrameworkEnvironment(), settings: new { Container } );
         }
     }
 }

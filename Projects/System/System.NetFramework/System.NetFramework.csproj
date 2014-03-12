@@ -85,11 +85,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\OrmLiteDataProvider.cs" />
+    <Compile Include="Portable\FrameworkEnvironment.cs" />
     <Compile Include="Portable\IO\RuntimeDirectory.cs" />
     <Compile Include="Portable\IO\RuntimeFile.cs" />
     <Compile Include="Portable\IO\RuntimeFileSystem.cs" />
     <Compile Include="Portable\IO\RuntimeFileSystemElement.cs" />
-    <Compile Include="Portable\Runtime\CacheManager.cs" />
+    <Compile Include="Data\CacheManager.cs" />
     <Compile Include="Portable\Runtime\Reflector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

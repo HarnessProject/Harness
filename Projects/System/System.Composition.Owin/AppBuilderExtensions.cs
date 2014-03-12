@@ -15,7 +15,7 @@ namespace System.Composition.Owin {
     public static class AppBuilderExtensions {
         public static IAppBuilder Start(this IAppBuilder app) {
             //Starts the Portable Runtime.
-            Provider.Start(new TypeProvider());
+            Provider.Start(new FrameworkEnvironment());
             
             return app;
         }

@@ -25,6 +25,7 @@
 
 #region
 
+using System.Collections;
 using System.Collections.Generic;
 using System.Composition.Providers;
 using System.Linq;
@@ -44,13 +45,19 @@ namespace System.Portable {
             get { return _instance ?? (_instance = new TypeProvider()); }
         }
 
+        public TypeProvider() {
+           Types = GetTypes();
+        }
+
         #region ITypeProvider Members
 
         public TY Cast<TY>(object o) {
             //This for some UNKNOWN reason is faster than just calling Convert - ?? 
-            return (TY) Provider
-                .Get<IReflector>()
-                .InvokeGenericMember(this, "Convert", o.GetType(), typeof (TY));
+            var m = GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Static);
+            return 
+                (TY)m.FirstOrDefault(x => x.Name.Contains("Convert"))
+                .MakeGenericMethod(o.GetType(), typeof (TY))
+                .Invoke(null, new []{o});
         }
 
         public IEnumerable<Assembly> Assemblies { get; protected set; }
@@ -59,7 +66,7 @@ namespace System.Portable {
         public object GetDefault(Type t) {
             return
                 Provider
-                    .Get<IReflector>()
+                    .Reflector
                     .InvokeGenericMember(this, "GetDefault", t);
         }
 
@@ -68,12 +75,15 @@ namespace System.Portable {
         }
 
         public IFactory<T> FactoryFor<T>() {
-            var factory = Types.FirstOrDefault(x => x.Is<IFactory<T>>());
-            return factory.NotNull() ? factory.CreateInstance().As<IFactory<T>>() : null;
+            return Create<IFactory<T>>();
         }
 
         public T Create<T>(params object[] args) {
-            return typeof (T).CreateInstance(args).As<T>();
+            var c = Types.Where(t => t.Is<T>())
+                    .Select(t => t.GetConstructor(args.Select(x => x.GetType()).ToArray()))
+                    .FirstOrDefault(ObjectExtensions.NotNull);
+            return c.IsNull() ? GetDefault<T>() : (T)(c.Invoke(args));
+            
         }
 
         public IEnumerable<Type> GetAncestorsOf(Type type) {
@@ -108,7 +118,7 @@ namespace System.Portable {
 
         #endregion
 
-        protected static TY Convert<T, TY>(object source) {
+        private static TY Convert<T, TY>(object source) {
             //This fixes a bug in the .Net Framework - 
             //Enables casting from object to a compatible type in a PCL
             var p = Expression.Parameter(typeof (T));
@@ -118,6 +128,7 @@ namespace System.Portable {
         }
 
         public IEnumerable<Assembly> GetAssemblies() {
+            
             return
                 Provider
                     .Environment
@@ -125,11 +136,14 @@ namespace System.Portable {
                     .GetFiles()
                     .Where(x => x.Name.EndsWith("dll", StringComparison.OrdinalIgnoreCase))
                     .Select(
-                        x => 
-                            new AssemblyName {
-                                Name = x.Name.Split(new[] {"dll"}, StringSplitOptions.None)[0]
-                            }
-                    ).Select(x => x.Try(y => Assembly.Load(y.ToString())).Act());
+                        x => {
+                            var n = x.Name.Split(new[] {".dll"}, StringSplitOptions.None)[0];
+                            return new AssemblyName { 
+                                Name = n
+                            };
+                        }
+                    ).Select(x => x.Try(y => Assembly.Load(y.ToString())).Act())
+                    .Where(x => x != null);
         }
 
         public IEnumerable<Type> GetTypes(Filter<Type> predicate = null) {

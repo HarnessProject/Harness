@@ -41,13 +41,14 @@ namespace System.Portable {
         public static IReflector Reflector { get; private set; }
         public static dynamic State { get; private set; }
 
-        public static void Start(TypeProvider typeProvider = null, dynamic settings = null) {
+        public static void Start(IEnvironment environment, TypeProvider typeProvider = null, dynamic settings = null) {
+            Environment = environment;
             Types = typeProvider ?? TypeProvider.Instance;
             Settings = JObject.FromObject(settings ?? new object());
             State = new JObject();
 
             Reflector = Types.Create<IReflector>();
-            Environment = Types.FactoryFor<IEnvironment>().Create(null);
+            
             Dependencies = Types.FactoryFor<IDependencyProvider>().Create(TypeProvider.Instance);
         }
 
