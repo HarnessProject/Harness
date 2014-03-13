@@ -9,6 +9,8 @@ namespace System.Composition.CaliburnMicro {
     public class Bootstrapper : AutofacBootstrapper {
         //public bool Configured { get; set; }
         protected override void ConfigureContainer(ContainerBuilder builder) {
+            Provider.Start(new FrameworkEnvironment(), suspendProviders: true );
+
             new AutofacContainerFactory {TypeProvider = TypeProvider.Instance}
                 .CreateContainerBuilder(builder);
         }
@@ -24,7 +26,7 @@ namespace System.Composition.CaliburnMicro {
 
         protected override void Configure() {
             base.Configure();
-            Provider.Start( new FrameworkEnvironment(), settings: new { Container } );
+            Provider.Set(() => Provider.Dependencies, new AutofacDependencyProvider(Container));
         }
     }
 }

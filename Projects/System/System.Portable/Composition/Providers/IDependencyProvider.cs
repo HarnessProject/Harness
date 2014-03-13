@@ -26,6 +26,7 @@
 #region
 
 using System.Collections.Generic;
+using System.Composition.Dependencies;
 
 #endregion
 
@@ -38,7 +39,7 @@ namespace System.Composition.Providers {
     ///     An implementation of the Common Service Locator Pattern.
     ///     Implements IServiceProvider.
     /// </summary>
-    public interface IDependencyProvider : IDisposable, IServiceProvider {
+    public interface IDependencyProvider : IDisposable, IServiceProvider, ISingletonDependency {
         object Get(Type serviceType);
         object Get(Type serviceType, string key);
         IEnumerable<object> GetAll(Type serviceType);

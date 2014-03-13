@@ -36,7 +36,7 @@ namespace System.Portable.Reflection {
         object Invoke(Delegate del, params object[] args);
         void InvokeAction(Delegate del, params object[] args);
         object InvokeMember(object target, string methodName, params object[] args);
-        object InvokeGenericMember(object target, string name, params Type[] genericParameters);
+        object InvokeGenericMember(object target, string name, Type[] genericParameters, params object[] args);
         void InvokeMemberAction(object target, string methodName, params object[] args);
         object InvokeStaticMember(Type target, string methodName, params object[] args);
         void InvokeStaticMemberAction(Type target, string methodName, params object[] args);
@@ -45,5 +45,7 @@ namespace System.Portable.Reflection {
         IEnumerable<PropertyInfo> GetProperties(object target, Filter<PropertyInfo> filter);
         object CreateInstance(Type type, params object[] args);
         TY Impersonate<TY>(object o) where TY : class;
+
+        object InvokeStaticGenericMember(Type target, string name, Type[] genericParameters, params object[] args);
     }
 }

@@ -42,6 +42,8 @@ namespace System.Portable.Runtime
                 .Where(filter.AsFunc());
         }
 
+        
+
         public void InvokeMemberAction(object target, string methodName, params object[] args) {
             Impromptu.InvokeMemberAction(target, methodName, args);
         }
@@ -50,8 +52,8 @@ namespace System.Portable.Runtime
             return Impromptu.InvokeMember(new StaticContext(target), methodName, args);
         }
 
-        public object InvokeGenericMember(object target, string name, params Type[] genericParameters) {
-            return Impromptu.InvokeMember(target, name.WithGenericArgs(genericParameters));
+        public object InvokeGenericMember(object target, string name, Type[] genericParameters, params object[] args) {
+            return Impromptu.InvokeMember(target, name.WithGenericArgs(genericParameters), args);
         }
 
         public object InvokeMember(object target, string methodName, params object[] args) {
@@ -59,9 +61,11 @@ namespace System.Portable.Runtime
         }
 
         public TY Impersonate<TY>(object o) where TY : class {
-            return o.ActLike<TY>();
+            return Impromptu.ActLike<TY>(o);
         }
 
-        
+        public object InvokeStaticGenericMember(Type target, string name, Type[] genericParameters, params object[] args) {
+            return Impromptu.InvokeMember(new StaticContext(target), name.WithGenericArgs(genericParameters), args);
+        }
     }
 }

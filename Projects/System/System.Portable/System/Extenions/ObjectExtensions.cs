@@ -36,6 +36,12 @@ namespace System {
 
     public delegate Task AsyncAction<in T>(T t);
 
+    public static class ArrayExtensions {
+        public static int LastIndex(this Array array) {
+            return array.Length - 1;
+        }
+    }
+
     public static class ObjectExtensions {
         public static T Action<T>(this T obj, params Action<T>[] actions) {
             actions.Each(x => x(obj));
@@ -93,7 +99,10 @@ namespace System {
         }
 
         public static bool IsDefault<T>(this T t) {
-            return Provider.Types.GetDefault<T>().Equals(t);
+
+            var d = Provider.Types.GetDefault<T>();
+            return EqualityComparer<T>.Default.Equals(d, t);
+
         }
 
         public static T IsDefault<T>(this T t, Func<T> initializer) {

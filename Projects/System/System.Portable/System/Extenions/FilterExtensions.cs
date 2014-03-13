@@ -26,7 +26,7 @@
 namespace System {
     public static class FilterExtensions {
         public static Func<T, bool> AsFunc<T>(this Filter<T> filter) {
-            return filter.As<Func<T, bool>>();
+            return new Func<T, bool>(filter);
         }
     }
 }

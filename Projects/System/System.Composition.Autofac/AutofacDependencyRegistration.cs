@@ -8,17 +8,22 @@ namespace System.Composition.Autofac {
     public class AutofacDependencyRegistration<T, TActivatorData, TRegistrationStyle> : IDependencyRegistration {
         private readonly IRegistrationBuilder<T, TActivatorData, TRegistrationStyle> _registration;
         private readonly ITypeProvider _typeProvider;
+        private readonly Type _type;
 
-        public AutofacDependencyRegistration(IRegistrationBuilder<T, TActivatorData, TRegistrationStyle> registration, ITypeProvider typeProvider) {
+        public AutofacDependencyRegistration(IRegistrationBuilder<T, TActivatorData, TRegistrationStyle> registration, ITypeProvider typeProvider, Type type) {
             _registration = registration;
             _typeProvider = typeProvider;
+            _type = type;
             _registration.As<T>();
         }
 
         public IDependencyRegistration AsAny() {
+            var types = new List<Type>();
             
-            _typeProvider.GetAncestorsOf<T>().Each(x => _registration.As(x));
-            typeof(T).GetInterfaces().Each(x => _registration.As(x));
+            _typeProvider.GetAncestorsOf(_type).AddTo(types);
+            _type.GetInterfaces().AddTo(types);
+
+            types.Each(x => _registration.As(x));
 
             return this;
         }

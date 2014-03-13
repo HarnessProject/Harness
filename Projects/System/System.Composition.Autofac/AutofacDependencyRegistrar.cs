@@ -1,5 +1,8 @@
 ﻿using System.Composition.Dependencies;
 using System.Composition.Providers;
+using System.Linq;
+using System.Portable;
+using System.Reflection;
 using Autofac;
 using Autofac.Builder;
 
@@ -14,15 +17,16 @@ namespace System.Composition.Autofac {
         }
 
         public IDependencyRegistration Register(Type type) {
-            return new AutofacDependencyRegistration<object, ConcreteReflectionActivatorData, SingleRegistrationStyle>(_builder.RegisterType(type), _typeProvider);
+            return new AutofacDependencyRegistration<object, ConcreteReflectionActivatorData, SingleRegistrationStyle>(_builder.RegisterType(type), _typeProvider, type);
+            
         }
 
-        public IDependencyRegistration Register<T>(Type type) {
-            return new AutofacDependencyRegistration<T, ConcreteReflectionActivatorData, SingleRegistrationStyle>(_builder.RegisterType<T>(), _typeProvider);
+        public IDependencyRegistration Register<T>() {
+            return new AutofacDependencyRegistration<T, ConcreteReflectionActivatorData, SingleRegistrationStyle>(_builder.RegisterType<T>(), _typeProvider, typeof(T));
         }
 
         public IDependencyRegistration FactoryFor<T>(Func<T> creator) {
-            return new AutofacDependencyRegistration<T, SimpleActivatorData, SingleRegistrationStyle>(_builder.Register<T>(c => creator()), _typeProvider);
+            return new AutofacDependencyRegistration<T, SimpleActivatorData, SingleRegistrationStyle>(_builder.Register<T>(c => creator()), _typeProvider, typeof(T));
         }
     }
 }

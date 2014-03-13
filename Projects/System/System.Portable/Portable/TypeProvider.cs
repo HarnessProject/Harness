@@ -46,7 +46,7 @@ namespace System.Portable {
         }
 
         public TypeProvider() {
-           Types = GetTypes();
+           TypeCache = GetTypes().ToArray();
         }
 
         #region ITypeProvider Members
@@ -60,14 +60,14 @@ namespace System.Portable {
                 .Invoke(null, new []{o});
         }
 
-        public IEnumerable<Assembly> Assemblies { get; protected set; }
-        public IEnumerable<Type> Types { get; protected set; }
+        public IEnumerable<Assembly> Assemblies { get { return AssemblyCache; } }
+        public IEnumerable<Type> Types { get { return TypeCache; } }
 
         public object GetDefault(Type t) {
             return
                 Provider
                     .Reflector
-                    .InvokeGenericMember(this, "GetDefault", t);
+                    .InvokeGenericMember(this, "GetDefault", new [] {t}, null);
         }
 
         public T GetDefault<T>() {
@@ -82,6 +82,7 @@ namespace System.Portable {
             var c = Types.Where(t => t.Is<T>())
                     .Select(t => t.GetConstructor(args.Select(x => x.GetType()).ToArray()))
                     .FirstOrDefault(ObjectExtensions.NotNull);
+
             return c.IsNull() ? GetDefault<T>() : (T)(c.Invoke(args));
             
         }
@@ -134,30 +135,28 @@ namespace System.Portable {
                     .Environment
                     .BaseDirectory
                     .GetFiles()
-                    .Where(x => x.Name.EndsWith("dll", StringComparison.OrdinalIgnoreCase))
+                    .Where(x => x.Name.EndsIn("dll", "exe") )
                     .Select(
                         x => {
-                            var n = x.Name.Split(new[] {".dll"}, StringSplitOptions.None)[0];
+                            var n = x.Name.RemoveExtension();
                             return new AssemblyName { 
                                 Name = n
                             };
                         }
                     ).Select(x => x.Try(y => Assembly.Load(y.ToString())).Act())
-                    .Where(x => x != null);
+                    .Where(ObjectExtensions.NotNull);
         }
 
         public IEnumerable<Type> GetTypes(Filter<Type> predicate = null) {
-            TypeCache = TypeCache.IsNull(
-                () =>
-                    AssemblyCache.IsNull(GetAssemblies)
-                    .SelectMany(x => x.Try(
+            TypeCache = 
+                (AssemblyCache = AssemblyCache ?? GetAssemblies().ToArray())
+                .SelectMany(x => x.Try(
                         y => predicate.NotNull() ?
                             y.GetExportedTypes().Where(predicate.AsFunc()) :
                             y.GetExportedTypes()
                         )
                     .Act())
-                    .ToArray());
-
+                    .ToArray();
             return TypeCache;
         }
     }

@@ -27,7 +27,9 @@
 
 using System.Collections.Generic;
 using System.Composition.Providers;
+using System.Linq.Expressions;
 using System.Portable.Reflection;
+using System.Reflection;
 using Newtonsoft.Json.Linq;
 
 #endregion
@@ -41,15 +43,21 @@ namespace System.Portable {
         public static IReflector Reflector { get; private set; }
         public static dynamic State { get; private set; }
 
-        public static void Start(IEnvironment environment, TypeProvider typeProvider = null, dynamic settings = null) {
+        public static void Start(IEnvironment environment, TypeProvider typeProvider = null, dynamic context = null, bool suspendProviders = false) {
             Environment = environment;
             Types = typeProvider ?? TypeProvider.Instance;
-            Settings = JObject.FromObject(settings ?? new object());
+
+            Settings = new JObject();
             State = new JObject();
 
             Reflector = Types.Create<IReflector>();
             
-            Dependencies = Types.FactoryFor<IDependencyProvider>().Create(TypeProvider.Instance);
+            if (!suspendProviders) Dependencies = Types.FactoryFor<IDependencyProvider>().Create(context ?? TypeProvider.Instance);
+            
+        }
+
+        public static void Set<T>(Expression<Func<T>> property, T value) {
+            property.Body.As<MemberExpression>().Member.As<PropertyInfo>().SetValue(null, value, null);
         }
 
         public static object Get(Type serviceType) {

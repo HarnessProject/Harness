@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Composition.Dependencies;
 using System.Composition.Providers;
 using System.Linq;
+using System.Portable;
 using System.Portable.Reflection;
 using System.Threading.Tasks;
 using Autofac;
@@ -17,11 +18,12 @@ namespace System.Composition.Autofac {
             return x.Is<T>() && 
                    x.IsPublic && 
                    !x.IsAbstract && 
-                   !x.IsInterface; // Who'd a THUNK
+                   !x.IsInterface;
         }
 
         public IContainer Create(dynamic context) {
             TypeProvider = context.TypeProvider;
+            DependencyProvider = context.Instance;
             var container = CreateContainerBuilder();
             return container == null ? null : container.Build();
         }
@@ -30,6 +32,7 @@ namespace System.Composition.Autofac {
         public ContainerBuilder Builder { get; set; }
        
         public ITypeProvider TypeProvider { get; set; }
+        public AutofacDependencyProvider DependencyProvider { get; set; }
 
         public ContainerBuilder CreateContainerBuilder(ContainerBuilder builder = null) {
             if (TypeProvider.IsNull()) return null;
@@ -53,6 +56,7 @@ namespace System.Composition.Autofac {
             container
                 .Resolve<IEnumerable<IAttachToRegistration<IDependency>>>()
                 .Each(x => x.AttachToRegistration(context));
+
 
             container
                 .Resolve<IEnumerable<IModule>>()
@@ -94,12 +98,20 @@ namespace System.Composition.Autofac {
                 handlers.Each(x => x(register));
             });
 
-            builder.RegisterType<IScope>()
+            builder.Register<IDependencyProvider>(
+                (c,p) => 
+                    new AutofacDependencyProvider(
+                        Provider.Dependencies.As<AutofacDependencyProvider>().Container.BeginLifetimeScope()
+                    )
+            );
+
+            builder.RegisterType<Scope>()
+                   .AsImplementedInterfaces()
                    .InstancePerDependency();
             builder.RegisterInstance(TypeProvider)
                    .AsImplementedInterfaces()
                    .SingleInstance();
-
+            
             container.Dispose();
             Builder = builder;
             return builder;

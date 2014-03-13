@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Composition.Providers;
 using System.Linq;
+using System.Portable;
 using System.Threading.Tasks;
 using Autofac;
 
@@ -11,8 +12,8 @@ namespace System.Composition.Autofac
     public class AutofacDependencyProvider : IDependencyProvider {
         public ILifetimeScope Container { get; set; }
 
-        public AutofacDependencyProvider(ITypeProvider environment) {
-            Container = new AutofacContainerFactory().Create(new { TypeProvider = environment });
+        public AutofacDependencyProvider() {
+            Container = new AutofacContainerFactory().Create(new { TypeProvider = Provider.Types, Instance = this });
         }
 
         public AutofacDependencyProvider(ILifetimeScope container) {

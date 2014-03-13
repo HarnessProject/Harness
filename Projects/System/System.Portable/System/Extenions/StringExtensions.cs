@@ -76,5 +76,16 @@ namespace System {
                     (x, ex) => types.GetDefault<TY>()
                 ).Act();
         }
+
+        public static bool EndsIn(this string format, params string[] suffixes) {
+            return suffixes.Any(format.EndsWith);
+        }
+
+        public static string RemoveExtension(this string format) {
+            var parts = format.Split('.');
+            parts = parts.TakeWhile((s, i) => i < parts.LastIndex()).ToArray();
+            
+            return string.Join(".", parts);
+        }
     }
 }

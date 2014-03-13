@@ -26,7 +26,7 @@
 namespace System.Composition.Dependencies {
     public interface IDependencyRegistrar {
         IDependencyRegistration Register(Type type);
-        IDependencyRegistration Register<T>(Type type);
+        IDependencyRegistration Register<T>();
         IDependencyRegistration FactoryFor<T>(Func<T> creator);
     }
 }
