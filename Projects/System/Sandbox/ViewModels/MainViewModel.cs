@@ -25,7 +25,11 @@ namespace Sandbox.ViewModels
         public MainViewModel() {
             _number.Subscribe(x => OnPropertyChanged(new PropertyChangedEventArgs("Number")));
 
-            var f = Filter.If<int>(x => x > 6).And(x => x < 10).AsFunc();
+            var f = 
+                Filter
+                .If<int>(x => x > 6)
+                .And(x => x < 10)
+                .AsFunc();
 
             _number.Where(f).Subscribe(x => MessageBox.Show("Sweet Spot!"));
             

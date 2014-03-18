@@ -32,6 +32,9 @@ using System.Threading.Tasks;
 namespace System.Reactive {
     public interface IReactive<T> : IObservable<T>, IEventSource<T>, IDisposable {
         T Value { get; set; }
+        void SetValue(T value);
+        Task SetValueAsync(T value);
+        
         event Action<Exception> OnError;
         event Action OnCompleted;
     }

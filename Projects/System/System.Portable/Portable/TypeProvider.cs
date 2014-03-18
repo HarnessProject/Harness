@@ -99,6 +99,18 @@ namespace System.Portable {
             return GetAncestorsOf(typeof (T));
         }
 
+        public bool IsGeneric(Type target, Type generic)
+        {
+            if (generic.IsGenericTypeDefinition)
+                return
+                    GetAncestorsOf(target)
+                        .FirstOrDefault(
+                            x => x.IsGenericType &&
+                                 x.GetGenericTypeDefinition() == generic
+                        ).NotNull();
+            return false;
+        }
+
         public bool IsGeneric<T>(Type generic) {
             if (generic.IsGenericTypeDefinition)
             return

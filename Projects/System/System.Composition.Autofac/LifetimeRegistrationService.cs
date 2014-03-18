@@ -1,7 +1,7 @@
 ﻿using System.Composition.Dependencies;
 
 namespace System.Composition.Autofac {
-    public class LifetimeRegistrationService : IAttachToRegistration<IDependency> {
+    public class LifetimeRegistrationService : IAttachToRegistration {
         #region IComponentRegistrationService<IDependency> Members
 
         public void AttachToRegistration(IRegistrationContext context) {

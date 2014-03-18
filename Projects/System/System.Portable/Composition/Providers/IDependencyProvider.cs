@@ -40,6 +40,7 @@ namespace System.Composition.Providers {
     ///     Implements IServiceProvider.
     /// </summary>
     public interface IDependencyProvider : IDisposable, IServiceProvider, ISingletonDependency {
+        IDependencyProvider CreateScope();
         object Get(Type serviceType);
         object Get(Type serviceType, string key);
         IEnumerable<object> GetAll(Type serviceType);

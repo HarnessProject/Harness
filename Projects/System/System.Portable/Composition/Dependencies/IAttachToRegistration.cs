@@ -1,7 +1,7 @@
 
 
 namespace System.Composition.Dependencies {
-    public interface IAttachToRegistration<TY> {
+    public interface IAttachToRegistration {
         void AttachToRegistration(IRegistrationContext context);
     }
 }

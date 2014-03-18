@@ -23,8 +23,10 @@
 
 #endregion
 
+using System.Composition.Dependencies;
+
 namespace System.Portable.Events {
-    public interface IEventHandler<in T> : IDisposable {
+    public interface IEventHandler<in T> : IDependency, IDisposable {
         void Handle(T evnt);
     }
 }

@@ -30,6 +30,10 @@ namespace System.Composition.Autofac
             return Container.Resolve(serviceType);
         }
 
+        public IDependencyProvider CreateScope() {
+            return new AutofacDependencyProvider( Container.BeginLifetimeScope() );
+        }
+
         public object Get(Type serviceType) {
             return Container.Resolve(serviceType);
         }
@@ -44,8 +48,7 @@ namespace System.Composition.Autofac
                 .Resolve(
                     typeof(IEnumerable<>)
                     .MakeGenericType(serviceType))
-                )
-                .Cast<Object>();
+                ).Cast<Object>();
         }
 
         public TService Get<TService>() {

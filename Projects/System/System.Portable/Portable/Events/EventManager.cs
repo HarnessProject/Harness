@@ -25,12 +25,20 @@
 
 #region
 
+using System.Collections.Generic;
+using System.Linq;
 using System.Reactive;
+using System.Threading.Tasks;
 
 #endregion
 
 namespace System.Portable.Events {
     public class EventManager : Relay<IEvent, IEvent>, IEventManager {
+        protected IEnumerable<Type> Handlers; 
+        public EventManager() {
+            
+        }   
+    
         #region IEventManager Members
 
         public IDisposable Handle<T>(Action<T> next, Action<Exception> error = null, Action complete = null) where T : IEvent {
@@ -39,8 +47,10 @@ namespace System.Portable.Events {
             return error.NotNull() ? this.WhereIs<T>().Subscribe(next, error) : this.WhereIs<T>().Subscribe(next);
         }
 
-        public void Trigger<T>(T evnt) where T : IEvent {
+        public async void Trigger<T>(T evnt) where T : IEvent {
             OnNext(evnt);
+            await Provider.GetAll<IEventHandler<T>>().EachAsync(h => h.Handle(evnt));
+           
         }
 
         #endregion

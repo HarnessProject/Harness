@@ -8,25 +8,25 @@ using Autofac.Builder;
 
 namespace System.Composition.Autofac {
     public class AutofacDependencyRegistrar : IDependencyRegistrar {
-        private readonly ContainerBuilder _builder;
+        public readonly ContainerBuilder Builder;
         private readonly ITypeProvider _typeProvider;
 
         public AutofacDependencyRegistrar(ContainerBuilder builder, ITypeProvider typeProvider) {
-            _builder = builder;
+            Builder = builder;
             _typeProvider = typeProvider;
         }
 
         public IDependencyRegistration Register(Type type) {
-            return new AutofacDependencyRegistration<object, ConcreteReflectionActivatorData, SingleRegistrationStyle>(_builder.RegisterType(type), _typeProvider, type);
+            return new AutofacDependencyRegistration<object, ConcreteReflectionActivatorData, SingleRegistrationStyle>(Builder.RegisterType(type), _typeProvider, type);
             
         }
 
         public IDependencyRegistration Register<T>() {
-            return new AutofacDependencyRegistration<T, ConcreteReflectionActivatorData, SingleRegistrationStyle>(_builder.RegisterType<T>(), _typeProvider, typeof(T));
+            return new AutofacDependencyRegistration<T, ConcreteReflectionActivatorData, SingleRegistrationStyle>(Builder.RegisterType<T>(), _typeProvider, typeof(T));
         }
 
         public IDependencyRegistration FactoryFor<T>(Func<T> creator) {
-            return new AutofacDependencyRegistration<T, SimpleActivatorData, SingleRegistrationStyle>(_builder.Register<T>(c => creator()), _typeProvider, typeof(T));
+            return new AutofacDependencyRegistration<T, SimpleActivatorData, SingleRegistrationStyle>(Builder.Register<T>(c => creator()), _typeProvider, typeof(T));
         }
     }
 }
