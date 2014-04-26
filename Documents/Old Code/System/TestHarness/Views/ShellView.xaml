@@ -1,0 +1,16 @@
+﻿<controls:MetroWindow x:Class="TestHarness.Views.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        Title="MainWindow" Height="74" Width="154">
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="{Binding Number}" Height="20" TextAlignment="Center"></TextBlock>
+            <StackPanel Orientation="Horizontal">
+                <Button Width="50" x:Name="Increment">+</Button>
+                <Button Width="50" x:Name="Decrement">-</Button>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</controls:MetroWindow>

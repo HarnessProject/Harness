@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.Framework", "Core\Harness.Framework\Harness.Framework.csproj", "{3533524B-2B1D-48E2-9269-C2102F70FEBA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{71216DC0-1BE8-4CE6-A1A4-DDEBF1AB0C22}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.Framework.Net", "Core\Harness.Framework.Net\Harness.Framework.Net.csproj", "{5D692193-6E8C-4CB5-8294-B88FA5311801}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autofac.Harness", "Autofac\Autofac.Harness\Autofac.Harness.csproj", "{E4EBD55A-C259-41F1-A53E-800672569862}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caliburn.Micro.Harness", "Caliburn.Micro\Caliburn.Micro.Harness\Caliburn.Micro.Harness.csproj", "{9C057A67-3A5F-4B61-AB21-087B0CBB7D12}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caliburn.Micro.Harness.Tests", "Tests\Caliburn.Micro.Harness.Tests\Caliburn.Micro.Harness.Tests.csproj", "{5CF2E2BF-7A31-4383-9A0E-1BB5108D1DDF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{54672F9A-520E-409A-8B9D-60D8CD662935}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3533524B-2B1D-48E2-9269-C2102F70FEBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3533524B-2B1D-48E2-9269-C2102F70FEBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3533524B-2B1D-48E2-9269-C2102F70FEBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3533524B-2B1D-48E2-9269-C2102F70FEBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D692193-6E8C-4CB5-8294-B88FA5311801}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D692193-6E8C-4CB5-8294-B88FA5311801}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D692193-6E8C-4CB5-8294-B88FA5311801}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D692193-6E8C-4CB5-8294-B88FA5311801}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4EBD55A-C259-41F1-A53E-800672569862}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4EBD55A-C259-41F1-A53E-800672569862}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4EBD55A-C259-41F1-A53E-800672569862}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4EBD55A-C259-41F1-A53E-800672569862}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C057A67-3A5F-4B61-AB21-087B0CBB7D12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C057A67-3A5F-4B61-AB21-087B0CBB7D12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C057A67-3A5F-4B61-AB21-087B0CBB7D12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C057A67-3A5F-4B61-AB21-087B0CBB7D12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CF2E2BF-7A31-4383-9A0E-1BB5108D1DDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CF2E2BF-7A31-4383-9A0E-1BB5108D1DDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CF2E2BF-7A31-4383-9A0E-1BB5108D1DDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CF2E2BF-7A31-4383-9A0E-1BB5108D1DDF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5CF2E2BF-7A31-4383-9A0E-1BB5108D1DDF} = {54672F9A-520E-409A-8B9D-60D8CD662935}
+	EndGlobalSection
+EndGlobal
