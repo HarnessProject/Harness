@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Harness by HarnessProject</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Harness</h1>
+        <p>A framework for composable applications everywhere .Net runs</p>
+
+        <p class="view"><a href="https://github.com/HarnessProject/Harness">View the Project on GitHub <small>HarnessProject/Harness</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/HarnessProject/Harness/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/HarnessProject/Harness/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/HarnessProject/Harness">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="harness" class="anchor" href="#harness"><span class="octicon octicon-link"></span></a>Harness</h1>
+
+<p>A framework for Composable applications everywhere .net runs.
+Targets .Net 4.5, SL5, Windows 8, Windows Phone 8, iOS, and Android.
+All under the Apache 2.0 License.</p>
+
+<h3>
+<a name="warning-this-project-requires-the-roslyn-end-user-preview" class="anchor" href="#warning-this-project-requires-the-roslyn-end-user-preview"><span class="octicon octicon-link"></span></a>WARNING: This project requires the Roslyn End User Preview</h3>
+
+<p>Because C# 6 is fantastic.</p>
+
+<p>(Also requires some NuGet packages: Microsoft Async, Rx, JSON.Net)</p>
+
+<p>Picking up the declarative method style that started with LINQ, Harness is a framework for composing applications from rich expressions. </p>
+
+<p>Why not Try/Catch/Finally in a single expression:</p>
+
+<div class="highlight highlight-csharp"><pre><span class="k">this</span><span class="p">.</span><span class="n">Try</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="n">Some</span><span class="p">.</span><span class="n">Statements</span><span class="p">;</span>
+  <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+<span class="p">}).</span><span class="n">Catch</span><span class="p">&lt;</span><span class="n">InvalidOperationException</span><span class="p">&gt;((</span><span class="n">x</span><span class="p">,</span><span class="n">ex</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="k">true</span><span class="p">)</span>
+<span class="p">.</span><span class="n">Catch</span><span class="p">&lt;</span><span class="n">Exception</span><span class="p">&gt;((</span><span class="n">x</span><span class="p">,</span><span class="n">ex</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="k">false</span><span class="p">)</span>
+<span class="p">.</span><span class="n">Act</span><span class="p">()</span>
+</pre></div>
+
+<p>How about a cast that reads like one:</p>
+
+<div class="highlight highlight-csharp"><pre><span class="k">this</span><span class="p">.</span><span class="n">AsType</span><span class="p">&lt;</span><span class="n">IInterface</span><span class="p">&gt;();</span>
+</pre></div>
+
+<p>Making Strings more fun:</p>
+
+<div class="highlight highlight-csharp"><pre><span class="s">"{0} World"</span><span class="p">.</span><span class="n">WithParams</span><span class="p">(</span><span class="s">"Hello"</span><span class="p">);</span>
+<span class="s">"Some String"</span><span class="p">.</span><span class="n">Match</span><span class="p">(</span><span class="s">"REGEX"</span><span class="p">);</span>
+<span class="s">"Some Other String"</span><span class="p">.</span><span class="n">Matches</span><span class="p">(</span><span class="s">"Regex"</span><span class="p">).</span><span class="n">Each</span><span class="p">(</span> <span class="p">...</span> <span class="p">);</span>
+</pre></div>
+
+<p>Easily create Tasks:</p>
+
+<div class="highlight highlight-csharp"><pre><span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="n">AsTask</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">Some</span><span class="p">.</span><span class="n">LongRunning</span><span class="p">.</span><span class="n">Operation</span><span class="p">());</span>
+<span class="k">await</span> <span class="n">SomeCollection</span><span class="p">.</span><span class="n">EachAsync</span><span class="p">(</span> <span class="p">...</span> <span class="p">);</span>
+</pre></div>
+
+<p>Compare assignable Types:</p>
+
+<div class="highlight highlight-csharp"><pre><span class="k">this</span><span class="p">.</span><span class="n">Is</span><span class="p">&lt;</span><span class="n">SomeType</span><span class="p">&gt;();</span> <span class="c1">// true or false</span>
+<span class="k">typeof</span><span class="p">(</span><span class="n">SomeType</span><span class="p">).</span><span class="n">Is</span><span class="p">&lt;</span><span class="n">IInterface</span><span class="p">&gt;();</span>
+</pre></div>
+
+<p>How about a rich IOC Provider (implementing a variation of the CSLP):</p>
+
+<div class="highlight highlight-csharp"><pre><span class="n">Provider</span><span class="p">.</span><span class="n">Get</span><span class="p">&lt;</span><span class="n">IDependency</span><span class="p">&gt;();</span>
+<span class="n">Provider</span><span class="p">.</span><span class="n">GetAll</span><span class="p">&lt;</span><span class="n">IService</span><span class="p">&gt;();</span>
+<span class="n">Provider</span><span class="p">.</span><span class="n">Get</span><span class="p">(</span><span class="n">someType</span><span class="p">).</span><span class="n">AsType</span><span class="p">&lt;</span><span class="n">SomeType</span><span class="p">&gt;()</span>
+</pre></div>
+
+<p>(Currently we support Autofac, but there is a rich abstraction around IOC so we could support any IOC Container)</p>
+
+<p>And a DomainProvider, which provides Type services even in PCLs:</p>
+
+<div class="highlight highlight-csharp"><pre><span class="n">Provider</span><span class="p">.</span><span class="n">Domain</span><span class="p">.</span><span class="n">Types</span><span class="p">;</span>
+<span class="n">Provider</span><span class="p">.</span><span class="n">Domain</span><span class="p">.</span><span class="n">Assemblies</span><span class="p">;</span>
+<span class="n">Provider</span><span class="p">.</span><span class="n">Domain</span><span class="p">.</span><span class="n">GetDefault</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;();</span>
+<span class="n">Provider</span><span class="p">.</span><span class="n">Domain</span><span class="p">.</span><span class="n">GetDefault</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">T</span><span class="p">));</span>
+<span class="n">Provider</span><span class="p">.</span><span class="n">Domain</span><span class="p">.</span><span class="n">Cast</span><span class="p">&lt;</span><span class="n">TY</span><span class="p">&gt;(</span><span class="kt">object</span><span class="p">)</span>
+</pre></div>
+
+<p><strong>And So Much More!</strong></p>
+
+<p>Do you Caliburn.Micro? We do to! Harness has a bootstrapper for the upcoming Caliburn.Micro 2.0.</p>
+
+<p><strong>Whats Next?</strong></p>
+
+<p>Working to bring back some of the platforms Harness has supported in previous iterations:</p>
+
+<ul>
+<li>Windows Runtime</li>
+<li>Asp.Net MVC</li>
+<li>Web Api</li>
+<li>OWIN</li>
+</ul><p>More IOC Container:</p>
+
+<ul>
+<li>TinyIOC</li>
+<li>MEF</li>
+<li>StructureMap</li>
+</ul><p>AND a whole bunch of source cleanup. :)</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/HarnessProject">HarnessProject</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
