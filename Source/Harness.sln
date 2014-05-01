@@ -32,7 +32,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Web.Mvc.Harness", "W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caliburn.Micro.Harness.SL5", "Caliburn.Micro\Caliburn.Micro.Harness.SL5\Caliburn.Micro.Harness.SL5.csproj", "{0D996B5B-4C53-4405-9013-1E22713DFF86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caliburn.Micro.Harness.Win", "Caliburn.Micro.Harness.Win\Caliburn.Micro.Harness.Win.csproj", "{F2C9B1B0-1818-4CD5-AC30-26D18C1F6189}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caliburn.Micro.Harness.Win", "Caliburn.Micro\Caliburn.Micro.Harness.Win\Caliburn.Micro.Harness.Win.csproj", "{F2C9B1B0-1818-4CD5-AC30-26D18C1F6189}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
