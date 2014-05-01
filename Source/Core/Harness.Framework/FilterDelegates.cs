@@ -1,8 +1,7 @@
 ﻿#region ApacheLicense
-
 // From the Harness Project
-// System.Portable
-// Copyright © 2014 Nick Daniels et all, All Rights Reserved.
+// Harness.Framework
+// Copyright © 2014 Nick Daniels, All Rights Reserved.
 // 
 // Licensed under the Apache License, Version 2.0 (the "License") with the following exception:
 // 	Some source code is licensed under compatible licenses as required.
@@ -20,9 +19,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 // 
-// --- THIS FILE WAS ABSOLUTELY GENERATED WITH A TEMPLATE ---
 #endregion
-
 #region
 
 using System.Diagnostics.CodeAnalysis;

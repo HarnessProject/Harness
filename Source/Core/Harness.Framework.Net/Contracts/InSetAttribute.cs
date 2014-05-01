@@ -1,8 +1,7 @@
 ﻿#region ApacheLicense
-
 // From the Harness Project
-// System.Portable
-// Copyright © 2014 Nick Daniels et all, All Rights Reserved.
+// Harness.Framework.Net
+// Copyright © 2014 Nick Daniels, All Rights Reserved.
 // 
 // Licensed under the Apache License, Version 2.0 (the "License") with the following exception:
 // 	Some source code is licensed under compatible licenses as required.
@@ -20,9 +19,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 // 
-
 #endregion
-
 #region
 
 using System.Linq;
@@ -33,10 +30,10 @@ using System.Reflection;
 namespace Harness.Framework.Contracts {
     public class InSetAttribute : ContractAttribute {
         public InSetAttribute(params object[] values) : base(
-            new Assertion {
-                Filter = (x) => values.Any(v => x == v),
-                InvalidMessage = "is not one of the accepted values"
-            }
+            new Assertion(
+                filter:  (x) => values.Any(v => x == v),
+                invalidMessage:  "is not one of the accepted values"
+            )
         ) {}
     }
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>Harness.Framework</title>
+    <authors>Nick Daniels</authors>
+    <owners>Nick</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
+    <projectUrl>http://harness.github.io/harness</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A framework for portable composable applications</description>
+    <releaseNotes>Initial Release</releaseNotes>
+    <copyright>Copyright (c) Nick Daniels 2014</copyright>
+    <tags>C# Net4 Net45 SL4 SL5 iOS Android Roslyn Composable</tags>
+  </metadata>
+</package>

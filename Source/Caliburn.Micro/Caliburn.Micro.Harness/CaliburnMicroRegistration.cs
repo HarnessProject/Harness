@@ -1,4 +1,26 @@
-﻿using System;
+﻿#region ApacheLicense
+// From the Harness Project
+// Caliburn.Micro.Harness
+// Copyright © 2014 Nick Daniels, All Rights Reserved.
+// 
+// Licensed under the Apache License, Version 2.0 (the "License") with the following exception:
+// 	Some source code is licensed under compatible licenses as required.
+// 	See the attribution headers of the applicable source files for specific licensing terms.
+// 
+// You may not use this file except in compliance with its License(s).
+// 
+// You may obtain a copy of the Apache License, Version 2.0 at
+// 
+// http://www.apache.org/licenses/LICENSE-2.0
+// 
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+// 
+#endregion
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -22,7 +44,7 @@ namespace Caliburn.Micro.Harness
                 //  must be in a namespace ending with ViewModels
                 .Where(type => !(string.IsNullOrWhiteSpace(type.Namespace)) && type.Namespace.EndsWith("ViewModels"))
                 //  must implement INotifyPropertyChanged (deriving from PropertyChangedBase will statisfy this)
-                .Where(type => type.GetInterface(typeof(INotifyPropertyChanged).Name) != null);
+                .Where(type => type.Is<INotifyPropertyChanged>());
             //  registered as self and always create a new one
             viewModels.Each(x => registrar.Register(x).AsSelf().AsTransient());
 
@@ -36,11 +58,7 @@ namespace Caliburn.Micro.Harness
             //  registered as self and always create a new one
             views.Each(x => registrar.Register(x).AsSelf().AsTransient());
 
-
-            //  register the single window manager for this container
-            registrar.FactoryFor<IWindowManager>(() => new WindowManager()).AsSingleton();
             //  register the single event aggregator for this container
-            registrar.FactoryFor<IEventAggregator>(() => new EventAggregator()).AsSingleton();
 
             typeProvider.Types.Where(t => t.Is<IShell>()).Each(t => registrar.Register(t).As<IShell>().AsSelf().AsTransient());
 

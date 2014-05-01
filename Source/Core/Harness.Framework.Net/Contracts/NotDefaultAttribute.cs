@@ -1,8 +1,7 @@
 ﻿#region ApacheLicense
-
 // From the Harness Project
-// System.Portable
-// Copyright © 2014 Nick Daniels et all, All Rights Reserved.
+// Harness.Framework.Net
+// Copyright © 2014 Nick Daniels, All Rights Reserved.
 // 
 // Licensed under the Apache License, Version 2.0 (the "License") with the following exception:
 // 	Some source code is licensed under compatible licenses as required.
@@ -20,9 +19,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 // 
-
 #endregion
-
 #region
 
 
@@ -32,7 +29,7 @@
 namespace Harness.Framework.Contracts {
     public class NotDefaultAttribute : ContractAttribute {
         public NotDefaultAttribute() : base(
-            new Assertion { Filter = (x) => x != Provider.Domain.GetDefault(x.GetType()), InvalidMessage = "is default value" }
+            new Assertion ( filter: (x) => x != Provider.Domain.GetDefault(x.GetType()), invalidMessage:  "is default value" )
         ) {}
     }
 
