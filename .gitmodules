@@ -1,3 +1,9 @@
 [submodule "Repositories/pclstorage"]
 	path = Repositories/pclstorage
 	url = https://git01.codeplex.com/pclstorage
+[submodule "Repositories/DynamicProxy"]
+	path = Repositories/DynamicProxy
+	url = https://github.com/HarnessProject/DynamicProxy.git
+[submodule "Repositories/impromptu-interface"]
+	path = Repositories/impromptu-interface
+	url = https://github.com/HarnessProject/impromptu-interface.git
