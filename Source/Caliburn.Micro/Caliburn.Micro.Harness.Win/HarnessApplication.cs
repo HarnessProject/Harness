@@ -20,42 +20,118 @@
 //    limitations under the License.
 // 
 #endregion
+using Harness.Framework;
+using Harness.Framework.Collections;
+using Harness.Framework.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using TinyIoC;
 using Windows.UI.Xaml.Controls;
 
 namespace Caliburn.Micro.Harness { 
     public class HarnessApplication : CaliburnApplication
     {
-        protected override IEnumerable<object> GetAllInstances(Type service)
-        {
-            return base.GetAllInstances(service);
+        
         }
 
-        protected override object GetInstance(Type service, string key)
+
+
+    
+
+    public class WinDependencyRegistrar : IDependencyRegistrar
+    {
+        protected TinyIoCContainer Container { get; } = new TinyIoCContainer();
+        public IDependencyRegistration FactoryFor<T>(Func<T> creator)
         {
-            return base.GetInstance(service, key);
+            return new WinDependencyRegistration(typeof(T), Container, Container.Register(typeof(T), (c, p) => creator()));
+        }
+        public IDependencyRegistration Register(Type type)
+        {
+            return new WinDependencyRegistration(type, Container, Container.Register(type));
         }
 
-        protected override void BuildUp(object instance)
+        public IDependencyRegistration Register<T>()
         {
-            base.BuildUp(instance);
+            return new WinDependencyRegistration(typeof(T), Container, Container.Register(typeof(T)));
+        }
+    }
+
+    public class WinDependencyRegistration(Type type, TinyIoCContainer container, TinyIoCContainer.RegisterOptions options) : IDependencyRegistration
+    {
+        public Type Type { get; } = type;
+        public IList<TinyIoCContainer.RegisterOptions> Options { get; } = new List<TinyIoCContainer.RegisterOptions> { options };
+        public TinyIoCContainer Container { get; } = container;
+
+        public IDependencyRegistration As(Type type)
+        {
+            Options.Add(Container.Register(type, Type));
+            return this;
         }
 
-        protected override void Configure()
+        public IDependencyRegistration As<T>()
         {
-            base.Configure();
+            Options.Add(Container.Register(typeof(T), Type));
+            return this;
         }
 
-        protected override void PrepareViewFirst(Frame rootFrame)
+        public IDependencyRegistration AsAncestors()
         {
-            Services.NavigationService = new FrameAdapter(rootFrame);
+            Provider.Domain.GetAncestorsOf(Type).Each(t => As(t));
+            return this;
         }
-       
 
+        public IDependencyRegistration AsAny()
+        {
+            return AsSelf().AsAncestors().AsImplemented();
+        }
 
+        public IDependencyRegistration AsImplemented()
+        {
+            Type.GetTypeInfo().ImplementedInterfaces.Select(t => Container.Register(t, Type)).AddTo(Options);
+            return this;
+        }
+
+        public IDependencyRegistration AsSelf()
+        {
+            Options.Add(Container.Register(Type));
+            return this;
+        }
+
+        public IDependencyRegistration AsSingleInScope()
+        {
+            Options.Each(o => o.AsSingleton());
+            return this;
+        }
+
+        public IDependencyRegistration AsSingleton()
+        {
+            Options.Each(o => o.AsSingleton());
+            return this;
+        }
+
+        public IDependencyRegistration AsTransient()
+        {
+            Options.Each(o => o.AsMultiInstance());
+            return this;
+        }
+
+        public IDependencyRegistration InjectProperties(bool preserveValues)
+        {
+            return this;
+        }
+
+        public IDependencyRegistration RegisterAsEach(IEnumerable<Type> types)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDependencyRegistration RegisterAsEach(params Type[] types)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
