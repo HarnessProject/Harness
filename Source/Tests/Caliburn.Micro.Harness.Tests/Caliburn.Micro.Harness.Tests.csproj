@@ -108,10 +108,6 @@
       <Project>{5d692193-6e8c-4cb5-8294-b88fa5311801}</Project>
       <Name>Harness.Framework.Net</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Core\Harness.Framework\Harness.Framework.csproj">
-      <Project>{3533524b-2b1d-48e2-9269-c2102f70feba}</Project>
-      <Name>Harness.Framework</Name>
-    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

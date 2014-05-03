@@ -5,16 +5,17 @@
     <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3533524B-2B1D-48E2-9269-C2102F70FEBA}</ProjectGuid>
+    <ProjectGuid>{63D3EA3D-9C01-483A-82CC-0363CC9F4620}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Harness.Framework</RootNamespace>
     <AssemblyName>Harness.Framework</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile344</TargetFrameworkProfile>
+    <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -35,36 +36,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .NET Framework is automatically included -->
-    <None Include="app.config" />
-    <None Include="Harness.Framework.nuspec" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Collections\EnumerationExtensions.cs" />
     <Compile Include="Collections\GenericEnumerableExtensions.cs" />
     <Compile Include="Dependencies\LifetimeRegistrationService.cs" />
+    <Compile Include="Dependencies\RegisteredSuppression.cs" />
+    <Compile Include="Dependencies\RegistrationContext.cs" />
+    <Compile Include="Dependencies\SuppressDependencyAttribute.cs" />
+    <Compile Include="DomainProvider.cs" />
     <Compile Include="Events\ApplicationEvent.cs" />
     <Compile Include="Events\ApplicationStartEvent.cs" />
     <Compile Include="Events\Event.cs" />
     <Compile Include="Events\EventExtensions.cs" />
     <Compile Include="Events\EventManager.cs" />
-    <Compile Include="Interfaces\IDependencyActivated.cs" />
-    <Compile Include="Interfaces\IFileSystemLocations.cs" />
-    <Compile Include="Interfaces\IEvent.cs" />
-    <Compile Include="Interfaces\IEventHandler.cs" />
-    <Compile Include="Interfaces\IEventManager.cs" />
     <Compile Include="Events\NotificationEvent.cs" />
-    <Compile Include="Interfaces\IAttachToRegistration.cs" />
-    <Compile Include="Interfaces\IDependency.cs" />
-    <Compile Include="Interfaces\IDependencyProvider.cs" />
-    <Compile Include="Interfaces\IDependencyRegistrar.cs" />
-    <Compile Include="Interfaces\IDependencyRegistration.cs" />
-    <Compile Include="Interfaces\IRegisterDependencies.cs" />
-    <Compile Include="Interfaces\IRegistrationContext.cs" />
-    <Compile Include="Dependencies\RegisteredSuppression.cs" />
-    <Compile Include="Dependencies\RegistrationContext.cs" />
-    <Compile Include="Dependencies\SuppressDependencyAttribute.cs" />
     <Compile Include="Extensions\ArrayExtensions.cs" />
     <Compile Include="Extensions\BoolExtensions.cs" />
     <Compile Include="Extensions\ExceptionExtensions.cs" />
@@ -75,12 +59,25 @@
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Filter.cs" />
     <Compile Include="FilterDelegates.cs" />
+    <Compile Include="Interfaces\IAttachToRegistration.cs" />
+    <Compile Include="Interfaces\ICast.cs" />
+    <Compile Include="Interfaces\IDependency.cs" />
+    <Compile Include="Interfaces\IDependencyActivated.cs" />
+    <Compile Include="Interfaces\IDependencyProvider.cs" />
+    <Compile Include="Interfaces\IDependencyRegistrar.cs" />
+    <Compile Include="Interfaces\IDependencyRegistration.cs" />
+    <Compile Include="Interfaces\IEvent.cs" />
+    <Compile Include="Interfaces\IEventHandler.cs" />
+    <Compile Include="Interfaces\IEventManager.cs" />
     <Compile Include="Interfaces\IFactory.cs" />
+    <Compile Include="Interfaces\IFileSystemLocations.cs" />
     <Compile Include="Interfaces\IProtectedAction.cs" />
     <Compile Include="Interfaces\IReflector.cs" />
+    <Compile Include="Interfaces\IRegisterDependencies.cs" />
+    <Compile Include="Interfaces\IRegistrationContext.cs" />
     <Compile Include="Interfaces\IScope.cs" />
+    <Compile Include="Interfaces\ISerializer.cs" />
     <Compile Include="Interfaces\ITypeProvider.cs" />
-    <Compile Include="Testing\Metrics.cs" />
     <Compile Include="ObjectGraft.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProtectedAction.cs" />
@@ -89,15 +86,23 @@
     <Compile Include="Reactive\Reactive.cs" />
     <Compile Include="Reactive\Relay.cs" />
     <Compile Include="Reflection\Convert.cs" />
-    <Compile Include="Interfaces\ICast.cs" />
-    <Compile Include="Interfaces\ISerializer.cs" />
+    <Compile Include="Reflection\ProxyObject.cs" />
+    <Compile Include="Reflection\Reflector.cs" />
     <Compile Include="Scope.cs" />
     <Compile Include="Tasks\Defered.cs" />
     <Compile Include="Tasks\TaskExtensions.cs" />
+    <Compile Include="Testing\Metrics.cs" />
     <Compile Include="Testing\TestMessages.cs" />
-    <Compile Include="DomainProvider.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Harness.Framework.nuspec" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Dynamitey">
+      <HintPath>..\..\packages\Dynamitey.1.0.2.0\lib\portable-win+net45+sl40+wp80\Dynamitey.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Threading.Tasks">
       <HintPath>..\..\packages\Microsoft.Bcl.Async.1.0.168\lib\portable-net40+sl4+win8+wp71+wpa81\Microsoft.Threading.Tasks.dll</HintPath>
     </Reference>
@@ -140,11 +145,6 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
-  <PropertyGroup>
-    <PostBuildEvent>cd "$(ProjectDir)"
-$(SolutionDir)\.nuget\nuget pack -IncludeReferencedProjects
-move *.nupkg "$(SolutionDir)..\packages</PostBuildEvent>
-  </PropertyGroup>
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
     <Error Condition="!Exists('..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />

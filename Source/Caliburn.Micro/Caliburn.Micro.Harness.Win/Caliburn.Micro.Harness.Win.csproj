@@ -55,13 +55,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Core\Harness.Framework\Harness.Framework.csproj">
+      <Project>{63d3ea3d-9c01-483a-82cc-0363cc9f4620}</Project>
+      <Name>Harness.Framework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Caliburn.Micro.Harness\Caliburn.Micro.Harness.csproj">
       <Project>{26ab0e34-1131-40a5-b6db-b7c028839273}</Project>
       <Name>Caliburn.Micro.Harness</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Core\Harness.Framework\Harness.Framework.csproj">
-      <Project>{3533524b-2b1d-48e2-9269-c2102f70feba}</Project>
-      <Name>Harness.Framework</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

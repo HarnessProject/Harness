@@ -106,7 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Harness.Framework\Harness.Framework.csproj">
-      <Project>{3533524b-2b1d-48e2-9269-c2102f70feba}</Project>
+      <Project>{63d3ea3d-9c01-483a-82cc-0363cc9f4620}</Project>
       <Name>Harness.Framework</Name>
     </ProjectReference>
     <ProjectReference Include="..\Caliburn.Micro.Harness\Caliburn.Micro.Harness.csproj">
