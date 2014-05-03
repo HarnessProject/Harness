@@ -36,20 +36,18 @@ using Harness.Framework.Tasks;
 namespace System.Composition.Events {
     public class EventManager : Relay<IEvent, IEvent>, IEventManager {
         protected IEnumerable<Type> Handlers; 
-        public EventManager() {
-            
-        }   
-    
+        
         #region IEventManager Members
 
         public IDisposable Handle<T>(Action<T> next, Action<Exception> error = null, Action complete = null) where T : IEvent {
             if (error.NotNull() && complete.NotNull())
                 return this.WhereIs<T>().Subscribe(next, error, complete);
-            return error.NotNull() ? this.WhereIs<T>().Subscribe(next, error) : this.WhereIs<T>().Subscribe(next);
+            return error.NotNull() ? this.WhereIs<T>().Subscribe(next, error) : 
+                this.WhereIs<T>().Subscribe(next);
         }
 
         public async void Trigger<T>(T evnt) where T : IEvent {
-            await this.AsTask(x => x.OnNext(evnt));
+            OnNext(evnt);
             await Provider.GetAll<IEventHandler<T>>().EachAsync(h => h.Handle(evnt));
         }
 

@@ -70,7 +70,7 @@ namespace Autofac.Harness
 
             var container = builderContainer.Build();
             builder = builder ?? new ContainerBuilder();
-            var context = new RegistrationContext();
+            
 
             container
                 .Resolve<IEnumerable<IAttachToRegistration>>()

@@ -13,18 +13,21 @@ using TinyIoC;
 
 namespace Caliburn.Micro.Harness.Win
 {
-    public class WinDependencyRegistration(Regis container) : IDependencyRegistration
+    public class WinDependencyRegistration(Type type, TinyIoCContainer container, TinyIoCContainer.RegisterOptions options) : IDependencyRegistration
     {
-        TinyIoC.TinyIoCContainer Container { get; } = container;
+        Type Type { get; } = type;
+        TinyIoCContainer.RegisterOptions Options { get; } = options;
+        TinyIoCContainer Container { get; } = container;
 
         public IDependencyRegistration As(Type type)
         {
-            throw new NotImplementedException();
+            Container.Register(type, Type);
+            return this;
         }
 
         public IDependencyRegistration As<T>()
         {
-            throw new NotImplementedException();
+            Container.Register()
         }
 
         public IDependencyRegistration AsAncestors()
@@ -83,6 +86,7 @@ namespace Caliburn.Micro.Harness.Win
         TinyIoCContainer Container { get; } = container;
         public IDependencyRegistration FactoryFor<T>(Func<T> creator)
         {
+            
             Container.Register(typeof(T), (container, overloads) => creator());
             return this;
         }

@@ -35,7 +35,6 @@ namespace Harness.Framework.Reactive
     /// <summary>
     ///     A reactive wrapper around a single object whose value is observed.
     ///     Reactive implements IDisposable and will dispose an IDisposable value.
-    ///     
     /// </summary>
     /// <typeparam name="T">The Type of the wrapped Value</typeparam>
     public class Reactive<T> : IReactive<T>

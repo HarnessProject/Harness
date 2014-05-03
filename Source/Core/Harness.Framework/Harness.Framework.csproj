@@ -79,6 +79,7 @@
     <Compile Include="Interfaces\IProtectedAction.cs" />
     <Compile Include="Interfaces\IReflector.cs" />
     <Compile Include="Interfaces\IScope.cs" />
+    <Compile Include="Interfaces\IStaticInstance.cs" />
     <Compile Include="Interfaces\ITypeProvider.cs" />
     <Compile Include="Testing\Metrics.cs" />
     <Compile Include="ObjectGraft.cs" />

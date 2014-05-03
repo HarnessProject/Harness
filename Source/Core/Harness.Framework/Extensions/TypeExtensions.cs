@@ -105,7 +105,7 @@ namespace Harness.Framework.Extensions {
         }
 
         public static T StaticInstance<T>(this Type type) {
-            if (type.Is<IStaticInstance>())
+            if (!type.Is<IStaticInstance>()) return default(T);
             var prop = type.GetProperties(BindingFlags.Static).FirstOrDefault(p => p.Name.Contains("Instance") && p.PropertyType == typeof(T));
             return prop.IsNull() ? default(T) : prop.GetValue(null, null).AsType<T>();
 
