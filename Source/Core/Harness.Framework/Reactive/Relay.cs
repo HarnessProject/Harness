@@ -29,6 +29,11 @@ using Harness.Framework.Extensions;
 #endregion
 
 namespace Harness.Framework.Reactive {
+    /// <summary>
+    /// An observable relay. Subscribes to an observable value, then process it and produces a new value which can be observed. 
+    /// </summary>
+    /// <typeparam name="T">The type of the input.</typeparam>
+    /// <typeparam name="TY">The type of the output.</typeparam>
     public abstract class Relay<T, TY> : IObserver<T>, IObservable<TY> {
         #region IObservable<TY> Members
 
